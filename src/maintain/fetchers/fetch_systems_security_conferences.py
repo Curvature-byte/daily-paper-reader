@@ -10,10 +10,11 @@ import os
 import re
 import sys
 import time
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from typing import Any, Dict, Iterable, List
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -32,6 +33,8 @@ IEEE_SP_PROCEEDINGS = {
 }
 IEEE_SP_GRAPHQL_URL = "https://www.computer.org/csdl/api/v1/graphql"
 SEMANTIC_SCHOLAR_BATCH_URL = "https://api.semanticscholar.org/graph/v1/paper/batch"
+ARXIV_API_URL = "https://export.arxiv.org/api/query"
+ARXIV_ATOM_NS = {"atom": "http://www.w3.org/2005/Atom"}
 
 
 def log(message: str) -> None:
@@ -60,6 +63,24 @@ def _title_prefix(value: Any) -> str:
         return ""
     prefix = title.split(":", 1)[0]
     return _title_key(prefix) if len(prefix) >= 3 else ""
+
+
+def _title_without_prefix_key(value: Any) -> str:
+    title = _norm(value)
+    if ":" not in title:
+        return _title_key(title)
+    suffix = title.split(":", 1)[1]
+    return _title_key(suffix) or _title_key(title)
+
+
+def _title_matches(a: Any, b: Any) -> bool:
+    ak = _title_key(a)
+    bk = _title_key(b)
+    if not ak or not bk:
+        return False
+    if ak == bk:
+        return True
+    return _title_without_prefix_key(a) == bk or _title_without_prefix_key(b) == ak
 
 
 def _absolute_url(url: str, base: str) -> str:
@@ -215,6 +236,7 @@ def fetch_osdi(years: Iterable[int], *, workers: int = 8, require_pdf: bool = Tr
             continue
         with ThreadPoolExecutor(max_workers=max(int(workers or 1), 1)) as pool:
             future_map = {pool.submit(_request_text, paper_url): paper_url for paper_url in urls}
+            parsed: List[Dict[str, Any]] = []
             for future in as_completed(future_map):
                 page_url = future_map[future]
                 try:
@@ -222,10 +244,15 @@ def fetch_osdi(years: Iterable[int], *, workers: int = 8, require_pdf: bool = Tr
                 except Exception as exc:
                     log(f"[WARN] OSDI paper parse failed {page_url}: {exc}")
                     continue
-                if require_pdf and not _norm(paper.get("pdf_url")):
-                    continue
                 if paper.get("title"):
-                    rows.append(paper)
+                    parsed.append(paper)
+        if require_pdf:
+            missing = [paper for paper in parsed if not _norm(paper.get("pdf_url"))]
+            if missing:
+                arxiv_entries = fetch_arxiv_title_matches(missing)
+                parsed = apply_arxiv_pdf_candidates(parsed, arxiv_entries)
+            parsed = [paper for paper in parsed if _norm(paper.get("pdf_url"))]
+        rows.extend(parsed)
     return rows
 
 
@@ -383,12 +410,19 @@ def _crossref_sosp_items(*, year: int) -> List[Dict[str, Any]]:
 
 def _crossref_query_by_title(title: str, *, year: int) -> Dict[str, Any] | None:
     container_title = _sosp_container_title(year).lower()
-    items = _crossref_sosp_items(year=year)
+    params = {
+        "query.title": _norm(title),
+        "filter": "prefix:10.1145,type:proceedings-article",
+        "rows": "5",
+    }
+    res = requests.get("https://api.crossref.org/works", params=params, headers={"User-Agent": USER_AGENT}, timeout=DEFAULT_TIMEOUT)
+    res.raise_for_status()
+    items = (((res.json() or {}).get("message") or {}).get("items") or [])
     wanted = _norm(title).lower()
     for item in items:
         item_title = _norm((item.get("title") or [""])[0]).lower()
         container = _norm((item.get("container-title") or [""])[0]).lower()
-        if item_title == wanted and (container == container_title or ("sigops" in container and "symposium on operating systems principles" in container)):
+        if _title_matches(item_title, wanted) and (container == container_title or ("sigops" in container and "symposium on operating systems principles" in container)):
             return item
     return None
 
@@ -401,6 +435,7 @@ def enrich_sosp_with_crossref(papers: List[Dict[str, Any]], *, year: int, worker
         crossref_items = []
     item_by_title = {}
     item_by_prefix: Dict[str, List[Dict[str, Any]]] = {}
+    item_by_suffix: Dict[str, List[Dict[str, Any]]] = {}
     for item in crossref_items:
         title = _norm((item.get("title") or [""])[0])
         if not title:
@@ -409,6 +444,9 @@ def enrich_sosp_with_crossref(papers: List[Dict[str, Any]], *, year: int, worker
         prefix = _title_prefix(title)
         if prefix:
             item_by_prefix.setdefault(prefix, []).append(item)
+        suffix = _title_without_prefix_key(title)
+        if suffix and suffix != _title_key(title):
+            item_by_suffix.setdefault(suffix, []).append(item)
 
     def enrich(paper: Dict[str, Any]) -> Dict[str, Any]:
         item = item_by_title.get(_title_key(paper.get("title")))
@@ -416,6 +454,15 @@ def enrich_sosp_with_crossref(papers: List[Dict[str, Any]], *, year: int, worker
             prefix_items = item_by_prefix.get(_title_prefix(paper.get("title"))) or []
             if len(prefix_items) == 1:
                 item = prefix_items[0]
+        if not item:
+            suffix_items = item_by_suffix.get(_title_key(paper.get("title"))) or []
+            if len(suffix_items) == 1:
+                item = suffix_items[0]
+        if not item:
+            try:
+                item = _crossref_query_by_title(str(paper.get("title") or ""), year=year)
+            except Exception as exc:
+                log(f"[WARN] SOSP Crossref title lookup failed for {paper.get('title')}: {exc}")
         if not item:
             return paper
         doi = _norm(item.get("DOI"))
@@ -448,6 +495,108 @@ def apply_semantic_scholar_abstracts(papers: List[Dict[str, Any]], items: Iterab
         if doi and doi in abstract_by_doi:
             paper["abstract"] = abstract_by_doi[doi]
     return papers
+
+
+def _arxiv_query_for_titles(titles: Iterable[str]) -> str:
+    clauses = []
+    for title in titles:
+        cleaned = _norm(title).replace('"', "").replace(":", " ")
+        if cleaned:
+            clauses.append(f'ti:"{cleaned}"')
+    return " OR ".join(clauses)
+
+
+def parse_arxiv_feed_entries(feed_text: str) -> List[Dict[str, Any]]:
+    try:
+        root = ET.fromstring(feed_text or "")
+    except Exception:
+        return []
+    entries: List[Dict[str, Any]] = []
+    for node in root.findall("atom:entry", ARXIV_ATOM_NS):
+        title = _norm(node.findtext("atom:title", "", ARXIV_ATOM_NS))
+        abs_url = _norm(node.findtext("atom:id", "", ARXIV_ATOM_NS))
+        if not title or not abs_url:
+            continue
+        arxiv_id = abs_url.rstrip("/").rsplit("/", 1)[-1]
+        authors = [
+            _norm(author.findtext("atom:name", "", ARXIV_ATOM_NS))
+            for author in node.findall("atom:author", ARXIV_ATOM_NS)
+            if _norm(author.findtext("atom:name", "", ARXIV_ATOM_NS))
+        ]
+        entries.append(
+            {
+                "title": title,
+                "abstract": _norm(node.findtext("atom:summary", "", ARXIV_ATOM_NS)),
+                "authors": authors,
+                "published": _norm(node.findtext("atom:published", "", ARXIV_ATOM_NS)),
+                "abs_url": abs_url,
+                "pdf_url": f"https://arxiv.org/pdf/{arxiv_id}",
+            }
+        )
+    return entries
+
+
+def apply_arxiv_pdf_candidates(papers: List[Dict[str, Any]], entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    entry_by_title: Dict[str, Dict[str, Any]] = {}
+    for entry in entries:
+        title = _title_key(entry.get("title"))
+        pdf_url = _norm(entry.get("pdf_url"))
+        if title and pdf_url and title not in entry_by_title:
+            entry_by_title[title] = entry
+
+    for paper in papers:
+        if _norm(paper.get("pdf_url")):
+            continue
+        entry = entry_by_title.get(_title_key(paper.get("title")))
+        if not entry:
+            continue
+        paper["pdf_url"] = _norm(entry.get("pdf_url"))
+        paper["link"] = _norm(entry.get("abs_url")) or paper.get("link")
+        if not _norm(paper.get("abstract")):
+            paper["abstract"] = _norm(entry.get("abstract"))
+        if not paper.get("authors"):
+            paper["authors"] = [a for a in (_norm(x) for x in entry.get("authors") or []) if a]
+    return papers
+
+
+def fetch_arxiv_title_matches(
+    papers: List[Dict[str, Any]],
+    *,
+    group_size: int = 5,
+    request_delay: float = 3.0,
+    retries: int = 2,
+    retry_delay: float = 10.0,
+) -> List[Dict[str, Any]]:
+    if not papers:
+        return []
+    entries: List[Dict[str, Any]] = []
+    safe_group_size = max(int(group_size or 1), 1)
+    for start in range(0, len(papers), safe_group_size):
+        chunk = papers[start : start + safe_group_size]
+        query = _arxiv_query_for_titles([str(p.get("title") or "") for p in chunk])
+        if not query:
+            continue
+        last_exc: Exception | None = None
+        for attempt in range(max(int(retries or 0), 0) + 1):
+            try:
+                res = requests.get(
+                    f"{ARXIV_API_URL}?search_query={quote(query)}&start=0&max_results={safe_group_size * 5}",
+                    headers={"User-Agent": USER_AGENT},
+                    timeout=DEFAULT_TIMEOUT,
+                )
+                res.raise_for_status()
+                entries.extend(parse_arxiv_feed_entries(res.text))
+                last_exc = None
+                break
+            except Exception as exc:
+                last_exc = exc
+                if attempt < max(int(retries or 0), 0):
+                    time.sleep(float(retry_delay))
+        if last_exc:
+            log(f"[WARN] arXiv title lookup failed for batch starting {start}: {last_exc}")
+        if start + safe_group_size < len(papers) and request_delay > 0:
+            time.sleep(float(request_delay))
+    return entries
 
 
 def _semantic_scholar_headers() -> Dict[str, str]:
@@ -546,6 +695,7 @@ def normalize_ieee_sp_articles(articles: Iterable[Dict[str, Any]], *, year: int,
             continue
         pub_date = _norm(article.get("pubDate"))
         published = _parse_meta_date(pub_date, year)
+        public_pdf_url = build_ieee_sp_pdf_url(article_id) if has_pdf and is_open else ""
         out.append(
             _clean_paper(
                 {
@@ -555,7 +705,8 @@ def normalize_ieee_sp_articles(articles: Iterable[Dict[str, Any]], *, year: int,
                     "authors": authors,
                     "published": published,
                     "link": f"https://www.computer.org/csdl/proceedings-article/sp/{int(year)}/{_norm(article.get('fno'))}/{article_id}",
-                    "pdf_url": build_ieee_sp_pdf_url(article_id) if has_pdf else "",
+                    "pdf_url": public_pdf_url,
+                    "doi": _norm(article.get("doi")),
                     "source": f"IEEE-SP-{int(year)}-CSDL",
                     "primary_category": "ieee_sp",
                     "categories": ["ieee_sp", "security"],
@@ -563,6 +714,45 @@ def normalize_ieee_sp_articles(articles: Iterable[Dict[str, Any]], *, year: int,
             )
         )
     return out
+
+
+def _extract_ieee_accepted_authors(node: Any) -> List[str]:
+    if not node:
+        return []
+    html_text = str(node)
+    author_html = re.split(r"<br\s*/?>", html_text, maxsplit=1, flags=re.I)[0]
+    author_text = BeautifulSoup(author_html, "html.parser").get_text(" ", strip=True)
+    author_text = re.sub(r"\d+(?:\s*,\s*\d+)*", "", author_text)
+    return _split_authors(author_text)
+
+
+def parse_ieee_sp_accepted_page(html_text: str, *, year: int, page_url: str) -> List[Dict[str, Any]]:
+    soup = BeautifulSoup(html_text, "html.parser")
+    rows: List[Dict[str, Any]] = []
+    for item in soup.select(".list-group-item"):
+        title_node = item.select_one('a[href^="#collapse-"]') or item.find("a")
+        title = _norm(title_node.get_text(" ", strip=True) if title_node else item.get_text(" ", strip=True))
+        if not title:
+            continue
+        collapse_id = _norm(title_node.get("href") if title_node else "").lstrip("#")
+        authors = _extract_ieee_accepted_authors(soup.find(id=collapse_id)) if collapse_id else []
+        rows.append(
+            _clean_paper(
+                {
+                    "id": _paper_id("ieee-sp", year, title),
+                    "title": title,
+                    "abstract": "",
+                    "authors": authors,
+                    "published": _published_iso(year),
+                    "link": page_url,
+                    "pdf_url": "",
+                    "source": f"IEEE-SP-{int(year)}-Accepted",
+                    "primary_category": "ieee_sp",
+                    "categories": ["ieee_sp", "security"],
+                }
+            )
+        )
+    return rows
 
 
 def _fetch_ieee_sp_articles(proceeding_id: str) -> List[Dict[str, Any]]:
@@ -604,11 +794,21 @@ def fetch_ieee_sp(years: Iterable[int], *, require_pdf: bool = True) -> List[Dic
     for year in years:
         proceeding_id = IEEE_SP_PROCEEDINGS.get(int(year))
         if not proceeding_id:
-            log(f"[WARN] IEEE S&P {year} proceedings id is not available; accepted page has no public PDFs yet.")
+            url = IEEE_SP_ACCEPTED_URL.format(year=int(year))
+            try:
+                accepted_rows = parse_ieee_sp_accepted_page(_request_text(url), year=int(year), page_url=url)
+                arxiv_entries = fetch_arxiv_title_matches(accepted_rows)
+                accepted_rows = apply_arxiv_pdf_candidates(accepted_rows, arxiv_entries)
+                rows.extend([row for row in accepted_rows if _norm(row.get("pdf_url"))] if require_pdf else accepted_rows)
+            except Exception as exc:
+                log(f"[WARN] IEEE S&P {year} accepted-page fallback failed: {exc}")
             continue
         try:
             articles = _fetch_ieee_sp_articles(proceeding_id)
-            rows.extend(normalize_ieee_sp_articles(articles, year=int(year), require_public_pdf=require_pdf))
+            normalized = normalize_ieee_sp_articles(articles, year=int(year), require_public_pdf=False)
+            arxiv_entries = fetch_arxiv_title_matches([row for row in normalized if not _norm(row.get("pdf_url"))])
+            normalized = apply_arxiv_pdf_candidates(normalized, arxiv_entries)
+            rows.extend([row for row in normalized if _norm(row.get("pdf_url"))] if require_pdf else normalized)
         except Exception as exc:
             log(f"[WARN] IEEE S&P {year} fetch failed: {exc}")
     return rows

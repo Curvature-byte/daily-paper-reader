@@ -2,6 +2,7 @@ import importlib.util
 import pathlib
 import sys
 import unittest
+from unittest import mock
 
 
 def _load_module(module_name: str, path: pathlib.Path):
@@ -84,6 +85,46 @@ class FetchSystemsSecurityConferencesTest(unittest.TestCase):
             "https://dl.acm.org/doi/pdf/10.1145/3731569.3764794",
         )
 
+    def test_enrich_sosp_with_crossref_queries_unmatched_title(self):
+        papers = [
+            {
+                "title": "Efficient File-Lifetime Redundancy Management for Cluster File Systems",
+                "link": "https://sigops.org/s/conferences/sosp/2024/accepted.html",
+                "pdf_url": "",
+                "published": "2024-01-01T00:00:00Z",
+            }
+        ]
+
+        def fake_get(_url, params=None, **_kwargs):
+            class Resp:
+                def raise_for_status(self):
+                    return None
+
+                def json(self):
+                    if params and params.get("query.title"):
+                        return {
+                            "message": {
+                                "items": [
+                                    {
+                                        "DOI": "10.1145/3694715.3695981",
+                                        "title": ["Morph: Efficient File-Lifetime Redundancy Management for Cluster File Systems"],
+                                        "container-title": ["Proceedings of the ACM SIGOPS 30th Symposium on Operating Systems Principles"],
+                                        "published": {"date-parts": [[2024, 11, 4]]},
+                                    }
+                                ]
+                            }
+                        }
+                    return {"message": {"items": []}}
+
+            return Resp()
+
+        with mock.patch.object(self.mod.requests, "get", side_effect=fake_get):
+            out = self.mod.enrich_sosp_with_crossref(papers, year=2024)
+
+        self.assertEqual(out[0]["doi"], "10.1145/3694715.3695981")
+        self.assertEqual(out[0]["pdf_url"], "https://dl.acm.org/doi/pdf/10.1145/3694715.3695981")
+        self.assertEqual(out[0]["published"], "2024-11-04T00:00:00Z")
+
     def test_apply_semantic_scholar_abstracts_only_fills_missing_sosp_abstracts(self):
         papers = [
             {"doi": "10.1145/1", "abstract": ""},
@@ -96,6 +137,103 @@ class FetchSystemsSecurityConferencesTest(unittest.TestCase):
         out = self.mod.apply_semantic_scholar_abstracts(papers, items)
         self.assertEqual(out[0]["abstract"], "Semantic Scholar abstract.")
         self.assertEqual(out[1]["abstract"], "Keep official abstract.")
+
+    def test_parse_arxiv_feed_and_apply_public_pdf_candidate(self):
+        feed = """
+        <feed xmlns="http://www.w3.org/2005/Atom">
+          <entry>
+            <id>https://arxiv.org/abs/2505.07239v1</id>
+            <title>Comet: Accelerating Private Inference for Large Language Model by Predicting Activation Sparsity</title>
+            <summary>ArXiv abstract.</summary>
+            <published>2025-05-11T00:00:00Z</published>
+            <author><name>Ada Lovelace</name></author>
+            <author><name>Grace Hopper</name></author>
+          </entry>
+        </feed>
+        """
+        papers = [
+            {
+                "title": "Comet: Accelerating Private Inference for Large Language Model by Predicting Activation Sparsity",
+                "abstract": "",
+                "authors": [],
+                "link": "https://sp2025.ieee-security.org/accepted-papers.html",
+                "pdf_url": "",
+            }
+        ]
+
+        entries = self.mod.parse_arxiv_feed_entries(feed)
+        out = self.mod.apply_arxiv_pdf_candidates(papers, entries)
+
+        self.assertEqual(out[0]["pdf_url"], "https://arxiv.org/pdf/2505.07239v1")
+        self.assertEqual(out[0]["link"], "https://arxiv.org/abs/2505.07239v1")
+        self.assertEqual(out[0]["abstract"], "ArXiv abstract.")
+        self.assertEqual(out[0]["authors"], ["Ada Lovelace", "Grace Hopper"])
+
+    def test_fetch_arxiv_title_matches_retries_rate_limit(self):
+        feed = """
+        <feed xmlns="http://www.w3.org/2005/Atom">
+          <entry>
+            <id>https://arxiv.org/abs/2604.09558v1</id>
+            <title>VTC: DNN Compilation with Virtual Tensors for Data Movement Elimination</title>
+            <summary>VTC abstract.</summary>
+          </entry>
+        </feed>
+        """
+        calls = []
+
+        class Resp:
+            def __init__(self, status_code, text=""):
+                self.status_code = status_code
+                self.text = text
+
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise self.mod.requests.HTTPError("rate limited")
+
+        def fake_get(*_args, **_kwargs):
+            calls.append(1)
+            if len(calls) == 1:
+                resp = Resp(429)
+            else:
+                resp = Resp(200, feed)
+            resp.mod = self.mod
+            return resp
+
+        with mock.patch.object(self.mod.requests, "get", side_effect=fake_get), mock.patch.object(self.mod.time, "sleep"):
+            entries = self.mod.fetch_arxiv_title_matches(
+                [{"title": "VTC: DNN Compilation with Virtual Tensors for Data Movement Elimination"}],
+                request_delay=0,
+            )
+
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(entries[0]["pdf_url"], "https://arxiv.org/pdf/2604.09558v1")
+
+    def test_apply_arxiv_pdf_candidates_keeps_existing_pdf(self):
+        papers = [
+            {
+                "title": "Open CSDL Paper",
+                "abstract": "Official abstract.",
+                "authors": ["Ada"],
+                "link": "https://www.computer.org/csdl/example",
+                "pdf_url": "https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/open/pdf",
+            }
+        ]
+        entries = [
+            {
+                "title": "Open CSDL Paper",
+                "abstract": "ArXiv abstract.",
+                "authors": ["Grace"],
+                "abs_url": "https://arxiv.org/abs/2501.00001",
+                "pdf_url": "https://arxiv.org/pdf/2501.00001",
+            }
+        ]
+
+        out = self.mod.apply_arxiv_pdf_candidates(papers, entries)
+
+        self.assertEqual(out[0]["pdf_url"], "https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/open/pdf")
+        self.assertEqual(out[0]["link"], "https://www.computer.org/csdl/example")
+        self.assertEqual(out[0]["abstract"], "Official abstract.")
+        self.assertEqual(out[0]["authors"], ["Ada"])
 
     def test_ieee_sp_keeps_only_public_pdf_articles(self):
         articles = [
@@ -111,6 +249,25 @@ class FetchSystemsSecurityConferencesTest(unittest.TestCase):
             "https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/open/pdf",
         )
         self.assertEqual(papers[0]["abstract"], "Readable abstract.")
+
+    def test_parse_ieee_sp_accepted_page_extracts_titles_and_authors(self):
+        html = """
+        <div class="list-group-item">
+          <a data-toggle="collapse" href="#collapse-0">Bridge: High-Order Taint Vulnerabilities Detection in Linux-based IoT Firmware</a>
+        </div>
+        <div class="collapse authorlist" id="collapse-0">
+          Alice<sup>1</sup>, Bob<sup>2,3</sup>, Carol<sup>1</sup><br>
+          <sup>1</sup>: Example University, <sup>2</sup>: Example Lab
+        </div>
+        """
+
+        papers = self.mod.parse_ieee_sp_accepted_page(html, year=2026, page_url="https://sp2026.ieee-security.org/accepted-papers.html")
+
+        self.assertEqual(len(papers), 1)
+        self.assertEqual(papers[0]["title"], "Bridge: High-Order Taint Vulnerabilities Detection in Linux-based IoT Firmware")
+        self.assertEqual(papers[0]["authors"], ["Alice", "Bob", "Carol"])
+        self.assertEqual(papers[0]["source"], "IEEE-SP-2026-Accepted")
+        self.assertEqual(papers[0]["pdf_url"], "")
 
 
 if __name__ == "__main__":
