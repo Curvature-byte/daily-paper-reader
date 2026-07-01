@@ -388,6 +388,11 @@ function testSidebarFooterControlsReplaceRefresh() {
   const collapsedFooterRule = cssRule(css, '#dpr-sidebar-v2.is-collapsed .dpr-sidebar-footer');
   assert.ok(/position:\s*fixed/i.test(collapsedFooterRule));
   assert.ok(/left:\s*12px/i.test(collapsedFooterRule));
+  assert.ok(/padding:\s*0/i.test(collapsedFooterRule));
+  assert.ok(/border:\s*0/i.test(collapsedFooterRule));
+  assert.ok(/border-radius:\s*0/i.test(collapsedFooterRule));
+  assert.ok(/box-shadow:\s*none/i.test(collapsedFooterRule));
+  assert.ok(/background:\s*transparent/i.test(collapsedFooterRule));
   assert.ok(/pointer-events:\s*auto/i.test(collapsedFooterRule));
   assert.ok(/@media \(max-width:\s*1023px\)/i.test(css));
   assert.ok(/@media \(max-width:\s*1023px\)[\s\S]*body\.dpr-sidebar-v2 \.content\s*{[^}]*left:\s*0\s*!important/i.test(css));
@@ -399,6 +404,32 @@ function testSidebarFooterControlsReplaceRefresh() {
   assert.ok(/function shouldUseDprSidebarInternalSettings\(\)/.test(uiScript));
   assert.ok(/window\.matchMedia\('\(min-width:\s*1024px\)'\)\.matches/i.test(uiScript));
   assert.ok(/if\s*\(shouldUseDprSidebarInternalSettings\(\)\)\s*return;/i.test(uiScript));
+}
+
+function testCollapsedSidebarRecentersChatSurface() {
+  const css = fs.readFileSync('app/app.css', 'utf8');
+  const v2InputRule = cssRule(css, 'body.dpr-sidebar-v2 #paper-chat-container .input-area');
+  assert.ok(/left:\s*calc\(\s*var\(--dpr-sidebar-width,\s*280px\)\s*\+\s*\(100%\s*-\s*var\(--dpr-sidebar-width,\s*280px\)\)\s*\/\s*2\s*\)/i.test(v2InputRule));
+  assert.ok(/max-width:\s*min\(var\(--dpr-paper-content-max-width\),\s*calc\(100%\s*-\s*var\(--dpr-sidebar-width,\s*280px\)\s*-\s*40px\)\)/i.test(v2InputRule));
+
+  const collapsedInputRule = cssRule(css, 'body.dpr-sidebar-v2.dpr-sidebar-v2-collapsed #paper-chat-container .input-area');
+  assert.ok(/left:\s*50%/i.test(collapsedInputRule));
+  assert.ok(/max-width:\s*min\(var\(--dpr-paper-content-max-width\),\s*calc\(100%\s*-\s*var\(--dpr-paper-content-gap-desktop\)\)\)/i.test(collapsedInputRule));
+
+  const collapsedFooterRule = cssRule(css, 'body.dpr-sidebar-v2.dpr-sidebar-v2-collapsed .chat-footer');
+  assert.ok(/left:\s*50%/i.test(collapsedFooterRule));
+  assert.ok(/max-width:\s*min\(var\(--dpr-paper-content-max-width\),\s*calc\(100%\s*-\s*var\(--dpr-paper-content-gap-desktop\)\)\)/i.test(collapsedFooterRule));
+
+  const collapsedQuestionRule = cssRule(css, 'body.dpr-sidebar-v2.dpr-sidebar-v2-collapsed #paper-chat-container .chat-questions-panel');
+  assert.ok(/left:\s*50%/i.test(collapsedQuestionRule));
+  assert.ok(/max-width:\s*min\(var\(--dpr-paper-content-max-width\),\s*calc\(100%\s*-\s*var\(--dpr-paper-content-gap-desktop\)\)\)/i.test(collapsedQuestionRule));
+
+  const collapsedBeforeRule = cssRule(css, 'body.dpr-sidebar-v2.dpr-sidebar-v2-collapsed #paper-chat-container::before');
+  const collapsedAfterRule = cssRule(css, 'body.dpr-sidebar-v2.dpr-sidebar-v2-collapsed #paper-chat-container::after');
+  assert.ok(/left:\s*0/i.test(collapsedBeforeRule));
+  assert.ok(/left:\s*0/i.test(collapsedAfterRule));
+
+  assert.ok(/@media \(max-width:\s*1023px\)[\s\S]*body\.dpr-sidebar-v2 #paper-chat-container \.input-area\s*{[^}]*left:\s*50%/i.test(css));
 }
 
 function testResponsiveModeClearsDesktopCollapsedStateOnOverlayViewports() {
@@ -998,6 +1029,7 @@ testPaperEvidenceAndActionButtonsRender();
 testPaperMetaOrderKeepsEvidenceBetweenTitleAndStars();
 testQuickLinksCenterTextAndDetachIcon();
 testSidebarFooterControlsReplaceRefresh();
+testCollapsedSidebarRecentersChatSurface();
 testResponsiveModeClearsDesktopCollapsedStateOnOverlayViewports();
 testSidebarSortsByNewestTimeFirst();
 testSidebarUtilityHelpers();
