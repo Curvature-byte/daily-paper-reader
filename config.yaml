@@ -25,3 +25,60 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: causal-infer
+      description: 因果推理相关论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: causal inference in industrial process
+          keyword_cn: ''
+          query: c
+        - keyword: causal inference
+          keyword_cn: 因果推断
+          query: causal inference from observational data
+        - keyword: causal discovery
+          keyword_cn: 因果发现
+          query: algorithms for causal discovery
+        - keyword: counterfactual reasoning
+          keyword_cn: 反事实推理
+          query: counterfactual reasoning in AI
+        - keyword: potential outcomes
+          keyword_cn: 潜在结果
+          query: potential outcomes framework for causality
+        - keyword: causal effect estimation
+          keyword_cn: 因果效应估计
+          query: estimating causal effects using machine learning
+      intent_queries:
+        - query: causal inference in industrial
+          query_cn: ''
+          enabled: true
+          source: manual
+          note: ''
+        - query: latest advances in causal reasoning
+          query_cn: 因果推理的最新进展
+          enabled: true
+          source: manual
+          note: ''
+        - query: causal discovery from observational data
+          query_cn: 从观测数据中进行因果发现
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-07-10T09:09:55.867Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
