@@ -1,0 +1,1961 @@
+Title: Optimal Designs with Robust Inference for Binary Treatment Effects
+
+URL Source: https://arxiv.org/pdf/2607.05768v1
+
+Published Time: Wed, 08 Jul 2026 00:24:03 GMT
+
+Number of Pages: 32
+
+Markdown Content:
+# Optimal Designs with Robust Inference for Binary Treatment Effects 
+
+## David Azriel ∗1, Abba M. Krieger †2, and Adam Kapelner ‡31Faculty of Data and Decision Sciences, The Technion, Haifa, Israel 
+
+> 2
+
+Department of Statistics, The Wharton School of the University of Pennsylvania, USA 
+
+> 3
+
+Department of Mathematics, Queens College, CUNY, USA 
+
+## July 8, 2026 
+
+Abstract 
+
+We study randomized experiments with binary outcomes under Neyman’s nonpara-metric model, where covariate measurements are fixed but potential outcomes are ran-dom. In this setting we derive the exact variance of the difference-in-means estimator and characterize designs that minimize it. We show that any balanced design satisfying a covariate-balance condition is asymptotically optimal, and we prove that a broad class of blocking designs satisfies this condition under mild smoothness assumptions. Because the variance depends on unknown success probabilities, unbiased variance estimation is impossible. We therefore develop two conservative estimators: a generalization of the Cochran–Mantel–Haenszel (CMH) statistic applicable to any balanced design, and an extension of Robins’ variance estimator for blocking designs. We establish conditions under which the CMH-based estimator is asymptotically tight under local alternatives, thereby yielding asymptotically valid confidence intervals. Our theoretical and simula-tions results show that blocking and other designs that achieve covariate balance and sufficient degree of randomness, perform well when they are equipped with the CMH-based inference. Thus, we provide an experimental design and inference framework for incidence outcomes that is simultaneously variance-optimal, conservative in finite samples and asymptotically tight. 
+
+Keywords : Confidence Interval of a Binomial Proportion Difference; Cochran-Mantel-Haenszel test, Blocking, Optimal experimental design, Randomization 
+
+> ∗
+
+Electronic address: davidazr@technion.ac.il 
+
+> †
+
+Electronic address: krieger@wharton.upenn.edu 
+
+> ‡
+
+Electronic address: kapelner@qc.cuny.edu ; Principal Corresponding author 
+
+1arXiv:2607.05768v1 [stat.ME] 7 Jul 2026 1 Introduction 
+
+We consider an experiment with n subjects and two arms, which we call treatment and control. Subjects are measured on p covariates denoted xi ∈ Rp for the ith subject where 
+
+i = 1 , . . . , n . The response of interest is binary and is denoted by Y = [ Y1, . . . , Y n]⊤ ∈ { 0, 1}n.The parameter of interest is the difference between the mean success under treatment and under control. The setting we investigate is one in which all xi’s are seen beforehand and thus called observed covariates . Based on these xi’s, the experimenter chooses the allocation vector w = [ w1, . . . , w n]⊤ ∈ {− 1, +1 }n, whose entries indicate whether the subject is placed in the treatment arm (coded numerically as +1 and sometimes denoted as T) or in the control arm (coded numerically as -1 and sometimes denoted as C). Thus, w is realized from a gener-alized multivariate Bernoulli random variable W , which is termed a randomized experimental 
+
+design . This design is selected by the experimenter. We consider “balanced” designs where the number of subjects allocated to control and treatment is equal, i.e., P (∑ni=1 Wi = 0) = 1 and thus we assume even n. Further, each subject is equally likely to be assigned to treat-ment and control, i.e., E [W ] = 0n. The canonical example of such a design is called the balanced complete randomization design (BCRD), where W is randomly chosen from the set 
+
+{w ∈ {− 1, +1 }n : ∑ni=1 wi = 0 }.We adopt the potential outcome framework, in which Y T = [ YT, 1, . . . , Y T,n ]⊤ and Y C =[YC, 1, . . . , Y C,n ]⊤ denote the potential outcomes under treatment and control, respectively. For each subject i, the observed response Yi is either YT,i if Wi = +1 or YC,i if Wi = −1. In order to define the design problem and the resulting statistical inference, one needs to decide which quantities are considered fixed (conditioned upon) and which are random. The design W is always considered random. In the literature, there are typically three scenarios, which are listed below, ordered by degree of randomness. Random? Setting Design Potential Outcomes Covariates (a) ✓
+
+(b) ✓ ✓
+
+(c) ✓ ✓ ✓
+
+Setting (a) is called the Neyman model (e.g., Freedman, 2008) or the Neyman-Rubin model (e.g., Sekhon, 2008) and is widely studied (see Imbens and Rubin, 2015 and references therein). In the context of binary responses, Robins (1988) suggested a conservative confidence interval that is shorter than the standard Wald’s interval and is valid asymptotically. More recently, several works studied confidence intervals that are exact for finite n (Rigdon and Hudgens, 2015; Li et al., 2016; Aronow et al., 2023; Li et al., 2025). The Neyman model of Setting (a) is restrictive in that it assumes that the potential outcomes are deterministic functions of the covariates. That is, given the covariates, the potential binary responses are fixed. In the context of clinical trials, it seems unlikely that a positive response is determined only by the treatment assignment and the covariates. A more reasonable model is to assume that the treatment assignment and the covariates determine the probability of success or failure, as in Settings (b) and (c), rather than the actual response as in Setting (a). This is more realistic as there are certainly unobserved covariates that influence the response making the response random even when knowing xi and wi.2Consider Setting (c) and assume that {(YT,i , Y C,i , xi)}i=1 ,...,n are i.i.d. from some dis-tribution. We define the parameter of interest to be the average treatment effect (ATE),  
+
+> 1
+> n
+> ∑ni=1
+
+E [YT,i − YC,i ] = E [YT, 1] − E [YC, 1] and we estimate it via the difference-in-means esti-mator expressed a number of ways ˆτ := ¯YT − ¯YC = 1
+
+n/ 2
+
+> ∑
+> {i:Wi=+1 }
+
+Yi − 1
+
+n/ 2
+
+> ∑
+> {i:Wi=−1}
+
+Yi = 2
+
+nW ⊤Y . (1) Under an equally-likely allocation design, ˆ τ is unbiased. One can then derive its variance as 
+
+Var [ˆ τ ] = 2
+
+n (pT (1 − pT ) + pC (1 − pC )) , (2) where pT := E [YT,i ] and pC := E [YC,i ]. The derivation can be found in Section A.1 of the Supplementary Material. Equation 2 implies that under Setting (c), the variance does not depend on the design W (as long as it is balanced) and thus there is no difference in designs under Setting (c). This setting is further problematic as it assumes we average over all potential experiments with all n samples of subjects from the population. We should be concerned with designing the best experiment for the n subjects at hand. Setting (c) is the most random setting, and Equation 2 implies that the standard Wald’s confidence interval is asymptotically valid under this setting. As mentioned above, Robins (1988) constructed a valid confidence interval that is shorter than Wald’s under Setting (a). This is not surprising because Setting (a) is less random than (c) and hence the variance of the estimator under Setting (a) is smaller. Below, in Section 2.3.2, we study an extension of Robins’ variance estimator to allow it to be valid under Setting (b). Setting (a) is restrictive and Setting (c) is too random. The focus in this work is on Setting (b), where only the covariates are conditioned upon. A typical approach is to assume a parametric model for pT,i := E [YT,i | xi] and pC,i := E [YC,i | xi], canonically a linear logistic positive outcome model, and estimate its parameters (see Imbens and Rubin, 2015, Chapter 8 and references therein). However, as shown by Freedman (2008), this approach fails if the model is misspecified. Therefore, Freedman (2008) advocates for considering Setting (b) and calls it “Neyman’s nonparametric setup”. This setting is rarely studied in the statistical literature but is more common in econometrics (see Bai et al., 2024 and references therein). Since we consider Setting (b) from now on, all expectations and variances are conditioned on the xi’s unless stated otherwise. The ATE can then be expressed as 
+
+τ := 1
+
+n
+
+> n∑
+> i=1
+
+(pT,i − pC,i ) (3) and a typical estimator is ˆ τ of Equation 1. Our goal herein is twofold: we wish to minimize Var [ˆ τ ] and to accurately (or conserva-tively) estimate the variance. We derive a formula for Var [ˆ τ ] and show that any design that satisfies a balanced-covariate condition is optimal in the sense that it asymptotically mini-mizes the variance. We further show that a family of blocking designs satisfies this condition. The variance of ˆ τ is generally a complicated function of pT, 1, . . . , p T,n , p C, 1, . . . , p C,n and an unbiased estimator of Var [ˆ τ ] does not exist. Rather, as in Robins (1988), we construct an 3estimator \Var [ˆ τ ] that is conservative, i.e., E[ \Var [ˆ τ ]] ≥ Var [ˆ τ ]. Our estimator for the variance comes from the Cochran-Mantel-Haenszel test statistic (Cochran, 1954; Mantel and Haenszel, 1959). Furthermore, we show that under local alternatives \Var [ˆ τ ] is asymptotically tight under some conditions, which are satisfied by blocking designs. The final result is an optimal design and an inference method such that Var [ˆ τ ] is minimal asymptotically, is conservative for finite n and \Var [ˆ τ ] is tight asymptotically. 
+
+# 2 Theoretical Results 
+
+## 2.1 Setup 
+
+In Setting (b), the potential outcomes and the design are random and the observed co-variates are fixed. The observed covariates determine pT := [ pT, 1, . . . , p T,n ]⊤ and pC := [pC, 1, . . . , p C,n ]⊤ which are thus fixed and unknown. The potential outcomes are YT,i ∼
+
+Bernoulli( pT,i ) and YC,i ∼ Bernoulli( pC,i ) and all these random variables are assumed in-dependent. The responses Y can be conveniently expressed as a function of the potential outcomes and the design 
+
+Y = Y T + Y C
+
+2 + W ⊙ Y T − Y C
+
+2 (4) where ⊙ denotes entry-wise product. Our parameter of interest is the ATE (Equation 3) and the estimator we wish to investigate is ˆ τ (Equation 1). In Kapelner et al. (2023) we showed that if the design is balanced, then ˆ τ is unbiased for τ and we proved that 
+
+Var [ˆ τ ] = 1
+
+n2
+
+> (
+
+(pT + pC )⊤ΣW (pT + pC ) + 2[ p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC )] )
+
+, (5) where ΣW := E [
+
+W W ⊤]
+
+as we only examine designs that satisfy E [W ] = 0n. It then follows that 
+
+Var [ˆ τ ] ≥ 2
+
+n2 [p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC )] . (6) Further, if we assume that pT and pC are bounded away from 1n and 0n respectively, then the lower bound in Equation 6 is O(1 /n ) and any design that satisfies lim 
+
+> n→∞
+
+1
+
+n(pT + pC )⊤ΣW (pT + pC ) = 0 (7) is asymptotically optimal. We now show that a family of blocking designs satisfies Condition 7 under mild conditions. 
+
+## 2.2 Results for Blocking Designs 
+
+We consider uniform block designs with B blocks where all blocks are uniformly sized with 
+
+nB := n/B subjects. We assume nB to be even for convenience. The optimal uniform block design partitions {1, . . . , n } into B equally sized disjoint blocks with indices I1, . . . , I B such that the sum of the B intrablock homogeneity metrics are minimized. Such a homogeneity 4metric could be the variance, i.e., ∑ 
+
+> i∈Ib
+
+∥xi − ¯xb∥2 where ¯ xb := 1 
+
+> nB
+> ∑
+> i∈Ib
+
+xi; this metric is assumed in Theorem 1 below. This is equivalent to minimization of the squared Euclidean norm between a random pair in a random block. When the x’s are whitened this is equivalent to minimization of the total Mahalanobis distance, which is defined later in Section 3.1. Solving for the optimal uniform blocks is called balanced clustering , and there are efficient algorithms to solve it (Malinen and Fr¨ anti, 2014). In the special case where the block size is two, the problem can be solved by the nonbipartite matching algorithm (Edmonds, 1965). Then, BCRD is run within each block, i.e., nB /2 subjects are chosen at random and allocated to T and the rest nB /2 subjects are allocated to C. It follows that ΣW is block diagonal consisting of B blocks of size nB × nB , where each block consists of entries with 1 on the diagonal and − 1  
+
+> nB−1
+
+on the off-diagonal. Returning to Condition 7, if we denote vi := pT,i +pC,i  
+
+> 2
+
+, then 1
+
+n(pT + pC )⊤ΣW (pT + pC ) = 4
+
+B
+
+> B∑
+> b=1
+
+1
+
+nB − 1
+
+> ∑
+> i∈Ib
+
+(vi − ¯vb)2,
+
+where ¯ vb is the average of the bth block. It follows that if the average variance within a block converges to zero, Condition 7 is satisfied. Theorem 1 below shows that this is satisfied under mild conditions when the number of blocks diverges. The proof is found in Section A.2 of the Supplementary Material. 
+
+Theorem 1. Suppose that ∥xi∥ is bounded for all i, and there exist functions hT and hC such that pT,i = hT (xi) and pC,i = hC (xi) for all i, and that hT and hC are Lipschitz continuous functions. Then, Equation 7 is satisfied for all optimal blocking designs that minimize the block variance with B → ∞ .
+
+Assuming that the Lipschitz constant is 1 and that the support of the xi’s is contained in the p-dimensional unit cube, the proof of Theorem 1 shows that 1
+
+n(pT + pC )⊤ΣW (pT + pC ) ≤ 8p 
+
+> (
+
+1(B1/2p − 1) 2 + 1
+
+√B
+
+> )
+
+,
+
+and this bound converges to zero as B → ∞ . A similar bound can be obtained if the number of blocks is of different sizes but the ratio of the maximal and minimal block size is bounded. Thus, the result of Theorem 1 can be extended to non-uniform blocking designs provided that the latter condition is satisfied. 
+
+## 2.3 Estimator Variance Estimation 
+
+2.3.1 The CMH Estimator 
+
+The variance of ˆ τ is given in Equation 5 and is a complicated function of the unknown pT
+
+and pC , which cannot be estimated. Therefore, an unbiased estimator of Var [ˆ τ ] does not exist. Following Splawa-Neyman et al. (1990); Robins (1988) and others, we aim to construct a conservative estimator \Var [ˆ τ ] in the sense that E[ \Var [ˆ τ ]] ≥ Var [ˆ τ ]. In Section 2.4, we show that our estimator is asymptotically tight under a local alternative asymptotic regime. 5Specifically, for a general design W we define 
+
+VCM H := 4
+
+n2 Y ⊤ΣW Y . (8) We showed in a previous paper that the above expression is the variance estimator of the Cochran-Mantel-Haenszel test statistic (Azriel et al., 2026, Equation 3). We also showed therein that for blocking designs we can express the estimator as 
+
+VCM H = 1
+
+n2(nB − 1) 
+
+> B∑
+> b=1
+
+n1b n0b (9) where n1b , n 0b are the number of positive and negative responses in block b respectively. This previous paper considers only blocking designs, whereas here we extend our analysis to any balanced design. An interesting feature of VCM H is that it does not depend explicitly on W (only through 
+
+Y ), but rather it depends on the covariance matrix of W , i.e., on ΣW . This matrix can in principle be estimated accurately by computing the sample variance-covariance matrix over many draws of w since W is determined by the experimenter, i.e., ΣW ≈ 1 
+
+> R
+> ∑Rr=1
+
+wrw⊤
+
+> r
+
+where the set {w1, . . . , wR} is drawn from W . In some cases the design is to select uniformly from a set {w1, . . . , wR}. In that case the expression applies and is no longer approximate. In the current work, an important example is blocking designs, in which ΣW is explicitly known (the block diagonal form described above) and thus is more amenable to theoretical exploration. The next theorem shows that VCM H is conservative. To state the theorem, we define 
+
+Σ⊙2 
+
+> W
+
+:= ΣW ⊙ ΣW and η := 12 (pT − pC ). The proof is found in Section A.3 of the Supple-mentary Material. 
+
+Theorem 2. Consider Neyman’s nonparametric model and suppose that the design is bal-anced. Then, 
+
+E [VCM H ] − Var [ˆ τ ] = 4
+
+n2 η⊤Σ⊙2 
+
+> W
+
+η.
+
+By the Schur product theorem (Horn and Johnson, 2013, Theorem 7.5.3), Σ⊙2 
+
+> W
+
+is positive semi-definite, and therefore E [VCM H ] ≥ Var [ˆ τ ].
+
+Theorem 2 shows that the difference between E [VCM H ] and Var [ˆ τ ] is 4 
+
+> n2
+
+η⊤Σ⊙2 
+
+> W
+
+η. This difference is always positive, making the variance estimator conservative, but it is of interest to understand when the difference is small. The difference is zero if η = 0, i.e., if pT,i = pC,i 
+
+for all i ∈ { 1, . . . , n }. This condition is a slight modification of Fisher’s sharp null, where the probabilities of success are equal between treatment and control rather than the actual responses. Thus, VCM H is tight when the difference between pT and pC is small. In Section 2.4, we consider a local alternatives asymptotic regime where τ = O(1 /√n) and show that in this regime, VCM H is asymptotically tight under additional conditions on the design. We next argue informally that the difference term, η⊤Σ⊙2 
+
+> W
+
+η, for blocking designs is de-creasing with nB (the block size). Recall that in blocking designs ΣW is block diagonal, 6consisting of B blocks of size nB × nB , where each block consists of entries with 1 on the diagonal and −1/(nB − 1) on the off-diagonal. Therefore, 
+
+η⊤Σ⊙2 
+
+> W
+
+η = nB
+
+nB − 1∥η∥2 − 1
+
+nB − 1η⊤ΣW η. (10) The second term in Equation 10 is of smaller order than the first because when nB is small, the blocks are homogeneous in pT and pC , making η⊤ΣW η small; on the other hand for large nB , the term 1  
+
+> nB−1
+
+η⊤ΣW η is small because of nB in the denominator. It follows that the dominant term in Equation 10 is nB  
+
+> nB−1
+
+∥η∥2, which is decreasing in nB and therefore so is (approximately) η⊤Σ⊙2 
+
+> W
+
+η. Thus, there is a trade-off between making Var [ˆ τ ] small and making the difference term small. The former requires small nB (as in Theorem 1) while for the latter, larger nB is preferred. The maximal eigenvalue λmax of ΣW may represent the randomness or robustness of the design (Harshaw et al., 2024). For blocking designs, it is equal to nB  
+
+> nB−1
+
+, which appears in Equation 10, implying that the design is more random or robust as nB increases. Thus, we expect for a hormetic U-shape in performance over nB with an optimal block size between the unrestricted BCRD ( nB = n and B = 1) and the relatively more restricted pairwise matching design ( nB = 2 and B = n/ 2). This U-shape is due a trade-off between covariate imbalance and randomness which seems to be fundamental in experimental design (Kapelner et al., 2021; Harshaw et al., 2024). A similar trade-off holds for general designs; by Equation 5, Var [ˆ τ ] is small when ( pT +
+
+pC )⊤ΣW (pT + pC ) is minimal, which can be achieved when the design balances the covari-ates between treatment and control. Generally, this is achieved for ΣW when λmax is large (Kapelner et al., 2021; Harshaw et al., 2024). On the other hand, the difference term can be bounded by the Fan-Horn inequality (Horn and Johnson, 1991, page 312), 
+
+η⊤Σ⊙2 
+
+> W
+
+η ≤ λ2
+
+> max
+
+∥η∥2,
+
+It follows that the difference can be bounded when λmax is small. Thus, again, minimizing 
+
+Var [ˆ τ ] requires large λmax , while the difference is small (or at least upper bounded) when 
+
+λmax is small. 
+
+2.3.2 The Robins (1988) Estimator 
+
+As mentioned in the introduction, Robins (1988) suggested a confidence interval for a similar problem in Setting (a), when the potential outcomes are fixed under BCRD (he also considered non-balanced designs, but these are out of the scope of our work herein). We first extend his variance estimator to general blocking designs and then to Neyman’s nonparametric model. In the fixed potential outcomes setting, 
+
+Var [ˆ τ | Y T , Y C ] = 1
+
+n2 (Y T + Y C )⊤ΣW (Y T + Y C ). (11) Robins constructs a conservative variance estimator for Var [ˆ τ | Y T , Y C ] for BCRD as follows: 
+
+VRobbins := m1(1 − m1)
+
+n/ 2 + m0(1 − m0)
+
+n/ 2 + (2 m0 − m1)(1 − m1) − m0(1 − m0)
+
+n ,
+
+7where m1 = max {ˆpT , ˆpC }, m0 = min {ˆpT , ˆpC } and ˆ pT =
+
+∑ni=1 I(Wi=1) Yi 
+
+> n/ 2
+
+, ˆ pC =
+
+∑ni=1 I(Wi=−1) Yi 
+
+> n/ 2
+
+.It is easy to extend his variance estimator to an arbitrary blocking design with B blocks and block size nB = n/B . Due to independence of the blocks, the conservative variance estimator becomes 
+
+VRobbins = 1
+
+B2
+
+> B
+
+∑
+
+> b=1
+
+[ m1,b (1 − m1,b )
+
+nB /2 + m0,b (1 − m0,b )
+
+nB /2 + (2 m0,b − m1,b )(1 − m1,b ) − m0,b (1 − m0,b )
+
+nB
+
+]
+
+(12) 
+
+where m1,b = max {ˆpT,b , ˆpC,b }, m0,b = min {ˆpT,b , ˆpC,b } and ˆ pT,b := 1 
+
+> nB/2
+
+∑ 
+
+> i∈Ib
+
+I(Wi = 1) Yi,ˆpC,b := 1 
+
+> nB/2
+
+∑ 
+
+> i∈Ib
+
+I(Wi = −1) Yi.We now extend this estimator to Neyman’s nonparametric model. The variance in the fixed outcome model is given in Equation 11. Taking its expectation yields 1
+
+n2 E [
+
+(Y T + Y C )⊤ΣW (Y T + Y C )]
+
+= 1
+
+n2
+
+(
+
+(pT + pC )⊤ΣW (pT + pC ) + p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC ))
+
+.
+
+Comparing this term to Var [ˆ τ ] as given in Equation 5, we need to add a conservative estimate to the component 1
+
+n2
+
+(
+
+p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC ))
+
+.
+
+The function g(t) = t(1 − t) is concave and therefore, by Jensen’s inequality, 1
+
+n2
+
+(
+
+p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC ))
+
+≤ 1
+
+n (¯ pT (1 − ¯pT ) + ¯ pC (1 − ¯pC )) ,
+
+where ¯ pT := 1
+
+> n
+
+∑ni=1 pT,i and ¯ pC := 1
+
+> n
+
+∑ni=1 pC,i , which can be consistently estimated by replac-ing ¯ pT and ¯ pC with ˆ pT and ˆ pC . Thus, our final variance estimator is 
+
+VRobbins −ext := VRobbins + 1
+
+n (ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC )) . (13) For VCM H , we showed that for each n it is conservative in the sense that E [VCM H ] ≥
+
+Var [ τ ]. However, VRobbins −ext is conservative only for large samples, i.e., it is required that 
+
+nB be sufficiently large to allow consistent estimation of the average pT,i ’s and pC,i ’s of each block. Another important difference is that VCM H holds for general balanced designs, whereas 
+
+VRobbins −ext is only for blocking designs. To illustrate the differences between VCM H and VRobbins −ext , we consider the BCRD design. The following proposition computes the variance estimators. Its proof is found in Section A.4 of the Supplementary Material. 
+
+Proposition 1. Under the BCRD design, 
+
+VRobbins −ext = 2
+
+n (ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC ) + m0(1 − m1)) 
+
+and 
+
+VCM H = 2
+
+n − 1
+
+(
+
+ˆpT (1 − ˆpT ) + ˆ pC (1 − ˆpC ) + (ˆ pT − ˆpC )2
+
+2
+
+)
+
+.
+
+8If we make the approximation n ≈ n − 1, then VCM H ≤ VRobbins −ext iff (ˆ pT − ˆpC )2 ≤ 2m0(1 −
+
+m1). Recall that m1 = max {ˆpT , ˆpC } and m0 = min {ˆpT , ˆpC }. Thus, if (ˆ pT − ˆpC )2 is sufficiently small, VCM H ≤ VRobbins −ext . For illustration, suppose that ˆ pT = 0 .5 + a and ˆ pC = 0 .5 − a
+
+where a ∈ (0 , 1/2). Then, the inequality reads 4a2 ≤ 2(0 .5 − a)2 ⇐⇒ a ≤ (√2 − 1) /2 ≈ 0.21 .
+
+Thus, VCM H is smaller than VRobbins −ext when ˆ pT and ˆ pC are close to each other, and otherwise 
+
+VRobbins −ext is smaller. This finding is consistent with those of Section 2.3.1, namely that VCM H 
+
+works well when pT ≈ pC .
+
+## 2.4 Local Asymptotic Analysis for the CMH Estimator 
+
+Local alternative asymptotics (often referred to as Pitman alternatives) provide a framework for evaluating the power of a test by treating the truth as a “moving target” (Van der Vaart, 2000, Chapter 14). When the alternative hypothesis remains fixed, the power converges to 1, whereas the local alternative regime defines a sequence of alternatives that drift closer to the null hypothesis at rate 1 /√n, and the power converges to a constant. The motivation is that if the alternatives converge to the null at a rate faster than 1 /√n, then the alternative is statistically indistinguishable from the null, and if the rate is slower (for example, fixed alternatives), then the problem is “easy”. In this sense, the local alternative asymptotics approximate a situation where the statistical problem is neither too easy nor too difficult. In Azriel et al. (2026), we studied the power of the Cochran-Mantel-Haenszel test under local alternatives for blocking designs. Here, we extend the results to general balanced designs and study variance estimators. Under Neyman’s nonparametric model, the parameters are pT and pC . In the local alternative asymptotics, we assume that pT and pC depend on n, which is suppressed in the notation, and √nτ = 1
+
+√n
+
+> n∑
+> i=1
+
+(pT,i − pC,i ) −→ τ∞, (14) for a constant τ∞ as n → ∞ . We also assume that 1
+
+n∥η∥2 = 14n
+
+> n∑
+> i=1
+
+(pT,i − pC,i )2 −→ 0 (15) as n → ∞ . Condition 15 implies that not only the average of pT − pC converges to zero as in Condition 14, but also the second moment. It can be violated if, for example, pT,i − pC,i =
+
+C(−1) i for a constant C, for i = 1 , . . . , n . When this condition is violated, the consistency result below does not hold. Notice that Var [ˆ τ ] is of order 1 /n and therefore, VCM H is tight if n (E [VCM H ] − Var [ˆ τ ]) converges to zero. The following theorem shows that VCM H is tight and consistent under Condition 15 and additional conditions. Its proof is found in Section A.5 of the Supplementary Material. 
+
+Theorem 3. Consider Neyman’s nonparametric model and suppose that the design is bal-anced, that Condition 15 holds, and that λmax (ΣW ) is bounded. Then 
+
+n (E [VCM H ] − Var [ˆ τ ]) −→ 0,
+
+9as n → ∞ . Moreover, if max i 
+
+> {∑
+> j
+
+|(ΣW )i,j |}
+
+is bounded, then 
+
+Var [nV CM H ] −→ 0,
+
+and hence nV CM H is a consistent estimator of nVar [ˆ τ ].
+
+Thus, Theorem 3 shows that VCM H is tight if the matrix ΣW is “small” in the sense that the eigenvalues are bounded. For blocking designs, the maximal eigenvalue is nB  
+
+> nB−1
+
+, which is maximized when nB = 2 (pairwise matching), and is bounded. On the other hand, if we consider the nearly deterministic design that chooses at random between {+w0, −w0}, where 
+
+w0 is an assignment that minimizes a certain balancing criterion (Kallus, 2018), then ΣW is of rank 1, and λmax = n. Thus, for these designs, λmax is unbounded and VCM H is not tight. To prove that nV CM H is a consistent estimator, we need a stronger condition; namely, that max i 
+
+> ∑
+> j
+
+|(ΣW )i,j | is bounded. This is a stronger condition because 
+
+λmax ≤ max 
+
+> i
+> ∑
+> j
+
+|(ΣW )i,j |
+
+> 
+
+by a consequence of the Gershgorin circle theorem (Varga, 2004, Theorem 1.1). For uniform blocking designs, max i 
+
+> ∑
+> j
+
+|(ΣW )i,j | = 2, i.e., the boundedness condition is satisfied. Notice, that this bound also applies to non-uniform blocking designs. Thus, the conditions of Theorem 3 hold for blocking designs and hence they are asymp-totically tight under Condition 15. By Theorem 1, blocking designs with B → ∞ achieve the minimal variance of ˆ τ . It follows that these designs are both asymptotically optimal and tight. While Theorem 3 shows that the difference term 1 
+
+> n2
+
+η⊤Σ⊙2 
+
+> W
+
+η is asymptotically negligible, for small or moderate sample size it might be noticeable, as shown in the simulation section. As we demonstrated in Section 2.3.1, the difference term is large for small nB (see Equation 10). Therefore, practically, one should aim for small nB but not too small; see Figure 3. If ˆ τ satisfies that it is asymptotically normal under the asymptotic regime of Conditions 14 and 15, i.e., √n(ˆ τ − τ )
+
+> √
+
+nVar [ˆ τ ]
+
+> d
+
+−→ N (0 , 1) , (16) then for a design that satisfies the conditions of Theorem 3, we have, by Slutsky’s theorem, that √n(ˆ τ − τ )
+
+√nV CM H d
+
+−→ N (0 , 1) ,
+
+and therefore, ˆ τ ± z1−α/ 2
+
+√nV CM H is a valid confidence interval for τ at level 1 − α. In Azriel et al. (2026), we showed that blocking designs satisfy Equation 16 under Conditions 14 and 15 and additional conditions, and therefore one can construct valid confidence intervals using blocking designs in this asymptotic regime. 10 3 Simulations 
+
+## 3.1 Setup 
+
+In our discussed inference procedures, we simulate under a wide range of experimental de-signs, sample sizes and covariate dimensions and compare four metrics: power, coverage, size and confidence interval length. For each combination of sample size n ∈ { 64 , 128 , 256 } and covariate dimension p ∈ { 1, 2, 5, 10 }, an n × p covariate matrix X is drawn once from the standard multivariate normal distribution and held fixed across all replications in the n × p
+
+cell as we are considering setting (b). Within each cell, we simulate under the following W
+
+designs: 
+
+BCRD This design is described in Section 1. It is the only design considered in this simu-lation which is blind to the observed covariates. 
+
+Rerandomization Here, allocations are first drawn from a large pool of 100 Nsim BCRD 
+
+allocations and then the pool is winnowed to those whose total Mahalanobis Distance (MD) between treated and control covariate vector averages lies within the lowest 1% of Mahalanobis distances. Total MD is defined as (¯ xT − ¯xC )⊤ ˆΣ−1 
+
+> X
+
+(¯ xT − ¯xC ) where ¯ xT and ¯xC denote the average covariate vector over all n/ 2 treatment subjects and n/ 2 control subjects respectively and ˆ ΣX is sample variance-covariance matrix over all rows in X.The w’s in this design are then drawn randomly from this winnowed pool. Designs like these date back to Student (1938). See Morgan and Rubin (2012) for modern theoretical analysis. 
+
+BinaryMatch Subjects are matched into pairs by first generating a n × n symmetric dis-tance matrix whose entries are the intra-pair MDs (Stuart, 2010, Section 2.2) defined as d(xa, xb) := ( xa − xb)⊤ ˆΣ−1 
+
+> X
+
+(xa − xb), where xa, xb are a pair of subjects and ˆ ΣX
+
+is defined in the previous paragraph. We then use the optimal nonbipartite matching algorithm which finds the globally minimum sum of intra-pair MDs computed via the 
+
+nbpMatching R package (Beck et al., 2024), which implements the shortest-path algo-rithm of Derigs (1988). (For p = 1, the pairs are generated trivially by sorting the one covariate vector and splicing into groups of two). Within pairs, we randomize T/C or C/T with a fair coin flip to produce draws of w. This design is a special case of blocking with B = n/ 2 and nB = 2. 
+
+GreedyMD Subjects are matched into pairs using an iterative process beginning with a draw of BCRD. All potential pairs of T,C are switched and the total MD is calculated. The switch that produces the lowest total MD is retained. The iterations continue until total MD is no longer reduced. The final w is the allocation returned. This greedy method produces very low observed balances and are nearly as random as BCRD (Krieger et al., 2019). 
+
+BinaryMatchThenGreedyMD This hybrid approach first finds the binary match struc-ture via the nonbipartite matching algorithm (see description above about the Binary-Match design). We then draw one w from the BinaryMatch design. We then do the greedy search described in the GreedyMD section but only switches within the binary 11 match structure are considered. This greedy method produces allocations with even lower observed balances than GreedyMD and are nearly as random as BinaryMatch 
+
+(Krieger et al., 2022). 
+
+Naive B This is a naive uniform blocking design where subjects are partitioned into exactly 
+
+B equally-sized blocks by a greedy covariate-stratification algorithm. Each subject is assigned a composite stratum key formed by concatenating quantile-bin labels across covariates one column at a time: for each covariate in turn, the algorithm selects the largest number of quantile bins that, when crossed with the bins already determined by prior covariates, keeps the total number of distinct keys at or below B while maintaining equal block sizes. The process stops as soon as exactly B blocks are formed. Because covariates are processed sequentially and stratum commitments are irrevocable, earlier covariates dominate the block structure and later ones are used only to subdivide re-maining blocks. At high p, the algorithm typically exhausts the block budget after one or two covariates and ignores the rest. Treatment is then balanced within each block by using BCRD within block to draw w. We consider B ∈ { 2, 4, 8, 16 , 32 , 64 , 128 },excluding values of B where n/B < 2. 
+
+Optimal B This is the optimal uniform blocking design discussed in Section 2.1. Subjets partitioned into exactly B covariate-homogeneous, equally-sized blocks by minimizing the total MD. This minimization is then subject to the constraint that each block con-tains exactly n/B subjects. This is a balanced clustering problem which differs from the standard K-means problem, which ignores group-size balance. Here, we must consider only uniform block sizes as the space of possible solutions. We employ the anticlust R
+
+package (Papenberg, 2026), which uses an iterative K-means-style exchange algorithm to converge to a locally optimal partition. Treatment is then balanced within each block by using BCRD within block to draw w. We consider the same values of B as described in the Naive Blocking description above. For each of the above designs, we draw Nsim = 10 , 000 iid replicates of w within each 
+
+n × p cell. For each w replicate, we draw y (which is deterministic per replicate and hence denoted by lower case y) using independent Bernoulli draws from the probabilities of positive outcome computed from the logistic-linear model, 
+
+Yi | xi, w i ∼ Bernoulli (
+
+expit (
+
+β0 + x⊤ 
+
+> i
+
+β + βT wi
+
+> ))
+
+, (17) where the covariate weights β is p-dimensional, fixed to be even spaced between -1, +1 and then scaled to satisfy ∥β∥ = 3. This norm was picked to bump the importance of the covariates in the response, thereby magnifying the performance of designs that balance observed covariates well, which ultimately results in better separation in our results between designs. If ∥β∥ were to be much larger, pT and pC would be pushed to 1n and 0n respectively. This situation would correspond with Setting (a) and our theoretical results would not apply. For simplicity, we set β0 = 0 but there is still a small intercept term since X is drawn from a standard normal distribution (however this term is O(n−1/2) and negligible for the sample sizes considered). We set βT = 0 .5 when measuring power, coverage and CI length; and we 12 set βT = 0 when measuring size. Because X and β are fixed and thus only vary within each 
+
+n × p cell, the ATE (Equation 3) within each cell is calculated as 
+
+τ = 1
+
+n
+
+> n∑
+> i=1
+
+(expit ( xiβ + βT ) − expit( xiβ − βT )) .
+
+For each replication pair, we estimate the ATE via the observed ¯ yT − ¯yC (Equation 1). Then we calculate three different standard errors estimates ( se ) which will allow us to com-pare the performance of our three procedures: the CMH (the square root of Equation 8 in general but employing Equation 9 instead when W is blocking), Robins (the square root of Equation 13) and 
+
+> √
+
+¯yT (1 − ¯yT ) + ¯ yC (1 − ¯yC )( n/ 2) −1/2, the standard Wald expression. Notice that Proposition 2 implies that the latter se estimate is realized from a conservative variance estimator, as it is a consistent estimator for the variance of ˆ τ when the variance is with re-spect to both the covariates and potential outcomes. This variance is larger than the expected variance given the covariates. This point is one of the main results we wish to convey. Equation 8 requires a closed form expression for ΣW which we believe is unknown for the GreedyMD and the BinaryMatchThenGreedyMD designs. We can estimate ΣW via the Monte Carlo procedure described in Section 2.3.1. Then, using Equation 8, the per-replicate CMH variance estimate can be computed via 
+
+\Var [ˆ τ ] ≈ 4
+
+n2 y⊤ 
+
+> 
+
+1
+
+Nsim Nsim ∑
+
+> r=1
+
+wrw⊤ 
+
+> r
+> 
+
+y = 4
+
+n2
+
+1
+
+Nsim Nsim ∑
+
+> r=1
+
+(y⊤wr)2. (18) As y is drawn anew in each replicate, \Var [ˆ τ ] must be calculated anew per replicate which is computationally expensive. This cost can be mitigated by caching the Nsim wr’s in each n×p
+
+cell as these wr’s only depend only on the fixed X. The closed form expression for ΣW in the rerandomization design is also unknown. In our implementation of the rerandomization 
+
+design, it can be considered a fixed set of Nsim vectors. Here we can still use Equation 18 and it is no longer approximate. Ultimately, each n × p× inferential method results in one se estimate. Using these se 
+
+values, we then compute a two-sided p-value for H0 : τ = 0 at nominal level α = 5%. We then define our four comparison performance metrics as follows: power is the proportion of times that p-value < α over all Nsim replicates when βT > 0, size is the proportion of times that p-value < α over all Nsim replicates when βT = 0, coverage is the proportion of times 
+
+τ ∈ [¯ yT − ¯yC ± 1.96 × se ] over all Nsim replicates when βT > 0 and CI length is the average value of 2(1 .96 × se ) over all Nsim replicates when βT > 0. 
+
+## 3.2 Results 
+
+Figure 1 shows the power and size results and Figure 2 shows the coverage and confidence interval length results for legal inference when p = 1, all sample sizes, all designs and all inference methods. We include the analogous figures for p = 5 and p = 10 in Section B of the Supplementary Information. Figure 1 demonstrates that our CMH procedure overall has both higher power than the Wald and Robins procedures and are more appropriately sized. The Wald procedure is conservative which does not seem to improve with sample 13 size. The Robins procedure is wildly missized — for small B it is too conservative and for large B it is anti-conservative. The latter is a result of inconsistent estimation of pT,b 
+
+and pC,b for small blocks, as the estimators are based on a small number of observations (see Equation 12). Figure 2 demonstrates tighter confidence bands for CMH in comparison to Wald and Robins which is expected given the higher power. As for coverage, all inference methods are conservative (except the Robins procedure when nB = 2), but the CMH procedure is in general less conservative with confidence bands most often including the desired 1 − α target. The additional results for p > 1 are similar, although the comparisons between the methods are more compressed. We provide a clearer illustration of CMH’s power and confidence interval length perfor-mance gains versus the Wald procedure for n = 64 and p = 1 in Table 1. Over the different settings, there is a 54-85% power gain and 16-21% reduction in the confidence interval length (save the BCRD setting which has virtually equivalent performance). We also provide a clearer illustration of the CMH estimator’s asymptotic hormetic U-shape performance over nB for the Optimal Blocking design in Figure 3. The results are most clearly seen in the p = 1 case where the blocks are optimal. Within simulation error, the U-shape is also plausible for p > 1. Design Inference Power CI Power CI Length Length Gain (%) Reduction (%) Optimal B=2 CMH 11.38 0.42 53.99 16.28 Optimal B=2 Wald 7.39 0.50 Optimal B=4 CMH 12.64 0.40 82.13 19.35 Optimal B=4 Wald 6.94 0.50 Optimal B=8 CMH 12.29 0.40 98.87 20.58 Optimal B=8 Wald 6.18 0.50 Optimal B=16 CMH 12.45 0.40 99.52 20.83 Optimal B=16 Wald 6.24 0.50 Optimal B=32 CMH 11.30 0.40 70.95 20.79 Optimal B=32 Wald 6.61 0.50 BinaryMatch CMH 10.63 0.40 75.99 20.85 BinaryMatch Wald 6.04 0.50 Rerandomization CMH 12.82 0.40 84.73 20.17 Rerandomization Wald 6.94 0.50 GreedyMD CMH 12.17 0.40 84.39 19.67 GreedyMD Wald 6.60 0.50  
+
+> BinaryMatchThenGreedyMD
+
+CMH 11.33 0.40 84.83 20.74  
+
+> BinaryMatchThenGreedyMD
+
+Wald 6.13 0.50 BCRD CMH 11.07 0.49 0.00 1.64 BCRD Wald 11.07 0.50 Table 1: Results for n = 64 , p = 1 for all legal designs and inference methods. The last two columns illustrate performance gains vis-a-vis the Wald procedure. The Naive B design is omitted as for p = 1, the results are statistically equal to the Optimal B design as they share the same block structure. 14 0.10 0.20 0.30 0.40 0.50 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Power 
+
+> n = 64  n = 128  n = 256
+
+0.05 0.10 
+
+Size 
+
+Inference CMH ExtendedRobins Wald Figure 1: Power and size results for legal inference when p = 1, all sample sizes, all designs and all three inference methods. Horizontal bars illustrate 95% confidence bands for the simulation error. “Naive” refers to the Naive Blocking design and “Optimal” refers to the 
+
+Optimal Blocking design. 15 0.90 0.95 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Coverage 
+
+> n = 64  n = 128  n = 256
+
+0.2 0.3 0.4 0.5 
+
+Confidence Interval Length 
+
+Inference CMH ExtendedRobins Wald Figure 2: Coverage and confidence interval length results analogous to Figure 1. 16 0.09 0.10 0.11 0.12 0.13         
+
+> 124816 32
+> B
+> Power
+> Covariates p = 1 p = 5 p = 10
+
+Figure 3: Power performance of the CMH estimator over different block sizes B and different number of covariates in the Optimal Blocking design for n = 64 ( B = 1 is equivalent to the BCRD). The ribbons illustrate 95% simulation error confidence bands. 
+
+# 4 Discussion 
+
+This paper develops a unified framework for design and inference in randomized experiments with binary outcomes under Neyman’s nonparametric model where covariates are fixed and potential outcomes are random. We derive the exact variance of the difference-in-means es-timator under balanced designs and show that asymptotic variance optimality is achieved by designs that satisfy a covariate-balance condition, with a broad class of blocking designs meet-ing this requirement under mild smoothness assumptions on the response probabilities. We also show that unbiased variance estimation is impossible in this setting, and therefore pro-pose conservative alternatives: a CMH-based variance estimator for general balanced designs and an extension of Robins’ estimator for blocking designs. The theoretical results are com-plemented by simulations showing that the CMH-based procedure is generally appropriately-sized, more powerful than both the Wald-based inference and the extended Robbins one, and yields shorter confidence intervals. Blocking designs reveal a trade-off between covariate bal-ance and design randomness that can produce a U-shaped relationship between performance and block size. The main takeaway is that, for binary treatment effects under fixed covariates, good ex-perimental design and valid inference cannot be separated: variance reduction depends on covariate balance, but reliable uncertainty quantification also depends on maintaining suf-ficient randomness in the design. The analysis clarifies that overly restrictive designs may improve balance at the cost of inflating dependence in the assignment mechanism, thereby 17 weakening robustness and potentially harming inference. Conversely, designs that are “too random” such as BCRD preserve robustness but may leave substantial precision on the table. The simulations reinforce this theoretical message by showing that intermediate blocking lev-els as well as other designs that achieve covariate balance and sufficient degree of randomness, perform best when they are equipped with the CMH-based inference. Several important directions remain for future work. First, it would be valuable to ex-tend the results beyond binary responses and develop analogous optimal design and robust inference theory for non-binary outcomes, while carefully identifying the conditions under which the corresponding variance formulas, conservative estimators, and asymptotic tight-ness results continue to hold. Second, although blocking designs satisfy the boundedness conditions used in the local asymptotic analysis, it would be important to study whether similar conditions hold for broader classes of designs—specifically, to characterize when λmax 
+
+and max i 
+
+> {∑
+> j
+
+|(ΣW )i,j |}
+
+remain bounded for designs other than blocking. More generally, a deeper understanding of how assignment covariance structure governs the trade-off between balance, randomness, and inferential accuracy could guide the construction of new experimen-tal designs that retain the robustness of randomization while approaching optimal precision. 
+
+# References 
+
+Aronow, P., Chang, H., and Lopatto, P. (2023). Fast computation of exact confidence inter-vals for randomized experiments with binary outcomes. In Proceedings of the 24th ACM Conference on Economics and Computation , pages 120–120. Azriel, D., Kapelner, A., and Krieger, A. M. (2026). Block designs that provide optimal power in the cochran–mantel–haenszel test: D. azriel et al. Statistical Papers , 67(2):28. Azriel, D., Krieger, A. M., and Kapelner, A. (2024). The optimality of blocking designs in equally and unequally allocated randomized experiments with general response. Bai, Y., Shaikh, A. M., and Tabord-Meehan, M. (2024). A primer on the analysis of random-ized experiments and a survey of some recent advances. arXiv preprint arXiv:2405.03910 .Beck, C., Lu, B., and Greevy, R. (2024). nbpMatching: Functions for Optimal Non-Bipartite Matching . R package version 1.5.6. Cochran, W. G. (1954). Some methods for strengthening the common χ2 tests. Biometrics ,10(4):417–451. Derigs, U. (1988). Solving non-bipartite matching problems via shortest path techniques. 
+
+Annals of Operations Research , 13(1):225–261. Edmonds, J. (1965). Paths, trees, and flowers. Canadian Journal of Mathematics , 17:449–467. Freedman, D. A. (2008). On regression adjustments to experimental data. Advances in Applied Mathematics , 40(2):180–193. 18 Harshaw, C., S¨ avje, F., Spielman, D. A., and Zhang, P. (2024). Balancing covariates in randomized experiments with the gram–schmidt walk design. Journal of the American Statistical Association , 119(548):2934–2946. Horn, R. A. and Johnson, C. R. (1991). Topics in Matrix Analysis . Cambridge University Press. Horn, R. A. and Johnson, C. R. (2013). Matrix Analysis . Cambridge University Press, Cambridge, 2 edition. Imbens, G. W. and Rubin, D. B. (2015). Causal inference in statistics, social, and biomedical sciences . Cambridge University Press. Kallus, N. (2018). Optimal a priori balance in the design of controlled experiments. Journal of the Royal Statistical Society: Series B (Statistical Methodology) , 80(1):85–112. Kapelner, A., Krieger, A. M., and Azriel, D. (2023). The role of pairwise matching in exper-imental design for an incidence outcome. Australian & New Zealand Journal of Statistics ,65(4):379–393. Kapelner, A., Krieger, A. M., and Azriel, D. (2025). The pairwise matching design is optimal under extreme noise and extreme assignments. Stat , 14(2):e70058. Kapelner, A., Krieger, A. M., Sklar, M., Shalit, U., and Azriel, D. (2021). Harmonizing optimized designs with classic randomization in experiments. The American Statistician ,75(2):195–206. Krieger, A. M., Azriel, D., and Kapelner, A. (2019). Nearly random designs with greatly improved balance. Biometrika , 106(3):695–701. Krieger, A. M., Azriel, D. A., and Kapelner, A. (2022). Better experimental design by hybridizing binary matching with imbalance optimization. Canadian Journal of Statistics .Li, J., Spertus, J., and Stark, P. B. (2025). Exact and conservative inference for the av-erage treatment effect in stratified experiments with binary outcomes. arXiv preprint arXiv:2508.03834 .Li, X., Ding, P., and Rubin, D. B. (2016). Asymptotic theory of rerandomization in treatment-control experiments. arXiv preprint arXiv:1604.00698 .Malinen, M. I. and Fr¨ anti, P. (2014). Balanced k-means for clustering. In Fr¨ anti, P., Brown, G., Loog, M., Escolano, F., and Pelillo, M., editors, Structural, Syntactic, and Statistical Pattern Recognition , pages 32–41, Berlin, Heidelberg. Springer Berlin Heidelberg. Mantel, N. and Haenszel, W. (1959). Statistical aspects of the analysis of data from retro-spective studies of disease. Journal of the national cancer institute , 22(4):719–748. Morgan, K. L. and Rubin, D. B. (2012). Rerandomization to improve covariate balance in experiments. The Annals of Statistics , pages 1263–1282. 19 Papenberg, M. (2026). anticlust: Subset Partitioning via Anticlustering . R package version 0.8.14. Rigdon, J. and Hudgens, M. G. (2015). Randomization inference for treatment effects on a binary outcome. Statistics in medicine , 34(6):924–935. Robins, J. M. (1988). Confidence intervals for causal parameters. Statistics in medicine ,7(7):773–785. Sekhon, J. S. (2008). The Neyman–Rubin model of causal inference and estimation via matching methods. In Box-Steffensmeier, J. M., Brady, H. E., and Collier, D., editors, The Oxford Handbook of Political Methodology , pages 271–299. Oxford University Press, New York. Splawa-Neyman, J., Dabrowska, D. M., and Speed, T. P. (1990). On the application of probability theory to agricultural experiments. essay on principles. section 9. Statistical Science , pages 465–472. Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. 
+
+Statistical science , 25(1):1. Student (1938). Comparison between balanced and random arrangements of field plots. 
+
+Biometrika , pages 363–378. Van der Vaart, A. W. (2000). Asymptotic statistics , volume 3. Cambridge university press. Varga, R. S. (2004). Gersgorin and His Circles , volume 36 of Springer Series in Computational Mathematics . Springer, Berlin, Heidelberg. 20 Supporting Information for 
+
+## “Optimal Designs with Robust Inference for Binary Treatment Effects” 
+
+by David Azriel, Abba M. Krieger and Adam Kapelner 
+
+# A Proofs 
+
+## A.1 Computation of the Variance under Setting (c) 
+
+Note: In this subsection, x1, . . . , xn are considered random variables (unlike the rest of the paper) and expectations and variances are with respect to the xi’s as well. 
+
+Proposition 2. Suppose that {(YT,i , Y C,i , xi)}i=1 ,...,n are i.i.d. from some distribution. Con-sider a balanced design (as defined at the beginning of Section 2.1), then 
+
+Var [ˆ τ ] = 2
+
+n (pT (1 − pT ) + pC (1 − pC )) ,
+
+where pT := E [YT,i ] and pC := E [YC,i ].
+
+Proof: First, notice that unconditionally, 
+
+E [YT,i ] = E [E [YT,i | xi]] = E [pT,i ] =: pT ,
+
+and similarly, E [YC,i ] =: pC . Also, 
+
+Var [ YT,i ] = E [Var [ YT,i | xi]] + Var [ E [YT,i | xi]] = E [pT,i (1 − pT,i )] + Var [ pT,i ]= E [pT,i ] − E [
+
+p2
+
+> T,i
+> ]
+
++ E [
+
+p2
+
+> T,i
+> ]
+
+− (E [pT,i ]) 2 = pT (1 − pT ).
+
+and similarly, Var [ YC,i ] = pC (1 − pC ). Now, 
+
+Var [ˆ τ ] = E [Var [ˆ τ | W ]] + Var [ E [ˆ τ | W ]] . (19) We have that 
+
+E [ˆ τ | W ] = 1
+
+n
+
+> n∑
+> i=1
+
+Wi(pT + pC ) + pT − pC .
+
+Recall that ∑ni=1 Wi = 0 and therefore E [ˆ τ | W ] is a constant, and hence Var [ E [ˆ τ | W ]] = 0. Continuing with the first term in Equation 19, notice that conditional on W , the Yi’s are independent and therefore, 
+
+E [Var [ˆ τ | W ]] = 4
+
+n2
+
+> n∑
+> i=1
+
+E [I(Wi = 1) Var [ YT,i ] + I(Wi = −1) Var [ YC,i ]] = 2
+
+n (pT (1 − pT ) + pC (1 − pC )) .
+
+Summing up, 
+
+Var [ˆ τ ] = 2
+
+n (pT (1 − pT ) + pC (1 − pC )) .
+
+21 A.2 Proof of Theorem 1 
+
+We assume with out loss of generality that the Lipschitz constant is 1 and that the support of the xi’s is contained in the p-dimensional unit cube. We have that, 1
+
+n(pT + pC )⊤ΣW (pT + pC ) = 4
+
+B
+
+> B∑
+> b=1
+
+1
+
+nB − 1
+
+> ∑
+> i∈Ib
+
+(vi − ¯vb)2,
+
+and by the Lipschitz assumption, 4
+
+B
+
+> B∑
+> b=1
+
+1
+
+nB − 1
+
+> ∑
+> i∈Ib
+
+(vi − ¯vb)2 ≤ 4
+
+B
+
+> B∑
+> b=1
+
+1
+
+nB − 1
+
+> ∑
+> i∈Ib
+
+∥xi − ¯xb∥2, (20) where ¯ xb := 1 
+
+> nB
+> ∑
+> i∈Ib
+
+xi. The optimal blocking design minimizes the right-hand side of Equation 20. As in in Kapelner et al. (2025, Section A.6) we shall prove the result by considering a sub-optimal blocking algorithm, which is easy to analyze, and yields an upper bound to the right-hand side of Equation 20. To this end, we define Algorithm 1 below. It partitions the p-dimensional unit cube into m equally-sized sub-cubes where m := mp
+
+> 0
+
+and m0 := ⌊
+
+B1/2p⌋
+
+. Thus, m ≈ √B, and there are much more blocks than sub-cubes. Observations are assigned to the same block if they are in the same sub-cube. An “overflow” group are assigned randomly. 
+
+Algorithm 1 A suboptimal blocking algorithm 
+
+Step 1 
+
+Let m0 := ⌊
+
+B1/2p⌋
+
+, where ⌊a⌋ denotes the largest integer smaller than a, and let m := mp
+
+> 0
+
+.The p-dimensional unit cube is partitioned into m equally-sized sub-cubes, such that the edges of the sub-cubes are of length 1 /m 0.
+
+Step 2 
+
+Based on the m sub-cubes, xi’s are assigned into blocks such that i1, i 2 are in the same block if xi1.j and xi2,j are in the same sub-cube. (This implies that individuals in the same block have similar values for all the p covariates.) 
+
+Step 3 
+
+Collect an “overflow” group corresponding to all individuals who are not matched because they belong to a cell where the number of subjects after step 2 is smaller than nB . Randomly assign all the overflow group into blocks. Let ˜Ib denote the indexes in Ib that were assigned in Step 2 of Algorithm A, and ˜Icb := Ib\ ˜Ib;thus, indexes in ˜Icb belong to the overflow group of Step 3. Let ˜ xb denote the average of xi’s for i ∈ ˜Ib, i.e., ˜ xb := 1   
+
+> |˜Ib|
+> ∑
+> i∈˜Ib
+
+xi. Because the average minimizes the L2 distance, we have 22 that ∑ 
+
+> i∈Ib
+
+∥xi − ¯xb∥2 ≤ ∑ 
+
+> i∈Ib
+
+∥xi − ˜xb∥2. Therefore, going back to Equation 20, 4
+
+B
+
+> B
+
+∑
+
+> b=1
+
+1
+
+nB − 1
+
+∑
+
+> i∈Ib
+
+∥xi − ¯xb∥2 ≤ 4
+
+B
+
+> B
+
+∑
+
+> b=1
+
+1
+
+nB − 1
+
+∑
+
+> i∈Ib
+
+∥xi − ˜xb∥2
+
+= 4
+
+B
+
+> B
+
+∑
+
+> b=1
+
+1
+
+nB − 1
+
+∑ 
+
+> i∈˜Ib
+
+∥xi − ˜xb∥2 + ∑ 
+
+> i∈˜Icb
+
+∥xi − ˜xb∥2
+
+ .
+
+For indexes i in ˜Ib, |xi,j − xb,j | ≤ 1 
+
+> m0
+
+for all j = 1 , . . . , p , by construction. Also, | ˜Ib| ≤ nB
+
+because nB is the block size. Thus, ∑ 
+
+> i∈Ib
+
+∥xi − ˜xb∥2 ≤ pn B
+
+> m20
+
+. For indexes i in ˜Icb , ∥xi − ˜xb∥2 ≤ p
+
+since the xi’s are in the p-dimensional unit cube. Further, the size of the overflow group is bounded by m(nB − 1), because for each sub-cube there are at most nB − 1 observations that are not matched at Step 2 of Algorithm A. Hence, ∑Bb=1 
+
+∑  
+
+> i∈˜Ic
+
+∥xi − ˜xb∥2 ≤ pm (nB − 1). It follows that, 4
+
+B
+
+> B
+
+∑
+
+> b=1
+
+1
+
+nB − 1
+
+∑ 
+
+> i∈˜Ib
+
+∥xi − ˜xb∥2 + ∑ 
+
+> i∈˜Icb
+
+∥xi − ˜xb∥2
+
+ ≤ 4
+
+B
+
+> B
+
+∑
+
+> b=1
+
+pn B
+
+m20(nB − 1) +4 pmB ≤ 8p
+
+( 1
+
+m20
+
++ mB
+
+)
+
+.
+
+We have that B1/2p − 1 ≤ m0 ≤ B1/2p and recall that m = mp
+
+> 0
+
+. Hence, 1
+
+m20
+
++ mB ≤ 1(B1/2p − 1) 2 + 1
+
+√B ,
+
+which converges to zero as B → ∞ .
+
+## A.3 Proof of Theorem 2 
+
+We have that 
+
+E [
+
+Y ⊤ΣW Y ]
+
+=
+
+ ∑ 
+
+> i1̸=i2
+
+E [Yi1 Yi2 ] ( ΣW )i1,i 2 + ∑
+
+> i
+
+E [
+
+Y 2
+
+> i
+
+]
+
+because the diagonal elements of ΣW are equal to 1. Now, 
+
+E [Yi1 Yi2 ] = E [E [Yi1 Yi2 | W ]] .
+
+Given W , Yi1 and Yi2 are independent, and Equation 4 implies that E [Yi | Wi] = vi + Wiηi,where vi := pT,i +pC,i  
+
+> 2
+
+and ηi := pT,i −pC,i  
+
+> 2
+
+and, recall, E [Wi] = 0. Therefore, 
+
+E [E [Yi1 Yi2 | W ]] = vi1 vi2 + E [Wi1 Wi2 ] ηi1 ηi2 = vi1 vi2 + ( ΣW )i1,i 2 ηi1 ηi2 .
+
+Also, since Yi ∈ { 0, 1},
+
+E [
+
+Y 2
+
+> i
+
+]
+
+= E [Yi] = E [E [Yi | WB,i ]] = vi.
+
+Hence, 
+
+E [
+
+Y ⊤ΣW Y ]
+
+= ∑ 
+
+> i1̸=i2
+
+vi1 vi2 (ΣW )i1,i 2 + ∑
+
+> i
+
+vi + ∑ 
+
+> i1̸=i2
+
+ηi1 ηi2 (ΣW )2
+
+> i1,i 2
+
+23 = v⊤ΣW v + v⊤(1 − v) + η⊤Σ⊙2 
+
+> W
+
+η − || η|| 2 , (21) where Σ⊙2 
+
+> W
+
+:= ΣW ⊙ ΣW and ⊙ denotes element-wise product. Now, by straightforward algebra we have 
+
+vi(1 −vi) = 12[pT,i (1 −pT,i )+ pC,i (1 −pC,i )]+ (pT,i − pC,i )2
+
+4 = 12[pT,i (1 −pT,i )+ pC,i (1 −pC,i )]+ η2 
+
+> i
+
+.
+
+Therefore, 
+
+v⊤(1 − v) − || η|| 2 = 12[p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC )] .
+
+Also, 
+
+v⊤ΣW v = 14(pT + pC )⊤ΣW (pT + pC ).
+
+Therefore, Equation 21 implies that 
+
+E [VCM H ] = 4
+
+n2 E [
+
+Y ⊤ΣW Y ]
+
+= 1
+
+n2
+
+(
+
+(pT + pC )⊤ΣW (pT + pC ) + 2[ p⊤ 
+
+> T
+
+(1 − pT ) + p⊤ 
+
+> C
+
+(1 − pC )] + 4 η⊤Σ⊙2 
+
+> W
+
+η)
+
+= Var [ˆ τ ] + 4
+
+n2 η⊤Σ⊙2 
+
+> W
+
+η,
+
+where the last equality is due to Equation 5. Schur product theorem implies that Σ⊙2 
+
+> W
+
+is positive semi-definite because ΣW is positive semi-definite. Hence, E [VCM H ] ≥ Var [ˆ τ ]. 
+
+## A.4 Proof of Proposition 1 
+
+Under BCRD, the extended Robins estimator for the variance is 
+
+VRobbins −ext = VRobbins + 1
+
+n (ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC )) = m1(1 − m1)
+
+n/ 2 +m0(1 − m0)
+
+n/ 2 +(2 m0 − m1)(1 − m1) − m0(1 − m0)
+
+n +m1(1 − m1)
+
+n +m0(1 − m0)
+
+n
+
+= 2
+
+n [m1(1 − m1) + m0(1 − m0) + m0(1 − m1)] = 2
+
+n [ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC ) + m0(1 − m1)] . (22) The variance of the CMH is 
+
+VCM H = 4
+
+n2 Y ⊤ΣW Y = 4
+
+n(n − 1) 
+
+> n
+
+∑
+
+> i=1
+
+(Yi − ¯Y )2 = 4
+
+n − 1 ¯Y (1 − ¯Y ),
+
+where the last equality holds because Y 2 
+
+> i
+
+= Yi and hence 1
+
+> n
+
+∑ni=1 (Yi − ¯Y )2 = ¯Y (1 − ¯Y ). In terms of ˆ pT and ˆ pC , we have 
+
+VCM H = 4
+
+n
+
+1
+
+n − 1
+
+> n
+
+∑
+
+> i=1
+
+(Yi − ¯Y )2 = 4
+
+n − 1ˆpT + ˆ pC
+
+2
+
+(
+
+1 − ˆpT + ˆ pC
+
+2
+
+)
+
+.
+
+24 Let ρ := ˆpT +ˆ pC 
+
+> 2
+
+. As in Equation A.3, we have 
+
+ρ(1 − ρ) = 12(ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC )) + (ˆ pT − ˆpC )2
+
+4 .
+
+Therefore, 
+
+VCM H = 2
+
+n − 1[ˆ pT (1 − ˆpT ) + ˆ pC (1 − ˆpC )] + (ˆ pT − ˆpC )2
+
+n − 1 . (23) 
+
+## A.5 Proof of Theorem 3 
+
+By Theorem 2, 
+
+n (E [VCM H ] − Var [ˆ τ ]) = 4
+
+nη⊤Σ⊙2 
+
+> W
+
+η
+
+and by the Fan-Horn inequality (Horn and Johnson, 1991, page 312), 
+
+η⊤Σ⊙2 
+
+> W
+
+η ≤ λ2
+
+> max
+
+(ΣW )∥η∥2.
+
+It follows that 
+
+n (E [VCM H ] − Var [ˆ τ ]) ≤ 4λ2
+
+> max
+
+(ΣW ) 1
+
+n∥η∥2.
+
+We assumed that 1 
+
+> n
+
+∥η∥2 → 0 (Equation 15) and that λmax (ΣW ) is bounded, hence, n (E [VCM H ] − Var [ˆ τ ]) converges to zero. To prove the moreover part, we bound Var [ nV CM H ]. We have that 
+
+Var [2 nV CM H ] = Var 
+
+[ 1
+
+nY ⊤ΣW Y
+
+]
+
+= E
+
+[
+
+Var 
+
+[ 1
+
+nY ⊤ΣW Y | W
+
+]] 
+
++Var 
+
+[
+
+E
+
+[ 1
+
+nY ⊤ΣW Y | W
+
+]] 
+
+.
+
+Given W , the Yi’s are independent. In a previous work (Azriel et al., 2024) we have calculated 
+
+Var [
+
+Z⊤ΣW Z]
+
+where Z has independent entries but not identically distributed (with mean zero). Based on these computations (see Eq. (32) in Azriel et al. (2024)) it can be shown that Var [ 1 
+
+> n
+
+Y ⊤ΣW |W ]
+
+≤ C/n for a constant C when the moments of the Yi’s and 1 
+
+> n
+
+tr [
+
+Σ2
+
+> W
+
+]
+
+are bounded, which is the case in our setting since Yi ∈ { 0, 1} and 1 
+
+> n
+
+tr [
+
+Σ2
+
+> W
+
+]
+
+≤ λ2
+
+> max
+
+(ΣW ), which we assumed is bounded. Consider now Var [
+
+E [ 1 
+
+> n
+
+Y ⊤ΣW Y | W ]] 
+
+. Because E [Yi | Wi] = vi + Wiηi (recall that vi :=  
+
+> pT,i +pC,i
+> 2
+
+and ηi := pT,i −pC,i  
+
+> 2
+
+) and Y 2 
+
+> i
+
+= Yi, then 
+
+E
+
+[ 1
+
+nY ⊤ΣW Y | W
+
+]
+
+= 1
+
+n
+
+∑ 
+
+> i1̸=i2
+
+(vi1 + Wi1 ηi1 )( vi2 + Wi2 ηi2 ) + 1
+
+n
+
+∑
+
+> i
+
+(vi + Wiηi)= 1
+
+n
+
+∑ 
+
+> i1̸=i2
+
+(vi1 + Wi1 ηi1 )( vi2 + Wi2 ηi2 ) + 1
+
+n
+
+∑
+
+> i
+
+vi,
+
+where the last equation is true because ∑ni=1 Wi = 0. It follows that 
+
+Var 
+
+[
+
+E
+
+[ 1
+
+nY ⊤ΣW Y | W
+
+]] 
+
+25 = 1
+
+n2
+
+∑  
+
+> i1̸=i2,i 3̸=i4
+
+{
+
+Cov [( vi1 + Wi1 ηi1 )( vi2 + Wi2 ηi2 ), (vi3 + Wi3 ηi3 )( vi4 + Wi4 ηi4 )] (ΣW )i1,i 2 (ΣW )i3,i 4
+
+}
+
+.
+
+Notice that the case we excluded i1 = i2, i 3 = i4 is non-negative because 
+
+∑
+
+> i1,i 3
+
+Cov [
+
+(vi1 + Wi1 ηi1 )2, (vi3 + Wi3 ηi3 )2]
+
+(ΣW )i1,i 1 (ΣW )i3,i 3
+
+= ∑
+
+> i1,i 3
+
+Cov [
+
+v2 
+
+> i1
+
++ 2 vi1 ηi1 Wi1 + η2 
+
+> i1
+
+, v 2 
+
+> i3
+
++ 2 vi3 ηi3 Wi3 + η2
+
+> i3
+
+]
+
+= 4 ∑
+
+> i1,i 3
+
+vi1 ηi1 vi3 ηi3 Cov [ Wi1 , W i3 ] = 4 ξ⊤ΣW ξ ≥ 0,
+
+where ξi = viηi; the term is non-negative because ΣW is positive semi-definite. It follows that 
+
+Var 
+
+[
+
+E
+
+[ 1
+
+nY ⊤ΣW Y | W
+
+]] 
+
+≤ 1
+
+n2
+
+∑
+
+> i1,i 2,i 3,i 4
+
+{
+
+Cov [( vi1 + Wi1 ηi1 )( vi2 + Wi2 ηi2 ), (vi3 + Wi3 ηi3 )( vi4 + Wi4 ηi4 )] (ΣW )i1,i 2 (ΣW )i3,i 4
+
+}
+
+. (24) Let ¯ ΣW and ¯ η denote the entry-wise absolute value of ΣW and η, respectively, and let M := max i
+
+∑ 
+
+> j
+
+( ¯ ΣW )i,j . By the Gershgorin circle theorem (Varga, 2004, Theorem 1.1), λmax ( ¯ ΣW ) ≤
+
+M . Notice also that 0 ≤ vi ≤ 1, |ηi| ≤ 1 for all i, and that 
+
+∣∣∣( ¯ ΣW )i,j 
+
+∣∣∣ ≤ 1 for all i, j , and that 
+
+|Cov [
+
+W j1 
+
+> i1
+
+W j2 
+
+> i2
+
+, W j3 
+
+> i3
+
+W j4
+
+> i4
+
+]
+
+| ≤ 2 for all i1, i 2, i 3, i 4 and for all non-negative integers j1, j 2, j 3, j 4.We now show that the nine terms of the right-hand side of Equation 24 converge to zero: 
+
+• I: 1
+
+n2
+
+∑
+
+> i1,i 2,i 3,i 4
+
+Cov [ vi1 Wi2 ηi2 , v i3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4
+
+= 1
+
+n2
+
+∑
+
+> i1,i 2,i 3,i 4
+
+vi1 ηi2 vi3 ηi4 (ΣW )i2,i 4 (ΣW )i1,i 2 (ΣW )i3,i 4
+
+≤ 1
+
+n2
+
+∑
+
+> i1,i 2,i 3,i 4
+
+¯ηi2 ¯ηi4 ( ¯ ΣW )i2,i 4 ( ¯ ΣW )i3,i 4
+
+≤ Mn
+
+∑
+
+> i2,i 4
+
+¯ηi2 ¯ηi4 ( ¯ ΣW )i2,i 4
+
+= Mn ¯η⊤ ¯ΣW ¯η
+
+≤ M λ max ( ¯ ΣW ) 1
+
+n∥η∥2
+
+≤ M 2 1
+
+n∥η∥2,
+
+which converges to zero due to Equation 15 and boundness of M .26 • II: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ vi1 Wi2 ηi2 , W i3 ηi3 vi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as I. 
+
+• III: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ vi1 Wi2 ηi2 , W i3 ηi3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4
+
+= 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+vi1 ηi2 ηi3 ηi4 Cov [ Wi2 , W i3 Wi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4
+
+≤ 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+¯ηi3 ¯ηi4 ( ¯ ΣW )i1,i 2 ( ¯ ΣW )i3,i 4
+
+≤ Mn
+
+∑
+
+i3,i 4
+
+¯ηi3 ¯ηi4 ( ¯ ΣW )i3,i 4
+
+= Mn ¯η⊤ ¯ΣW ¯η
+
+≤ M λ max ( ¯ ΣW ) 1
+
+n∥η∥2
+
+≤ M 2 1
+
+n∥η∥2,
+
+which converges to zero due to Equation 15 and boundness of M .
+
+• IV: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 vi2 , v i3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as I. 
+
+• V: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 vi2 , W i3 ηi3 vi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as I. 
+
+• VI: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 vi2 , W i3 ηi3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as III. 
+
+• VII: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 Wi2 ηi2 , v i3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as III. 
+
+• VIII: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 Wi2 ηi2 , W i3 ηi3 vi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4 .
+
+Converges to zero by the same argument as III. 27 • IX: 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+Cov [ Wi1 ηi1 Wi2 ηi2 , W i3 ηi3 Wi4 ηi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4
+
+= 1
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+ηi1 ηi2 ηi3 ηi4 Cov [ Wi1 Wi2 , W i3 Wi4 ] ( ΣW )i1,i 2 (ΣW )i3,i 4
+
+≤ 2
+
+n2
+
+∑
+
+i1,i 2,i 3,i 4
+
+¯ηi1 ¯ηi2 ¯ηi3 ¯ηi4 ( ¯ ΣW )i1,i 2 ( ¯ ΣW )i3,i 4
+
+= 2
+
+n2
+
+(
+
+¯η⊤ ¯ΣW ¯η)2
+
+≤ 2λmax ( ¯ ΣW )2
+
+( 1
+
+n∥η∥2
+
+)2
+
+≤ 2M 2
+
+( 1
+
+n∥η∥2
+
+)2
+
+,
+
+which converges to zero due to Equation 15 and boundness of M .The proof of the theorem is thus concluded. 
+
+# B Additional Simulation Results 
+
+28 0.10 0.20 0.30 0.40 0.50 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Power 
+
+> n = 64  n = 128  n = 256
+
+0.05 0.10 0.15 
+
+Size 
+
+Inference CMH ExtendedRobins Wald Figure 4: Power and size results for legal inference when p = 5. 29 0.84 0.88 0.92 0.96 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Coverage 
+
+> n = 64  n = 128  n = 256
+
+0.2 0.3 0.4 0.5 
+
+Confidence Interval Length 
+
+Inference CMH ExtendedRobins Wald Figure 5: Coverage and confidence interval length results for legal inference when p = 5. 30 0.10 0.20 0.30 0.40 0.50 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Power 
+
+> n = 64  n = 128  n = 256
+
+0.05 0.10 0.15 
+
+Size 
+
+Inference CMH ExtendedRobins Wald Figure 6: Power and size results for legal inference when p = 10. 31 0.85 0.90 0.95 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+BCRD Optimal B=2 Optimal B=4 Optimal B=8 Optimal B=16 Optimal B=32 Optimal B=64 Optimal B=128 Naive B=2 Naive B=4 Naive B=8 Naive B=16 Naive B=32 Naive B=64 Naive B=128 Rerandomization GreedyMD BinaryMatchThenGreedyMD 
+
+Coverage 
+
+> n = 64  n = 128  n = 256
+
+0.2 0.3 0.4 0.5 
+
+Confidence Interval Length 
+
+Inference CMH ExtendedRobins Wald Figure 7: Coverage and confidence interval length results for legal inference when p = 10. 32

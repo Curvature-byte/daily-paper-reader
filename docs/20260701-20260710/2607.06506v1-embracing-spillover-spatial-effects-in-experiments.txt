@@ -1,0 +1,731 @@
+Title: Embracing Spillover: Spatial Effects in Experiments
+
+URL Source: https://arxiv.org/pdf/2607.06506v1
+
+Published Time: Wed, 08 Jul 2026 01:21:24 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+, 2026, pp. 1–27 
+
+> doi:
+> Article
+
+ARTICLE 
+
+# Embracing Spillover: Spatial Effects in Experiments 
+
+Samuel I. Watson, 1, ∗ Penny Hancock, 2 Jack Fraser-Govil, 1 Kieran DeWalt 2
+
+and Thomas A. Smith 3      
+
+> 1Department of Applied Health Sceinces, University of Birmingham, Birmingham, United Kingdom, 2Department of Infectious Disease Epidemiology, Imperial College, London, United Kingdom and 3Swiss Tropical and Public Health Institute, Switzerland
+> ∗Address for correspondence. Samuel I. Watson, University of Birmingham, Birmingham, B15 2TT, United Kingdom. s.i.watson@bham.ac.uk
+
+Abstract 
+
+Interventions delivered in space generate effects that spill over between experimental units. We develop a framework for spatial experiments in which causal estimands, inclduing direct, indirect, total, and dose–response effects, are linear functionals of a spillover kernel. Under cluster randomisation with a fixed exposure set size, the data identify the shape of the kernel but not its level: the level is aliased with the intercept and direct effect, at any sample size and under any outcome model. Every estimator therefore rests on an anchoring assumption that fixes the level. We derive an exact decomposition of the bias of any anchored estimator into a level term, a shape error from kernel misspecification, and a leakage term absorbed by the realised geometry, each computable from the design before data collection. A single scalar, the level leverage, gives each estimand’s exposure to the unidentified level, the exact level bias, and the variance cost of estimating the level instead. The conventional cluster-trial analysis is the special case of an implicit anchor, with contamination bias in closed form. Existing approaches, including identification through Bernoulli randomisation, elicited bounds on interference decay, and assumed compact support, are, within the linear exposure mapping, anchoring choices in this framework. We give a taxonomy of design augmentations that purchase the level and a criterion for when to augment and when to anchor. 
+
+Key words: Experimental design; spatial statistics; randomized controlled trial; cluster trial 
+
+1. Introduction 
+
+1.1. Background 
+
+Many interventions in health and medicine have inherently spatial effects. Archetypal examples in the health space are interventions that prevent the transmission of vector-borne illnesses, such as providing insecticide treated bed nets (Binka et al., 1998; Mosha et al., 2024), or new technologies like releasing genetically modified mosquitos (Habtewold et al., 2026). Typically the experimental design used to evaluate the effectiveness of these interventions is the cluster randomised trial (CRT). CRTs involve groups of participants, which are randomly allocated to treatment and control conditions (Eldridge and Kerry, 2012). These designs are typically used when the intervention affects the whole or part of the group, or when intervening on any   
+
+> ©The Author 2026.
+> 1arXiv:2607.06506v1 [stat.ME] 7 Jul 2026 2S.I. Watson et al.
+
+member of the group affects others within the group. In these cases, the standard individual randomized controlled trial design would generate a biased estimator of an average treatment effect (ATE) due to ‘spillover’ between treated and control individuals. As such the whole group is randomized together. The spatial nature of the interventions in some CRTs can lead to a violation of core identifying assumptions. For cluster randomized, and other types of trials, an identifying assumption is the stable unit treatment value assumption (SUTVA), which states that an individual’s or cluster’s outcome is only determined by their treatment status and not by the allocation of any other unit. However, if, by reducing the risk of, for example, malaria in treated clusters, we also reduce the risk in nearby control clusters we violate SUTVA and bias the treatment effect estimator. To try to ensure SUTVA is satisfied in trials with a spatial setting, trialists often aim to space clusters far enough apart to prevent spillover. A common approach is the ‘fried egg’ design, which includes a buffer zone around each cluster excluded from analyses (Hayes and Moulton, 2009). Sufficiently spacing clusters is not always feasible though and some recent large cluster trials have acknowledged the effect of spillover. For example, a trial of Wolbachia-infected mosquito deployments to reduce the risk of dengue fever, acknowledged spillover and computed an exposure index for participants who commuted between clusters, and carried out a supplementary analysis allowing for spillover caused by human movement (Utarini et al., 2021). In this article, we argue that the traditional spaced CRT design has potential flaws when the intervention exhibits spatial effects. First, the spacing between clusters may make the assumption of no between cluster spillover untestable. Second, estimated own-trial ATEs from traditional spaced CRTs are not transportable to new geometries. And third, estimands beyond the ATE are often not identifiable from the data. 
+
+> 1.2. Spatial effects in experiments
+
+There are several mechanisms by which an intervention can exert its effects spatially. First, for some interventions effects are generated from a source (e.g. facility, release site, pollution origin). Everyone has a continuous exposure to the intervention that is a function of distance to source either through diffusion mechanism or a propensity to travel to the site. In these cases, there may be interest in estimating a dose-response function. Second, in a ‘direct/indirect’ framework treatments are assigned to discrete units (e.g. households or individuals) and the outcome for any unit depends on its own treatment status and those of its neighbours. The indirect effects are also a continuous function of distance. Indeed, this article argues that the two frameworks are unified by a common distance kernel that is assumed to be transportable. Despite the range of potential spatial mechanisms of many interventions, incorporation of spatial models in experimental design and analysis is rare (Jarvis et al., 2017). Three recent papers address spatially structured estimands directly, and each resolves the same underlying problem by a different route. Wang et al. (2025) show that under Bernoulli assignment, Embracing Spillover 3
+
+randomisation alone nonparametrically identifies the marginal effect of activating treatment at a given distance: both arms of the switch have positive probability by design, and the estimand references the design’s own ambient exposure distribution rather than a counterfactual the design cannot reach. Leung (2025) instead restricts the reach of interference, eliciting a bound on its spatial decay and pricing the residual bias into estimator choice, cluster construction, and bias-aware intervals. Watson and Smith (2025) assumes compact support of the spatial effect kernel outright, which identifies dose–response estimands under a range of randomisation schemes, but does not examine the consequences of kernel misspecification or of the support assumption failing. Many of the quantities trialists report resist all three routes as stated: the direct effect of treatment, the total effect on a treated cluster, and the spillover-distance curve referenced to the absence of intervention depend on outcomes under a counterfactual with no treatment anywhere, an allocation to which cluster-randomised designs assign zero probability, and which their fixed margins prevent the data from approaching. We show in this article that this dependence is the source of a structural non-identifiability that randomisation cannot resolve, characterise exactly which estimands are exposed to it, and quantify what every estimator must assume, implicitly or explicitly, to report them. Other recent methodological work in this area has focused on cluster selection and cluster design in the context of a bias-variance trade-off for the difference in means estimator, rather than explicitly incorporating the spatial dependence structure for the experimental design and analysis (Leung, 2025). There have been several re-analyses of prior trials that demonstrate spatially varying effects of interventions as functions of distance from intervention locations (e.g. Jarvis et al. (2019); Anaya-Izquierdo and Alexander (2021); Multerer et al. (2021)). Watson (2021) considered efficient cluster design under spatial correlation. Other work in this area focuses on approaches to minimising spillover, such as through restricted randomisation (McCann et al., 2018). In other settings, particularly network-based inference, both direct and indirect effects of treatments are considered (Forastiere et al., 2021; Leung, 2022). Hudgens and Halloran (2008)’s partial interference framework considers interference within groups and the estimation of direct and indirect effects, for example. Vaccine cluster randomised trials also consider direct and indirect effects with different levels of vaccine exposure within clusters (Kilpatrick et al., 2020). Our framework considers that the spillover effect is mediated non-linearly through some smooth function of distance in a relevant metric, which requires extending the methods for direct and indirect effects to a spatial domain. 
+
+> 1.3. Outline
+
+Our central claim is that spacing clusters and intervention sites can make spillover unverifiable from the trial outcome data over the distances that matter. Whilst trial data can potentially identify the shape of the spillover kernel, the level of spillover is unindentified, and so the 4 S.I. Watson et al. 
+
+conventional remedy of separating the clusters cannot guarantee that between-cluster spillover is removed, but instead is precisely the design which renders this assumption unfalsifiable. When residual spillover is scientifically plausible, design augmentation can convert an untestable assumption into an estimable component. We present the mathematical arguments in four steps: first, we set up a general framework for spatial estimands; second, we consider the identifiability of these estimands; third, we develop an analysis of estimation of the estimands; and fourth, we present quantitative measures of the issues we identify. The analysis is supplemented with a short simulation-based study. 
+
+> 2. Estimands
+> 2.1. Setup and potential outcomes
+
+We assume a spatial, geographic setting. Let N individuals be located at s1, ...s N in a compact domain D. We assume a Euclidean plane D ⊂ R2. We let k(i) ∈ { 1, ..., K } denote the cluster of individual i. For simplicity we assume there are n individuals per cluster so that Kn = N ,but we note that n could be one and the framework does not explicitly require a clustered design. The treatment is assigned at the cluster level z ∈ { 0, 1}K and is drawn under a balanced randomisation scheme z ∈ Z . We notate zk(i) as the treatment status of cluster k and ˜ z as the unit level vector of treatment effects. We define a ‘source configuration’ for the locations of the indirect spatial effects T = {t1, ..., t M } ⊂ D with a cluster mapping ι : T → { 1, ..., K } which carries treatment zι(t). The sources could be other treated individuals or intervention sources as in Watson and Smith (2025). Each individual has an exposure set Ti = Ai \ Ei, where Ei ⊂ T 
+
+is an exclusion rule that removes a fixed number qi ≥ 0 of own-cluster sources, and Ai ⊆ T are sources eligible to affect i, which may be smaller than T through exclusions, design restrictions, or otherwise. The distance metric is d(si, t ) where t ∈ T i. The distance may be Euclidean but our analysis is metric and domain agnostic. The maximum pairwise distance between two locations is D.
+
+> 2.2. Source counts and exposure measures
+
+We introduce counting notation for the intervention sources. Let Aik = |{ t ∈ A i : ι(t) = k}| be the number of unit i’s excluded sources belonging to cluster k, and Mk := |{ t ∈ T : ι(t) = k}| 
+
+the number of sources belonging to cluster k, with 
+
+M (z) := X
+
+> t∈T
+
+zι(t) =
+
+> K
+
+X
+
+> k=1
+
+Mkzk
+
+the total treated-source count under allocation z. When cluster source counts are equal we write 
+
+m0 for their common value, so Mk = m0 for all k; the margin constant M0 below is unrelated to the cluster counts Mk. Three design properties recur throughout: Embracing Spillover 5
+
+(H1) (Global exposure) every source lies within the modelled range of every unit: Ti = T \ A i for all i;(H2) (Homogeneous exclusion) Ai contains only sources in cluster k(i), with |A i| = q for all i;(H3) (Fixed margin) M (z) = M0 for all z ∈ Z .Typically q = 1, corresponding to excluding the focal unit’s own source from the spillover sum so that own treatment is captured by the direct-effect parameter rather than double-counted as indirect exposure, for q = 0 for interventions whose sources are separate from the beneficiaries. Estimands and spillover summaries are expressed through measures on distance. Let w be a finite signed measure on [0 , D ], with D the maximum pairwise distance, and c ∈ { 0, 1} adirect-effect indicator, and define 
+
+⟨f, w ⟩ := 
+
+Z D
+
+> 0
+
+f (u) w(du ), m(w) := w([0 , D ]) , ℓ(w, c ) := m(w) + qc. 
+
+We call m(w) the level mass and ℓ(w, c ) the level leverage of the estimand ( w, c ): it counts, per unit, the exposure pairs through which the estimand references the unexposed counterfactual. Writing ∆ d for a unit point mass at distance d, so ⟨f, ∆d⟩ = f (d), the empirical exposure measures are 
+
+wW := 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+X
+
+> t∈T i
+> ι(t)= k(i)
+
+∆d(si,t ), wB := 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+X
+
+> t∈T i
+> ι(t)̸=k(i)
+
+∆d(si,t ),
+
+so that m(wW ) and m(wB ) are the average per-unit within- and between-cluster source counts. Under (H1)–(H2) with equal cluster source counts and q = 1, m(wW ) = m0 − 1 and 
+
+m(wB ) = ( K − 1) m0; the fixed margin (H3) plays no role in these counts. The anchor measure 
+
+h is the limiting density of the exposure distances, the normalised limit of wW + wB under Condition C3(ii); its within- and between-cluster components hw and hb are defined where they are first used, at the estimands table. 
+
+> 2.3. Finite-population causal estimands
+
+For individual i, let Yi(x, ai) denote the potential outcome when the individual’s own direct treatment status is x ∈ 0, 1 and the active-source configuration in their exposure set Ti is 
+
+ai = ( ait : t ∈ T i) for ait ∈ { 0, 1}. Under the realised allocation the arguments are x = zk(i) and 
+
+ait = zι(t), and we write Yi(z) for the resulting potential outcome. The configurations in Table 1 are not of this form. Let 0i denote the source configuration in which all sources in Ti are inactive. Let aWi denote the configuration in which all own-cluster sources in Ti are active and all other sources are 6 S.I. Watson et al. 
+
+Estimand Finite-population definition Interpretation 
+
+τDE 
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(1 , 0i) − Yi(0 , 0i)} Own direct treatment effect when all exposure sources are inactive. 
+
+τW
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(0 , aWi ) − Yi(0 , 0i)} Indirect effect of activating own-cluster sources, holding own direct treatment inactive. 
+
+τB
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(0 , aBi ) − Yi(0 , 0i)} Indirect effect of activating between-cluster sources, holding own direct treatment inactive. 
+
+τcluster 
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(1 , aWi ) − Yi(0 , 0i)} Effect of treating the individual’s own cluster, including own direct treatment and own-cluster source exposure. 
+
+AT E trial 
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(1 , aW B i ) − Yi(0 , 0i)} Effect of universal rollout in the trial geometry. 
+
+θ(d) 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(0 , adi ) − Yi(0 , 0i)} Effect of activating a single source at distance d, with own treatment inactive and all other sources inactive. 
+
+θ(d) − θ(d′) 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(0 , adi ) − Yi(0 , ad′ 
+
+> i
+
+)} Contrast between a source at distance d
+
+and a source at distance d′.¯θhs
+
+Z "
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+{Yi(0 , aui ) − Yi(0 , 0i)}
+
+#
+
+hs(u), du Mean effect of placing one new source, where the distance from individuals to that source has density hs.           
+
+> Table 1. Finite-population causal estimands and their model-implied forms under the additive spatial response model. The definitions do not require the additive model; the final column gives the corresponding expression when Yi(x, ai) = α+τ x +P
+> t∈T iϕ(di,t )ait +εi.
+
+inactive aWit = 1ι(t) = k(i). Let aBi similarly denote the configuration in which all between-cluster sources in Ti are active and aW B i denote the configuration in which all sources in Ti
+
+are active. For dose-response estimands, let adi denote a hypothetical source configuration with exactly one active source at distance d from individual i and no other active sources. Table 1 shows different estimands within a fixed-margin, homogeneous exclusion framework, including a standard ATE under a universal roll-out, but also including dose-response Watson and Smith (2025); Wang et al. (2025), and a spatial direct and indirect effect. These estimands also extend existing approaches to direct and indirect effects (Forastiere et al., 2021; Leung, 2022), two-level effects (Vanderweele et al., 2013), and partial interference (Hudgens and Halloran, 2008). Embracing Spillover 7
+
+Estimand Model form c w ℓ(w, c ) ℓ(w, c )* 
+
+τDE τ 1 0 q 1
+
+τW ⟨ϕ, w W ⟩ 0 wW m(wW ) m0 − 1
+
+τB ⟨ϕw, w B ⟩ 0 wB m(wB ) (K − 1) m0
+
+τcluster τ + ⟨ϕ, w W ⟩ 1 wW m(wW ) + q m0
+
+AT E trial τ + ⟨ϕ, w W + wB ⟩ 1 wW + wB m(wW ) + m(wB ) + q Km 0
+
+ϕ(d) − ϕ(d′) ⟨ϕ, ∆d − ∆d′ ⟩ 0 ∆d − ∆d′ 0 0
+
+ϕ(d) ⟨ϕ, ∆d⟩ 0 ∆d 1 1¯ϕhs ⟨ϕ, h s⟩ 0 hs 1 1    
+
+> Table 2. Estimands expressed as linear functionals. *values of ℓ(w, c ) under the fixed-margin, homogeneous exclusion case with q= 1
+
+2.4. Estimands as linear functionals 
+
+We specify an additive model for the potential outcomes: 
+
+Yi(z) = α + τ z k(i) + S[ϕ]i(z) + εi, ε ∼ N (0 , Σ) (1) with spillover exposure S[ϕ]i(z) := P 
+
+> t∈T i
+
+ϕ(di,t )zι(t), where ϕ : [0 , D ] → R is the true spillover kernel. The spillover term is an exposure mapping (Aronow and Samii, 2017; S¨ avje, 2024) linear in treated sources with a nonparametric distance kernel, so misspecification of the kernel’s shape is accommodated throughout, while nonlinearity in the exposure itself is not. Every causal quantity we consider is an estimand of the form: 
+
+θ := cτ + ⟨ϕ, w ⟩ (2) Table 2 shows the different estimands and the respective values of the components of (2). Time enters the framework as columns of X0 rather than as new structure. We develop the consequences, including the level-aliasing of standard time-adjusted staggered roll out models, in §5.2, and keep the kernel static throughout. 
+
+2.5. Transportability 
+
+The parameters ( τ, ϕ ) are properties of the intervention mechanism. If the mechanistic kernel is stable across settings after choosing the appropriate distance metric and covariates, then geometry-specific effects can be transported by changing w. Effects in the target are obtained by evaluating the functional at new w including distributions ( hw, h b) and a new configuration 
+
+T ′.
+
+3. Identifiability 
+
+A key structural result is the level non-identifiability of the spillover kernel. Proofs of this and the subsequent statements are provided in the Supplementary Material. 8 S.I. Watson et al. 
+
+Proposition 1 (Level aliasing) Write η(z) = α1+τ ˜z+S[ϕ]( z) for the linear predictor, X0(z) = [1, ˜z], and s0(z) = S[1]( z).(i) For a realised allocation z, the level of ϕ is aliased with (α, τ ) if and only if s0(z) ∈
+
+col {X0(z)}: writing s0(z) = X0(z)b, the triples (α, τ, ϕ ) and (α − ab 0, τ − ab 1, ϕ + a)
+
+induce the same η(z) for every a ∈ R.(ii) If every source lies within the modelled range of every unit (H1) and each unit excludes exactly q own-cluster sources (H2), then s0(z) = M (z)1 − q˜z, so the criterion holds at every allocation, whatever the randomisation scheme. If additionally the source margin is fixed, 
+
+M (z) = M0 on Z (H3), the flat direction is common to all allocations: 
+
+(α, τ, ϕ ) 7 −→ (α − aM 0, τ + aq, ϕ + a), a ∈ R.
+
+(iii) Under (H1)–(H3), moving along the flat direction changes θ(w, c ) = cτ + ⟨ϕ, w ⟩ by a ℓ (w, c ),where ℓ(w, c ) := m(w) + qc . Hence θ(w, c ) is unidentified without an anchor ( §4.2) whenever 
+
+ℓ(w, c )̸ = 0 , while estimands with ℓ(w, c ) = 0 are invariant to the unidentified level. (iv) Parts (i)–(iii) hold throughout the class of models in which the law of y given z depends on 
+
+(α, τ, ϕ ) only through η(z): the linear model with any covariance Σ free of (α, τ, ϕ ), generalised linear models with E(yi | z) = g−1{ηi(z)}, and mixed models whose conditional law given random effects depends on the parameters only through η(z) + Zb. In this class the flat direction leaves the likelihood invariant at every z ∈ Z and every sample size: the data identify the centred kernel ˜ϕ = ϕ − ⟨ ϕ, h ⟩ and the combinations α + M0⟨ϕ, h ⟩ and τ − q⟨ϕ, h ⟩,but not ⟨ϕ, h ⟩ itself. 
+
+Three consequences frame what follows. First, the non-identification is structural, not statistical: by (iv) it holds at any sample size and cannot be broken by modelling the second moment, since in a mean–variance family the working variance is a function of the invariant η
+
+and the random-effects covariance does not involve ( α, τ, ϕ ). This consequence persists under temporal extension, where free period effects absorb the level regardless of rollout sequence (§5.2). Only a design feature placing s0(z) outside col {X0(z)} identifies the level ( §5). Second, by (iii) the exposure of an estimand to the unidentified level is measured by the single scalar 
+
+ℓ(w, c ); Table 2 catalogues its value for the standard trial estimands, including ℓ = q̸ = 0 for the direct effect itself. Third, our results are statements on the linear-predictor scale. Outcome-scale contrasts such as risk differences are nonlinear functionals of η and inherit the non-identification through the link whenever they depend on the kernel level. Estimands with ℓ(w, c ) = 0 are invariant to the unidentified level and are identified by randomisation alone. Distance contrasts of the marginalised response curve of Wang et al. (2025) are of this form. The curve itself is not and under the additive model their average marginalized effect at distance d is ϕ(d), the estimand (∆ d, 0) with ℓ = 1, and its identification Embracing Spillover 9
+
+in their framework is supplied by the design rather than by level-invariance. Bernoulli assignment generates the allocation-to-allocation exposure variation that part (ii) shows is absent conditional on any realised allocation under a fixed margin. Their own treatment of completely randomised designs, where the marginal contrast loses its ceteris paribus interpretation and is recovered only asymptotically under local interference, is precisely this aliasing, and its resolution by local interference is the compact-support anchor of §6, met from the design-based side. The remaining rows are the estimands that fall outside the invariant class and require either an anchor or a design that supplies level information. Proposition 1 shows the constants are lost. For a kernel class H, define the design null set 
+
+N := {ψ ∈ H − H : S[ψ]( z) ∈ col( X0(z)) }, the shape differences the realised design cannot distinguish from intercept and treatment adjustments. Then the following proposition shows when the shape is identified. 
+
+Proposition 2 (The shape is identified) Say the design is contrast-complete for H if N contains only functions constant h-a.e. Then any two triples generating the same linear predictor at z
+
+have kernels differing by a constant: the centred kernel ˜ϕ = ϕ−⟨ ϕ, h ⟩ is identified, the equivalence classes are exactly the constant shifts {ϕ + a : a ∈ R}.
+
+> 4. Estimation and Bias
+> 4.1. Working Model
+
+Our statistical model for the analysis of bias for observation i = 1 , ..., N in cluster k(i) is 
+
+yi = α + τ z k(i) + S[κ]i(z) + εi, ε ∼ N (0 , Σ) (3) where the kernel κ ranges over a working class K, a set of functions on [0 , D ], with example families given below in §4.3. By Propoisition 1 we require K ∩ { constants } = {0}. The spatial covariance matrix is Σ, which is assumed stationary and isotropic, with Ω = Σ −1.For this model we define the working analysis matrix as 
+
+XK(z) = [ 1, z, S [ψ1]( z), ..., S [ψJ ]( z)] where z is excluded if there is no direct treatment column. And we further define the level-augmented working matrix as: 
+
+X+ 
+
+> K
+
+(z) = [ XK(z), s 0(z)] 
+
+> 4.2. Anchors
+
+Every estimand with ℓ(w, c )̸ = 0 references the counterfactual Yi(0 , 0). For many spillover kernels, all individuals in the study area may have some level of exposure to a source, and Propositions 1 and 2 show that the data only provides information about the shape of the kernel 10 S.I. Watson et al. 
+
+and not its level in these cases. We define an ‘anchor’ as the empirical stand-in for the untreated counterfactual. More formally, an anchor is a pair ( A, a 0), where A is a linear functional on kernels with A(1) = 1 and a0 ∈ R is its assumed value (throughout, a0 = 0). The anchor selects from each equivalence class {ψ + a : a ∈ R} the unique representative satisfying A(ψ) = a0. The 
+
+anchoring error at the truth is: ¯e := A(ϕ) − a0
+
+the amount by which the true kernel violates the anchoring assumption. We also define the kernel error e = ϕ − κ and shape error ˜ e = e − ¯e.
+
+> 4.3. Estimators
+
+Every estimator we consider is the GLS fit, with weight Ω (estimated under C6), of y on 
+
+XK = [ 1, z, S [ψ1], . . . ], profiled over ρ in nonlinear cases; estimators differ only in the working class K: 
+
+> •
+
+Parametric. K = {b ψ p(·; ρ) : b ∈ R, ρ ∈ Θ}, a working kernel family of any prescribed smoothness, e.g. exponential or Mat´ ern kernels, or Wendland’s compactly supported constructions (Gneiting, 2002).  
+
+> •
+
+Semiparametric. Fix a truncation radius R < D and order p ≥ 1; K = Pp 1[0 ,R ] with {ψj }pj=0 
+
+an orthonormal basis for Pp[0 , R ] in L2(h).  
+
+> •
+
+Traditional cluster trial. K = {0}: no spillover columns.  
+
+> •
+
+Dose-response. K parametric or semiparametric as above, with z omitted because units are not themselves treated; only estimands with c = 0 are available, and the level aliasing persists with the intercept in place of the period pair, s0 = M01, at leverage ℓ = m(w). The fitted element of K estimates a projection, not ϕ. For the parametric family, let ρ∗ denote the pseudo-true lengthscale (C6) and define 
+
+b = ⟨ ˜ϕ, ˜ψp(·; ρ∗)⟩h
+
+∥ ˜ψp(·; ρ∗)∥2
+
+> h
+
+, a = ⟨ϕ, h ⟩ − b ⟨ψp(·; ρ∗), h ⟩,
+
+with the analogous L2(h) projection coefficients in the linear case. The two coefficients have opposite statuses: b is identified (Proposition 2), while a is the level coordinate of the flat direction in Proposition 1(ii) and is supplied by the estimator’s anchor. Table 3 lists, for each estimator, the induced anchor A, the anchored projection κ (satisfying A(κ) = 0), and the resulting errors ¯ e = A(ϕ) and ˜ e = ˜ϕ − b ˜ψp(·; ρ∗). For a target (2) the plug-in estimator is ˆθ = cˆτ + ⟨ˆκ, w ⟩,
+
+evaluable for any w (with ˆ κ = 0 for the traditional analysis, recovering the standard estimator). Embracing Spillover 11 
+
+Estimator Anchor functional A(f ) ¯e ˜e
+
+Parametric Affine-projection intercept: ¯f − b(f ) ¯f (ρ) a r
+
+Semi-parametric Tail mean: 
+
+R DR h(u)du 
+
+−1 R DR h(u)f (u)du mean ϕ on ( R, D ] ∼ rm
+
+Traditional CRT Between-cluster mean: ⟨f, h b⟩ ¯fb f − ¯fb 
+
+> Table 3. Three classes of estimator and their associated anchors and errors
+> 4.4. Conditions
+
+We state a high-level condition we rely on for subsequent analyses. The remaining Conditions C2–C7 (provided in Supplementary Material) impose standard regularity conditions: geometry stabilises, the working precision is well-conditioned, covariance parameters are estimable, a CLT holds. Fix an estimand direction ( w, c ), working class K = span( ψ1, . . . , ψ J ), and weights Ω, and suppose XK(z)⊤Ω XK(z) is nonsingular. For any f with S[f ]( z) well defined, the projection functional is 
+
+PN,w,c (f ; z) := a⊤
+
+> w,c
+
+{XK(z)⊤ΩXK(z)}−1XK(z)⊤Ω S[f ]( z), aw,c =  0, c, ⟨ψ1, w ⟩, . . . , ⟨ψJ , w ⟩⊤,
+
+and the effective level leverage is 
+
+LN,w,c (z) := m(w) − P N,w,c (1; z).
+
+PN,w,c (f ; z) is the amount by which an omitted spillover component f in the true mean is absorbed into the plug-in estimand by the GLS fit. Condition 1 (Anchor-compatibility) Fix an estimand direction (w, c ), a working class K, weights 
+
+Ω, and an anchor (A, a 0). Let R ⊂ H − H be the residual class: a linear class of candidate spillover misspecifications, equipped with norm ∥·∥ R, containing the anchored error ˜e = e−A(e)1
+
+for every ϕ under consideration, and closed under centring f 7 → f − A(f )1. Write R0 = {f ∈R : A(f ) = 0 }.(a) (Nondegeneracy) There is c0 > 0 such that, with probability tending to one, 
+
+λmin {ν−1 
+
+> N
+
+XK(z)⊤Ω XK(z)} ≥ c0, where νN is the information scale of the sampling regime (νN = K under increasing domain; νN = N under infill with observation-level noise). (b) (Negligible shape projection) sup   
+
+> f∈R 0, f ̸=0
+
+PN,w,c (f ; z)
+
+∥f ∥R
+
+= op(1) .
+
+The design, working class, weights, and anchor are anchor-compatible for (w, c ) if (a) and (b) hold. 12 S.I. Watson et al. 
+
+The constant direction is excluded deliberately in Condition 1 as PN,w,c (1; z) requires no asymptotic condition. It is a computable design constant, equal to −qc under (H1)–(H3) and to 
+
+m(w)−LN,w,c (z) in general, and its contribution to the bias is the exact level term of Theorem 3. For general f ∈ R , decomposing f = A(f )1 + ˜f and applying (b) recovers PN,w,c (f ; z) = 
+
+PN,w,c (1; z)A(f ) + op(1) ∥f ∥R.Condition 1(b) is the estimation-level counterpart of contrast completeness (Proposition 2). The identification condition asserts that no anchored shape is exactly aliased with the design column, it asserts that anchored shapes are asymptotically orthogonal, in the Ω-projection sense, to the particular estimating direction aw,c . Condition 1(a) is the quantitative form of the requirement that the working columns be well separated from the aliased subspace; it fails precisely when some S[ψj ] is nearly constant on the realised exposure distribution, the failure mode determined by I0.Both parts depend on the anchor only through the centring. Changing A changes which representative of each equivalence class must project negligibly. A design compatible with a tail-mean anchor need not be compatible with a point anchor at D, since the two centrings differ by functions concentrated where the design may have sparse distance support. 
+
+> 4.5. General bias of anchored estimators
+
+We now present the main bias result for anchored estimators. 
+
+Theorem 3 (Projection bias of anchored plug-ins) Conditional on the realised allocation z,
+
+E(ˆθ | z) − θ = PN,w,c (e; z) − ⟨ e, w ⟩ = − LN,w,c (z) ¯ e
+
+| {z }
+
+> level
+
+− ⟨ ˜e, w ⟩
+
+| {z }
+
+> shape
+
++ PN,w,c (˜ e; z)
+
+| {z }
+
+> leakage
+
+.
+
+Under the canonical design (H1–H3), LN,w,c (z) = ℓ(w, c ) = m(w) + qc exactly; if additionally Condition 1 holds, the leakage term is op(1) and 
+
+E(ˆθ) − θ = − ℓ(w, c ) ¯ e − ⟨ ˜e, w ⟩ + op(1) .
+
+Two invariances sharpen the reading of the level term. First, it is invariant to the link and the working weights. For any model in the class of Proposition 1(iv) fitted by quasi-likelihood, the first-order bias admits the same decomposition with Ω replaced by the working precision at the fit. And, since s0(z) ∈ col {X0(z)} under (H1)–(H3) regardless of the metric, the projection of the constant direction, and hence the level term −ℓ(w, c )¯ e, is unchanged. Only the shape and leakage terms are reweighted. Second, the level term is eliminated exactly when the level is estimated. If the design breaks the aliasing ( I0 > 0, Proposition 4) and the working model includes the column s0(z) with plug-in weight m(w), then PN,w,c (1; z) = m(w), LN,w,c (z) = 0, Embracing Spillover 13 
+
+and the bias reduces to shape error and leakage alone. The choice between these two routes of assuming the level or estimating it is priced by Proposition 4(iii). Corollary 1 (The traditional CRT analysis) Under complete randomisation of K1 of K equal-size clusters, the difference-in-means estimator satisfies 
+
+Eˆτcrt 
+
+ = τ + ( m0 − q) ¯ϕw − m0 ¯ϕb = τcluster − m0 ¯ϕb.
+
+It is the plug-in of Theorem 3 with empty working class and induced anchor A(f ) = ⟨f, h b⟩: for the target τcluster its leakage exactly offsets its shape error, leaving pure level bias −ℓ(wW , 1) ¯ϕb
+
+with ℓ(wW , 1) = m0; for τDE it is additionally biased by the absorbed within-cluster spillover 
+
+⟨ϕ, w W ⟩. It is unbiased for τcluster and hence AT E if and only if the between-mean anchor is valid, ¯ϕb = 0 as holds by design when all between-cluster distances exceed the kernel range. 
+
+Under (H1)—(H3), S[1]( z) = M01 − qz so PN,w,c (z) = −qc and LN,w,c (z) = m(w) + qc =
+
+ℓ(w, c ). The original level leverage ℓ(w, c ) is therefore the effective level leverage in the canonical spaced-CRT setting. Leung (2025) sharpens the fried-egg exclusion to units not surrounded by same-arm clusters, an analysis-stage form of the same anchor validation. Their observation that the classical version shifts the estimand to the cluster-interior subpopulation applies under unit-level heterogeneity, which the common-kernel model relegates to the exposure-misspecification caveat. In designs that break the constant-kernel aliasing and include S[1]( z) as an estimable level column, PN,w,c (z) = m(w) and the level term vanishes without requiring an external anchor. If none of these conditions is credible, estimands with nonzero effective level leverage remain sensitive to the unobserved level of the spillover kernel. Fix reference constants ( M0, q ) and define the exposure perturbation 
+
+r(z) := s0(z) − M01 + q˜z.
+
+Proposition 4 (Level information and the price of not anchoring) Let XK(z) denote the anchored working design and X+(z) = [ XK(z), s 0(z)] its enrichment by the level column, with 
+
+Ω = Σ −1. Define the level information 
+
+I0(z) := min  
+
+> b
+
+{s0 − XK(z)b}⊤Ω{s0 − XK(z)b},
+
+and suppose I0(z) > 0. Let ˆθ− and ˆθ+ be the anchored and enriched GLS plug-ins for θ(w, c ).Then, conditional on z:(i) (Exact variance decomposition) Var( ˆθ+ | z) = Var( ˆθ− | z) + LN,w,c (z)2/I 0(z).14 S.I. Watson et al. 
+
+(ii) (Near-aliasing bound) If s0(z) = M01 − q˜z + r(z), then since 1, ˜z ∈ col( XK), I0(z) = min b ∥r − XKb∥2Ω ≤ r(z)⊤Ω r(z).(iii) (Anchoring rule) Up to shape terms, MSE( ˆθ−) − MSE( ˆθ+) = L2 
+
+> N,w,c
+
+{¯e 2 − I−10 }: anchoring dominates if and only if |¯e| < I 0(z)−1/2.
+
+Proposition 4 reduces level identification to a single question: how much Ω-weighted variation does the constant-exposure vector s0(z) retain after the working columns are partialled out? Writing s0(z) = M01 − q˜z + r(z), the idealised part is annihilated by the projection, so 
+
+I0(z) = min  
+
+> b
+
+∥r(z) − XK(z)b∥2Ω ≤ ∥ r(z)∥2Ω.
+
+All level information therefore resides in the exposure perturbation r(z), and only in the part of it that the working columns cannot reproduce. We define design choices generating peturbations in §5. The shape term is controlled by approximation only in the directions w weights: for absolutely continuous targets w(d u) = g(u)h(u) d u, |⟨ ˜e, w ⟩| ≤ ∥ ˜e∥h∥g∥h, while targets with atoms, such as θ(d), require pointwise control of ˜ e at the evaluation distances (whence the continuity clause of C2). The leakage term, by contrast, is a property of the realised fit, design, weighting, and working basis, rather than of the target, and is op(1) under Condition 1(b). 
+
+> 4.6. Inference and the sampling regime
+
+Conditional on z, ˆθ = g⊤ 
+
+> w
+
+(ˆ τ , ˆβ)⊤ with gw =  c, ⟨ψ1, w ⟩, . . . , ⟨ψJ , w ⟩⊤ is a fixed linear combination of GLS coefficients, so under C7 it is asymptotically normal about E(ˆθ | z) with variance VN (z) = g⊤ 
+
+> w
+
+V (z)gw, where V (z) is the GLS covariance of (ˆ τ , ˆβ); under C6 the same holds with estimated covariance parameters. The rate is governed by the information scale 
+
+νN of Condition 1(a): under increasing domain ( K → ∞ , bounded cluster sizes, summable correlations), νN = K and VN (z) = O(K−1). Under infill of a bounded domain, any observation-level independent variation, including individual noise, a nugget, binomial or Poisson sampling, gives X⊤K ΩXK ≍ N and VN (z) → 0. Only a nugget-free, purely spatially correlated process saturates at a positive limit (Zhang and Zimmerman, 2005); there C5 fails and the asymptotics of this section are not claimed. Two things about this otherwise standard theory are not standard. First, the calibration: the interval is centred at the anchored target E(ˆθ | z), and covers the causal estimand θ only when the bias of Theorem 3 vanishes. Second, its interaction with that bias: the level term is invariant to the regime, the nugget, and the outcome model, so wherever the variance vanishes the mean squared error does not. Corollary 2 (The bias floor) Fix an estimand with ℓ(w, c )̸ = 0 under the canonical design (H1– H3) and an anchored working model satisfying Condition 1. Along any sequence of designs with Embracing Spillover 15 
+
+VN (z) → 0, increasing domain, or infill with observation-level noise: 
+
+MSE( ˆθ | z) −→ ℓ(w, c ) ¯ e + ⟨˜e, w ⟩ 2,
+
+equal to ℓ(w, c )2 ¯e 2 when the working class spans the centred kernel. Additional data of the same design sharpens the estimate of the anchored target but cannot move it toward the causal estimand. 
+
+> 4.7. Summary
+
+A single design-computable scalar, the level leverage, measures an estimand’s exposure to the unidentified level of the spillover function: it gives the direction of non-identifiability, the exact first-order bias of any anchored estimator, the variance premium for estimating the level instead, and the MSE floor that no amount of data can remove. 
+
+The level-leverage identity 
+
+Fix an estimand ( w, c ), a design, a working class, weight Ω and anchor, and write L =
+
+LN,w,c (z); under (H1)–(H3), L = ℓ(w, c ) = m(w) + qc exactly. Then: (i) Identification (Proposition 1(iii); exact): the reparameterisation ϕ 7 → ϕ + a moves θ by 
+
+a ℓ (w, c ); the estimand is invariant to the unidentified level if and only if ℓ(w, c ) = 0. (ii) Bias (Theorem 3; up to shape terms): the anchored plug-in satisfies E(ˆθ | z) − θ = −L ¯e.(iii) Variance (Proposition 4(i); exact, requiring I0(z) > 0): estimating the level rather than anchoring it costs L2/I 0(z) in conditional variance. (iv) Risk (Corollary 2; canonical design, Condition 1): if ℓ̸ = 0 and VN → 0, MSE( ˆθ) → ℓ2 ¯e 2
+
+under a well-specified working class. 
+
+> 5. Design for spatial estimands
+
+The preceding results turn design choice into a well-posed problem. Two tasks must be separated. The first is level identification : pinning the additive level of the kernel, which fixed-margin randomisation leaves aliased (Proposition 1). The second is shape efficiency : estimating the centred spillover-response kernel precisely in the part of the distance distribution that the target estimand weights. 
+
+> 5.1. Level information and identification
+
+Each augmentation in Table 4 modifies exactly one primitive of the canonical design: the exposure sets Ti (H1), the exclusion sets Ai (H2), or the allocation support Z (H3). Writing 
+
+ci(z) = P 
+
+> t∈T i
+
+zι(t) for the treated source count of unit i, so that s0,i (z) = ci(z), every perturbation takes the form ri(z) = ci(z)−M0 +qz k(i). The designs differ only in what generates variation in ci:16 S.I. Watson et al.  
+
+> •
+
+Margin variation enlarges Z beyond the fixed-margin set (e.g. Bernoulli assignment): with H1–H2 intact, ci = M (z) − qz k(i) still, so r(z) = {M (z) − M0}1 ∈ col( X0) at every realised allocation.  
+
+> •
+
+Sentinel units are a set S of ns units with Ti = ∅, so ci = 0 on S. 
+
+> •
+
+Baseline periods extend the index to unit–periods with rollout between periods, so Ti, 0 = ∅
+
+and ci = 0 on all pre-rollout observations—sentinel units in time ( §5.2); the perturbation is nonzero only once the trend is restricted, since free period effects return it to col( X0).  
+
+> •
+
+Randomised saturation localises the exposure sets and randomises within-cluster treatment proportions in a first stage, so ci varies within allocation by construction.  
+
+> •
+
+Truncated range sets Ti = {t : di,t ≤ Dmax } through the working model; retaining H3, 
+
+ri = −bi(z) where bi counts treated sources beyond range, and variation is generated by boundary geometry.  
+
+> •
+
+Heterogeneous exclusion relaxes H2 to |A i| = qk(i). 
+
+> •
+
+Buffers leave H1–H3 intact and instead push between-cluster distances beyond the kernel’s effective support. Embracing Spillover 17 
+
+Design feature Relaxes ri(z) I0 Identifying assumption Fixed-margin CRT — 0 0 in every regime — (anchor required) Margin variation H3 M (z) − M0; r ∝ 1 0 at every realised 
+
+z
+
+—Sentinel units H1 on S −(M0 −
+
+qz k(i))1{i ∈ S} ≍ nsM 20 × sentinel Ω-leverage mean exchangeability of sentinel and exposed units Baseline, trend restricted adds p = 0 −M01{p = 0 } ≍
+
+Npre M 20 × period-contrast Ω-leverage; 0 under free period effects no secular shock concurrent with rollout (pre-trends testable) Randomised saturation H1, H3 ci(z) − M0 + qz k(i) ≍
+
+within-allocation Var( ci)locality of Ti
+
+correct; exogeneity of ci enforced by randomisation Truncated kernel range H1 −bi(z) ≍ boundary unit count × Var( bi)range correctly specified; no systematic edge effects Heterogeneous exclusion H2 (q − qk(i))zk(i) ≍
+
+Var k(qk) × treated units cluster size non-informative Buffer / spacing — 0 0 — (validates anchor: ¯ϕb → 0)         
+
+> Table 4. Design features classified by the canonical-design primitive they relax and the exposure perturbation r(z) = s0(z)−M01+qzthey generate.
+
+Three remarks govern the use of Table 4. First, compact support of the kernel, ϕ(d) = 0 for d > R , with design distance support beyond R, is a single assumption spendable on either route: as level information, generating the truncation and sentinel rows without pure controls by design, or as an anchor, rendering the tail mean exactly valid, ¯ e = 0. When it holds the anchor route dominates, avoiding the variance premium L2/I 0 of Proposition 4(i) at no cost in bias. It is partially testable: the identified centred kernel (Proposition 2) must be constant on ( R, D ], but the value of that constant is precisely ¯ e, so the design can refute compact support but never confirm it, which licenses estimating R from the identified shape, as in the contamination-range analyses of Multerer et al. (2021); Anaya-Izquierdo and Alexander (2021); Watson and Smith (2025), while making explicit which component is data-driven and which is assumption. Second, I0 retains only variation in r(z) that the columns S[ψ1], . . . , S [ψJ ] cannot mimic, so effective features are rough relative to K; in practice, interleaving sentinels within the study region both weakens their exchangeability assumption and raises their Ω-leverage, whereas 18 S.I. Watson et al. 
+
+the treatment-by-cluster-size interaction exploited by heterogeneous exclusion is the direction confounded by informative cluster size (Kahan et al., 2023), and edge deficits convert from information into bias under range misspecification. Only randomised saturation carries an assumption the design itself enforces; the two-stage designs of Leung (2025) are of this form. Third, the design choice for a level-dependent estimand is the anchoring rule of Proposition 4(iii): engineer I0 with σ/ √I0 < |¯e| under credible assumptions, or validate an anchor by design (buffers, Corollary 1) and accept ¯ e ≈ 0 as an assumption. Both routes are priced by the same leverage LN,w,c , and both prices are computable before unblinding. 
+
+> 5.2. Temporal augmentation
+
+Baseline observation is a common augmentation for standard trial designs and the framework absorbs it without new machinery. The temporal mean model enters as columns of X0. Extend the index to unit-periods ( i, p ), p ∈ { 0, 1}, with rollout between periods, so Ti, 0 = ∅ and pre-rollout exposure is structurally zero. Write ζ(i,p ) = zk(i)1{p = 1 } for the operative treatment and retain the static kernel (time-varying kernels are deferred to the discussion). A kernel shift 
+
+ϕ 7 → ϕ + a moves no baseline mean; it moves follow-up means through s0(z) = M01{p=1 } − qζ.With a free period effect, s0 ∈ col( X0) at every realised allocation, and Proposition 1(i) applies verbatim: the flat direction ( α1 − aM 0, τ + aq, ϕ + a) absorbs the level into the period effect. The conclusion extends to any number of periods and any rollout sequence: under H1–H2 the within-period margin is constant, so period effects absorb the exposure wholesale, and the standard time-adjusted stepped-wedge model (Hussey and Hughes, 2007) is level-aliased under global exposure. Rollout varies the margin across periods but never within them. Level information is bought by restricting the trend. Under a common-mean restriction the perturbation is r(z) = −M01{p=0 } and the Npre baseline observations are sentinel units in time, in the out-of-cluster form, with I0 ≍ Npre M 20 × period-contrast Ω-leverage. The leverage behaves as for spatial sentinels since within-unit correlation raises it, while a period-level variance component σ2 
+
+> π
+
+discounts it, interpolating between the independence value and re-aliasing as 
+
+σ2 
+
+> π
+
+→ ∞ , the random-effects limit of the free period effect. The price of the restriction is an anchoring error, exactly. If the true drift is δ, the identity 1{p=1 } = ( s0 + qζ)/M 0 decomposes the misspecification without remainder, 
+
+δ 1{p=1 } = δM0
+
+s0 + qδ M0
+
+ζ, whence bias( ˆθ) = ℓ(w, c ) δM0
+
+,
+
+with no shape contamination for any Ω. The anchoring rule of Proposition 4(iii) therefore extends verbatim and the choice is between extrapolating to zero exposure along the kernel ( |¯e|) and along the trend ( |δ|/M 0), each priced by the same leverage. Level-loaded estimands reference 
+
+Y (0), which the intervention preiod of the study never observes. A baseline period observes it at another time, and the trend restriction transports it. Like compact support, the restriction is Embracing Spillover 19 
+
+refutable but not confirmable, with two or more pre-rollout periods the trend model is testable on exposure-free data, but a shock concurrent with rollout, which is the component aliased with the level, is not. 
+
+> 5.3. Design stage metrics
+
+For a target estimand ( w, c ), a linear working class K = span( ψ1, . . . , ψ J ), a candidate geometry, and a working precision Ω, three quantities are computable at the design stage. (i) Variance. The plug-in estimator ˆθ = cˆτ + P 
+
+> j
+
+ˆβj ⟨ψj , w ⟩ variance is VN (z). Minimising the variance over geometries is a c-optimal design problem with target direction gw; different estimands give different gw, so no design is efficient for all of them, and the correlated-observation c-optimality algorithms of Watson and Pan (2023); Watson et al. (2023) apply directly. (ii) Leakage. For an omitted anchor-centred shape f (with A(f ) = 0) the projection PN,w,c (f ; z) is the bias that the realised geometry and randomisation inject into ˆθ beyond the genuine target-shape error. For a candidate design we can evaluate leakage directly . Let F be a prespecified library of anchor-centred residual kernels representing scientifically plausible departures from the working class. Define ΛF,w,c (z) := max   
+
+> f∈F , A (f)=0
+
+PN,w,c (f ; z)
+
+∥f ∥h
+
+, (4) This quantity is computable before outcomes are observed. A design with small Λ F,w,c is locally robust to the omitted shapes in F. A design with large Λ F,w,c allows those omitted shapes to be absorbed into the plug-in estimand. Under homogeneous exclusion, fixed-margin randomisation, the constant direction has exact leakage PN,w,c (f ; z) = −qc .(iii) Level information. The third diagnostic is the level information I0(z) of Proposition 4: the Ω-weighted variation in s0(z) that the working columns cannot reproduce, computable from the candidate geometry, randomisation, and working model before any outcome is observed. Under the canonical design 
+
+I0 = 0 identically (Proposition 1(ii)), and no rescaling of inter-cluster spacing changes this; positive I0 requires a design feature generating residual variation in s0 (Table 4). When I0 > 0and the level column is fitted, SE( ˆβ0 | z) = σ/ √I0, and the anchoring rule of Proposition 4(iii) becomes a design criterion: estimate the level rather than anchor if and only if 
+
+σ/ pI0(z) < |¯e|,
+
+the plausible anchoring error. Because the leverage ℓ(w, c )2 multiplies both sides of the comparison, the rule is estimand-independent : one computation of I0 against one elicited bound 20 S.I. Watson et al.  
+
+> Fig. 1. Example design stage diagnostics for a cluster randomised trial design
+
+on |¯e| settles the anchor-or-identify decision for every level-dependent estimand in Table 2 simultaneously. Leung (2025) elicits the analogous decay bound from transmission models and dispersal data, and prices it into a bias-aware interval, which is the anchoring rule executed at the inference stage rather than the design stage. Figure 1 illustrates the design-stage diagnostics for the spillover estimators using the geometry simulation of §6 with K = 30, n = 30, and where sources are treated units. The canonical cluster trial has I0 = 0 since its constant-exposure vector lies in the span of the intercept and treatment columns, so the kernel level is unidentified at any sample size. Each augmentation generates residual exposure variation that identifies the level, with randomised saturation and sentinel units the most informative and heterogeneous exclusion the weakest. The leakage diagnostic Λ shows the worst-case absorption of an omitted spillover shape into the estimator, per unit norm of that shape. Larger values flag estimands whose realised bias is most sensitive to getting the kernel shape wrong, here the direct effect and pointwise dose-response. For a design with level information I0, estimating the level is preferred to anchoring when the plausible anchoring error |¯e| exceeds SE( ˆβ0) = 1 /√I0, shown across candidate values of |¯e|.The canonical trial always anchors; designs with sufficient I0 cross to estimation as either the identifying information or the tolerated anchoring error grows. Embracing Spillover 21 
+
+> 6. Simulation study
+
+The closed-form illustration isolates the conditional bias; we complement it with a Monte Carlo study confirming that the estimators behave under noise as the asymptotic theory predicts. Cluster centroids are placed on the unit square and n units are scattered about each and assigned to the nearest centroid, giving K balanced-randomised clusters. The geometry is fixed within a scenario while the allocation z and the outcomes are redrawn across replications. Outcomes are Gaussian with mean α + τ z k(i) + S[ϕ]i(z), a spatial Gaussian-process random effect, and an independent residual. We take the true kernel ϕ = δ κ 0 with κ0 ranging over Mat´ ern shapes of varying smoothness and a compactly supported Wendland shape, spanning the smooth and compact cases. We include two scenarios: ‘high’ has δ = 0 .03 with lengthscale of 0.1, and ‘low’ sets δ = 0 .003 and lengthscale to 0.05. In all scenarios we set τ = 0 .1 and use a Matern spatial correlation function for the Gaussian process with smoothness 1.5, marginal variance 0.1 and lengthscale of 0.3. We fit the three estimator classes of §4: the traditional cluster-level analysis ( K = {0}), the semiparametric Chebyshev bases at two orders, and a parametric working kernel (Wendland), each by GLS with the Gaussian-process covariance approximated by a Hilbert-space expansion (Solin and S¨ arkk¨ a, 2020) and the lengthscale profiled (using R package glmmrBase , see Watson et al. (2026)). We do not include parametric kernels with non-linear parameters (e.g. Gaussian) for simplicity, to avoid the issue of generating intervals for profiled non-linear parameters. For every fit we form the plug-in ˆθ = cˆτ + ⟨ˆκ, w ⟩ and its model-based standard error g⊤ 
+
+> w
+
+V (z) gw for each estimand of Table 2, including a dose-response value θ(d) and the zero-leverage contrast 
+
+θ(d) − θ(d′). Three findings bear out the theory shown in Figure 2. First, the results show that realised bias follows Theorem 3: for level-loaded estimands ( ℓ(w, c )̸ = 0) without a valid anchor (Matern, smooth) the flexible estimators are biased with bias increasing in the high spillover scenario. A richer kernel removes shape error but not the anchoring term ℓ(w, c )¯ e, whereas the zero-leverage contrast and valid anchor effects (compact) are recovered with negligible bias by every spillover-aware estimator. Second, as K grows the plug-in variance diminishes and the mean squared error of level-loaded estimands approaches the floor ℓ(w, c )2 ¯e2, while zero-leverage estimands are consistent. Third, the model-based standard errors are generally well calibrated for some estimands (dose-response, contrast, direct effect) whereas other estimators exhibit under-coverage resulting from the estimator bias and possible small sample issues. 
+
+> 7. Conclusions
+
+The framework locates the existing approaches to spatial interference as points in a common space rather than competing methods. The estimands of Wang et al. (2025) reference the design’s 22 S.I. Watson et al. 
+
+Fig. 2. Simulation study results showing bias (top panel), coverage (middle panel) and mean squared error (bottom) panel Embracing Spillover 23 
+
+ambient exposure distribution. They identify the level unconditionally through the allocation-to-allocation exposure variation that Bernoulli assignment supplies. This is the margin-variation route of Table 4, exercised without conditioning on the realised allocation, while distance contrasts of their marginalised response curve sit in the level-invariant class ℓ = 0 and incur no such cost. Leung (2025) adopts a tail anchor with an explicitly elicited error bound and prices it into inference, the anchoring rule of Proposition 4(iii) executed at the analysis stage. Their well-surrounded exclusion is analysis-stage anchor validation, sharpening the buffer or fried egg designs of Hayes and Moulton (2009), and their randomised-saturation design occupies the one taxonomy row whose identifying assumption the design itself enforces. Watson and Smith (2025) takes the anchor-validation route in its limiting form, compact support with ¯ e = 0 assumed exactly. Methods for spatially structured estimands imply that the traditional cluster randomised trial design may be estimating a non-transportable effect of less policy relevance than the ATE or direct effect. However, in cases where the desired estimand is the ATE and there is not “too much” spillover between clusters, the traditional CRT design has lower MSE. The efficiency cost of estimating the spillover may result in worse overall mean squared error. However, where interest is broader than a single ATE, or where spillover cannot be assumed away, the framework presented here suggests multiple avenues for modifying the design. However, we also note that more work is required to maximise the efficiency of such designs. For example, complete balanced randomisation schemes with some of the aforementioned features may have some very inefficient realisations and a restricted randomisation scheme can exclude ‘unstable’ allocations to boost power. Where the trialist has a larger pool of study locations to generate a sub-sample from, there may be further potential gains in efficiency from optimal sample selection. A temporal dimension may also change the identification problem. We showed that identification from baseline observation still requires restrictions on temporal trend. However, a complete treatment of temporal effects may relax the static kernel and introduce carry-over effects. Mukaigawara et al. (2025) define estimands as contrasts between stochastic intervention strategies on a treatment point process, with interference and carryover left arbitrary. Our exact results are computed within the linear exposure mapping, and two of their components fare differently under its misspecification. The extrapolation argument above is model-free. Level-loaded estimands require an assumption bridging to the unobserved all-control state under any exposure structure, though outside the linear model that assumption is no longer a single scalar and the closed-form prices, ℓ(w, c ), I0, the contamination constant of Corollary 1, do not survive as stated. The contrast class does survive, from the other direction. Under approximate neighbourhood interference, distance-marginalised contrasts remain estimable without a correctly specified exposure model (S¨ avje et al., 2021; S¨ avje, 2024), and these are precisely the ℓ(w, c ) = 0 estimands that our framework identifies as free of the extrapolation. 24 S.I. Watson et al. 
+
+The spatial paradigm requires more information at the design stage than a traditional approach. The most important component is the distance kernel or at least an effective range 
+
+R or lengthscale ρ. The spillover function may be difficult to estimate, particularly for new technologies, and will likely depend on the follow-up time of the study. At the design stage, a reasonable spillover kernel can be chosen for analyses since the shape and projection errors can be estimated for a wide range of kernels. Mathematical models of the spillover mechanisms may provide strong prior evidence to support choices of spillover kernels and length scale parameters. For example, a Gaussian kernel corresponds to a diffusion model (Smith et al., 2026) and there exist mechanistic epidemiological models for many infectious diseases and interventions (e.g. Hancock et al. (2024) for gene drives for vector control) to estimate lengthscale parameters. For sample size analysis, some information on spatial correlations are also required. Spillover between clusters in a cluster randomised trial may imply several different policy-relevant estimands. Excluding spillover to satisfy SUTVA does not necessarily protect the trial and researchers, but potentially leads to untestable assumptions and non-transportable results. 
+
+> References
+
+K. Anaya-Izquierdo and N. Alexander. Spatial regression and spillover effects in cluster randomized trials with count outcomes. Biometrics , 77:490–505, 6 2021. ISSN 0006-341X. doi: 10.1111/biom.13316. P. M. Aronow and C. Samii. Estimating average causal effects under general interference, with application to a social network experiment. The Annals of Applied Statistics , 11, 12 2017. ISSN 1932-6157. doi: 10.1214/16-AOAS1005. F. N. Binka, F. Indome, and T. Smith. Impact of spatial distribution of permethrin-impregnated bed nets on child mortality in rural northern ghana. The American Journal of Tropical Medicine and Hygiene , 59:80–85, 7 1998. ISSN 0002-9637. doi: 10.4269/ajtmh.1998.59.80. S. Eldridge and S. Kerry. A Practical Guide to Cluster Randomised Trials in Health Services Research . John Wiley & Sons, Ltd, 1 2012. ISBN 9781119966241. doi: 10.1002/9781119966241. URL http://doi.wiley.com/10.1002/9781119966241 .L. Forastiere, E. M. Airoldi, and F. Mealli. Identification and estimation of treatment and interference effects in observational studies on networks. Journal of the American Statistical Association , 116:901–918, 4 2021. ISSN 0162-1459. doi: 10.1080/01621459.2020.1768100. T. Gneiting. Compactly supported correlation functions. Journal of Multivariate Analysis , 83: 493–508, 11 2002. ISSN 0047259X. doi: 10.1006/jmva.2001.2056. T. Habtewold, D. W. Lwetoijera, A. Hoermann, R. Mashauri, F. Matwewe, R. Mwanga, P. Kweyamba, G. Maganga, B. P. Magani, R. Mtama, M. A. Mahonje, M. M. Tambwe, F. Tarimo, P. R. Chennuri, J. A. Cai, G. D. Corsano, P. Capriotti, P. Sasse, J. Moore, D. Hudson, A. Manjurano, B. Tarimo, D. Vlachou, S. Moore, N. Windbichler, and G. K. Embracing Spillover 25 
+
+Christophides. Gene-drive-capable mosquitoes suppress patient-derived malaria in tanzania. 
+
+Nature , 649:442–448, 1 2026. ISSN 0028-0836. doi: 10.1038/s41586-025-09685-6. P. A. Hancock, A. North, A. W. Leach, P. Winskill, A. C. Ghani, H. C. J. Godfray, A. Burt, and J. D. Mumford. The potential of gene drives in malaria vector species to control malaria in african environments. Nature Communications , 15:8976, 10 2024. ISSN 2041-1723. doi: 10.1038/s41467-024-53065-z. R. Hayes and L. Moulton. Cluster Randomised Trials . Chapman & Hall/CRC, 2009. M. G. Hudgens and M. E. Halloran. Toward causal inference with interference. Journal of the American Statistical Association , 103:832–842, 6 2008. ISSN 0162-1459. doi: 10.1198/ 016214508000000292. M. A. Hussey and J. P. Hughes. Design and analysis of stepped wedge cluster randomized trials. 
+
+Contemporary Clinical Trials , 28:182–191, 2 2007. ISSN 15517144. doi: 10.1016/j.cct.2006.05. 007. URL https://linkinghub.elsevier.com/retrieve/pii/S1551714406000632 .C. Jarvis, G. L. D. Tanna, D. Lewis, N. Alexander, and W. J. Edmunds. Spatial analysis of cluster randomised trials: a systematic review of analysis methods. Emerging Themes in Epidemiology , 14:12, 12 2017. ISSN 1742-7622. doi: 10.1186/s12982-017-0066-2. URL 
+
+http://ete-online.biomedcentral.com/articles/10.1186/s12982-017-0066-2 .C. I. Jarvis, L. Multerer, D. Lewis, F. Binka, W. J. Edmunds, N. Alexander, and T. A. Smith. Spatial effects of permethrin-impregnated bed nets on child mortality: 26 years on, a spatial reanalysis of a cluster randomized trial. The American Journal of Tropical Medicine and Hygiene , 101:1434–1441, 12 2019. ISSN 0002-9637. doi: 10.4269/ajtmh.19-0111. B. C. Kahan, F. Li, A. J. Copas, and M. O. Harhay. Estimands in cluster-randomized trials: choosing analyses that answer the right question. International Journal of Epidemiology , 52: 107–118, 2 2023. ISSN 0300-5771. doi: 10.1093/ije/dyac131. URL https://academic.oup. com/ije/article/52/1/107/6644521 .K. W. Kilpatrick, M. G. Hudgens, and M. E. Halloran. Estimands and inference in cluster-randomized vaccine trials. Pharmaceutical Statistics , 19:710–719, 9 2020. ISSN 1539-1604. doi: 10.1002/pst.2026. M. P. Leung. Causal inference under approximate neighborhood interference. Econometrica , 90: 267–293, 2022. ISSN 0012-9682. doi: 10.3982/ECTA17841. M. P. Leung. Cluster-randomized trials with cross-cluster interference. Journal of the American Statistical Association , pages 1–11, 12 2025. ISSN 0162-1459. doi: 10.1080/01621459.2025. 2566416. R. S. McCann, H. van den Berg, W. Takken, A. G. Chetwynd, E. Giorgi, D. J. Terlouw, and P. J. Diggle. Reducing contamination risk in cluster-randomized infectious disease-intervention trials. International Journal of Epidemiology , 47:2015–2024, 12 2018. ISSN 0300-5771. doi: 10.1093/ije/dyy213. 26 S.I. Watson et al. 
+
+J. F. Mosha, N. S. Matowo, M. A. Kulkarni, L. A. Messenger, E. Lukole, E. Mallya, T. Aziz, R. Kaaya, B. A. Shirima, G. Isaya, M. Taljaard, R. Hashim, J. Martin, A. Manjurano, I. Kleinschmidt, F. W. Mosha, M. Rowland, and N. Protopopoff. Effectiveness of long-lasting insecticidal nets with pyriproxyfen–pyrethroid, chlorfenapyr–pyrethroid, or piperonyl butoxide–pyrethroid versus pyrethroid only against malaria in tanzania: final-year results of a four-arm, single-blind, cluster-randomised trial. The Lancet Infectious Diseases , 24:87–97, 1 2024. ISSN 14733099. doi: 10.1016/S1473-3099(23)00420-6. M. Mukaigawara, K. Imai, J. Lyall, and G. Papadogeorgou. Spatiotemporal causal inference with arbitrary spillover and carryover effects: Airstrikes and insurgent violence in the iraq war. 11 2025. L. Multerer, T. R. Glass, F. Vanobberghen, and T. Smith. Analysis of contamination in cluster randomized trials of malaria interventions. Trials , 22:613, 12 2021. ISSN 1745-6215. doi: 10.1186/s13063-021-05543-8. T. A. Smith, L. N. Felber, N. A. Alexander, P. E. B. Aboa, C. N. Adjobi, J. Z. B. Zahouli, and P. M¨ uller. A diffusion model for mosquito control trials with spillover: application to calculations of power, sample size, and bias. Trials , 3 2026. ISSN 1745-6215. doi: 10.1186/ s13063-026-09597-4. A. Solin and S. S¨ arkk¨ a. Hilbert space methods for reduced-rank gaussian process regression. Statistics and Computing , 30:419–446, 3 2020. ISSN 0960-3174. doi: 10.1007/ s11222-019-09886-w. URL http://link.springer.com/10.1007/s11222-019-09886-w .F. S¨ avje. Causal inference with misspecified exposure mappings: separating definitions and assumptions. Biometrika , 111:1–15, 2 2024. ISSN 0006-3444. doi: 10.1093/biomet/asad019. F. S¨ avje, P. M. Aronow, and M. G. Hudgens. Average treatment effects in the presence of unknown interference. The Annals of Statistics , 49, 4 2021. ISSN 0090-5364. doi: 10.1214/ 20-AOS1973. A. Utarini, C. Indriani, R. A. Ahmad, W. Tantowijoyo, E. Arguni, M. R. Ansari, E. Supriyati, D. S. Wardana, Y. Meitika, I. Ernesia, I. Nurhayati, E. Prabowo, B. Andari, B. R. Green, L. Hodgson, Z. Cutcher, E. Ranc` es, P. A. Ryan, S. L. O’Neill, S. M. Dufault, S. K. Tanamas, N. P. Jewell, K. L. Anders, and C. P. Simmons. Efficacy of wolbachia-infected mosquito deployments for the control of dengue. New England Journal of Medicine , 384:2177–2186, 6 2021. ISSN 0028-4793. doi: 10.1056/NEJMoa2030243. T. J. Vanderweele, G. Hong, S. M. Jones, and J. L. Brown. Mediation and spillover effects in group-randomized trials: A case study of the 4rs educational intervention. Journal of the American Statistical Association , 108:469–482, 6 2013. ISSN 0162-1459. doi: 10.1080/ 01621459.2013.779832. Y. Wang, C. Samii, H. Chang, and P. Aronow. Design-based inference for spatial experiments under unknown interference. The Annals of Applied Statistics , 19, 3 2025. ISSN 1932-6157. Embracing Spillover 27 
+
+doi: 10.1214/24-AOAS1986. S. I. Watson. Efficient design of geographically-defined clusters with spatial autocorrelation. 
+
+Journal of Applied Statistics , pages 1–19, 6 2021. ISSN 0266-4763. doi: 10.1080/02664763. 2021.1941807. URL http://arxiv.org/abs/2010.11850https://www.tandfonline.com/ doi/full/10.1080/02664763.2021.1941807 .S. I. Watson and Y. Pan. Evaluation of combinatorial optimisation algorithms for c-optimal experimental designs with correlated observations. Statistics and Computing , 33:112, 10 2023. ISSN 0960-3174. doi: 10.1007/s11222-023-10280-w. URL https://link.springer.com/10. 1007/s11222-023-10280-w .S. I. Watson and T. A. Smith. Design and analysis of randomized trials to estimate spatio-temporally heterogeneous treatment effects. Journal of the American Statistical Association ,pages 1–11, 9 2025. ISSN 0162-1459. doi: 10.1080/01621459.2025.2527424. S. I. Watson, A. Girling, and K. Hemming. Optimal study designs for cluster randomised trials: An overview of methods and results. Statistical Methods in Medical Research , 32:2135–2157, 11 2023. ISSN 0962-2802. doi: 10.1177/09622802231202379. URL http://arxiv.org/abs/ 2303.07953http://journals.sagepub.com/doi/10.1177/09622802231202379 .S. I. Watson, Y. Wang, and E. Giorgi. Approximate likelihood-based inference for spatial generalized linear mixed models. 5 2026. H. Zhang and D. L. Zimmerman. Towards reconciling two asymptotic frameworks in spatial statistics. Biometrika , 92:921–936, 12 2005. ISSN 1464-3510. doi: 10.1093/biomet/92.4.921.
