@@ -1,0 +1,1007 @@
+Title: On inferential equivalence classes of causal models
+
+URL Source: https://arxiv.org/pdf/2608.08327v1
+
+Published Time: Tue, 11 Aug 2026 00:55:45 GMT
+
+Number of Pages: 28
+
+Markdown Content:
+# On inferential equivalence classes of causal models 
+
+Charlotte Edgar ∗ Heather Battey ∗
+
+August 11, 2026 
+
+Abstract 
+
+Causal models in the same Markov equivalence class are, in the absence of strong assumptions, statistically indistinguishable at any sample size. For modest sample sizes there is also the possibility that several such classes are compatible with the data, pointing to a confidence set of causal models as the appropriate presentation of evidence. Non-identifiability of Gaussian causal models from the same Markov equivalence class corresponds to a plurality of inverse-covariance representations in the unconstrained parametrisation of Cox and Wermuth (1993). This parametrisa-tion, avoiding conic constraints that would otherwise complicate distributional ap-proximations, facilitates construction of, and theoretical analysis for, a confidence set of causal models based on standard likelihood theory. By drawing on a geomet-ric formulation of Evans (2020), we provide insight into which causal models are most likely to be included in the confidence set when the true parameter values of the generating model are at the borderline of detectability, delineating those models whose inclusion probabilities are stable at the nominal level, slowly decaying with sample size, and quickly decaying with sample size. We also study settings in which two or more causal models are in operation, exploring how the mixture weights, and the geometry of the models in the mixture relative to candidate models, interact with the inclusion probabilities. The purpose of the paper is to probe, from the per-spective of structural properties of the true causal mechanism, the limits of what is achievable in causal inferential settings. 
+
+Some key words: causation; confidence sets of etiological explanations; local geom-etry; Markov equivalence; mixtures of causal models; model uncertainty. 
+
+## 1 Introduction 
+
+Establishing causation is often the idealised objective of scientific endeavours even when caution is adopted in the use of the word. In some contexts, it is natural to designate one variable Y as the outcome, all others being prior to Y and thus potentially causal. This is a classical regression setting, where non-zero regression coefficients are suggestive of a causal relationship, any indirect effects of treatments or exposures possibly being explained away by intermediate variables. A conceptually different framework is where there is no a priori reason to suppose that any variable is prior to another, and interest 
+
+> ∗
+
+Department of Mathematics, Imperial College London 
+
+1arXiv:2608.08327v1 [math.ST] 8 Aug 2026 lies in ascertaining the directions of any dependencies between the observable random variables Y1, . . . , Y d. Such dependence is often represented as a directed acyclic graph with nodes for random variables, and directed edges for direct causal relationships. In the absence of strong assumptions, it is usually not possible to learn a directed acyclic graph from observational data unless it belongs to a singleton Markov equiv-alence class. For a given generating mechanism, there is a different causal model in the same non-singleton Markov equivalence class that can achieve the same distribution of observable quantities; these are therefore indistinguishable on the basis of physical observations unless context supplies the ordering. There is the possibility, in addition, that several or many equivalence classes are compatible with the data for modest sam-ple sizes, pointing to a confidence set of causal models as the appropriate presentation of evidence. While causal models within a Markov equivalence class are statistically indistinguishable at any sample size, those within a confidence set are statistically indis-tinguishable from the true generating mechanism at the observed sample size and at the chosen significance level. A confidence set of causal models can therefore be viewed as an inferential equivalence class, an evidential analogue of the Markov equivalence class for the true explanation. Evans (2020) showed that the ability to distinguish between two models at small sample sizes is determined by their relative geometry at the point in the parameter space where the models intersect, a favourable geometry implying a faster rate of distin-guishability than for models with an unfavourable geometry. We reframe his discussion for pairs of models in terms of probabilities of erroneous causal models being retained in the confidence set. While for sufficiently large sample size, only the Markov equivalence class for the true explanation is retained, our interest here is in low-information settings in which the generating mechanism departs from a completely unconnected graph by a negligible quantity on the borderline of detectability. There is, under this notional regime, a clear separation in the sample-size-dependent probabilities of inclusion in the confidence set for each erroneous causal model. Our construction and analysis is simpli-fied considerably by using a non-standard parametrisation of the Gaussian model due to Cox and Wermuth (1993). A possibly unexplored but very relevant setting is that in which two or more causal models generate the observable data, different observational units contributing data from different causal mechanisms. For this, the generating process can be expressed as a mixture of causal models on account of the label being unknown. Ideally, the confidence set would include all models in the mixture, but intuitively, only causal models for which the mixture weight is sufficiently large are included with the nominal probability, the permissible weighting being determined by the relative geometry of the constituent models. By formulating a double-asymptotic regime in the mixture weights and signal strengths away from the point at which the models intersect, we probe the extent to which inferential equivalence classes are able to detect both models in a two-component mixture, exploring three-component mixtures by simulation. 22 Related literature and contributions 
+
+Uncertainty over the statistical model tends not to be emphasised, selection of a single explanation in the light of the data being the more popular and more easily-communicated mode of presentation. That sparsity makes the model itself the object of inference was highlighted in the context of high-dimensional regression by Cox and Battey (2017), who emphasised the multiplicity of compatible representations and the dangers of bi-nary decisions in reporting scientific evidence, arguing instead for a confidence set of sparse models. The work reflected earlier comments in the same vein by Cox (1968) and repeated over many years (Cox, 1977; Cox and Snell, 1974, 1989). The construction of Ferrari and Yang (2015) for low-dimensional regression is analogous. These ideas found little traction, but a string of recent papers have pursued closely related directions; see Battey et al. (2026) for a detailed literature review until 2026. With the exception of Wang et al. (2026), none of this literature concerns causal models. Wang et al. (2026) proposed a bootstrap construction of a confidence set of causal orderings and established its asymptotic validity. The contributions of the present paper principally concern perspective and under-standing rather than methodology, but we note as part of this development a simpler construction than that used by Wang et al. (2026), based on a likelihood-ratio assessment in an unconstrained parametrisation of Cox and Wermuth (1993). The parametrisation is such that sparsity induced by missing edges respects positive definiteness, thereby avoiding conic constraints and related difficulties. The simplicity of the formulation means that relatively standard distributional approximations can be applied, allowing the resulting confidence sets of causal models to be connected to the geometric equiva-lence classes of Evans (2020). As far as we are aware, the importance of mixtures of causal models has not been emphasised in the statistical literature. An indirect reference to their importance was made by the sociologist Goldthorpe (2025) in connection with the triangulation of find-ings from different types of study: “Such research may be of particular importance where Y is seen as resulting not from a single process but from several different causal processes, which need to be disentangled and their relative importance assessed. ” (Goldthorpe, 2025, p.6) Triangulation of evidence is an important open problem, addressed only briefly in §7, but in §6 we explore the extent to which a confidence set of causal models is capable of recovering all explanations when two or more causal models are in operation via a convex mixture. Proofs in the supplementary material are based on established ideas but are not a direct application of existing results, as the confidence-set perspective treats models asymmetrically via the usual analogue of proof by contradiction. Instead, the geometric insights of Evans (2020) need to be embedded within the classical analysis of likelihood-ratio tests under contiguous alternatives, best approached via van der Vaart (2000). 33 Some initial insights in three variables 
+
+We start by providing some initial insight into the relative distinguishability of simple causal models in three variables and how this is reflected in the behaviour of the con-fidence sets. The details of implementation are not at this point important, and are deferred to §4. More general formal statements are given in §5. Consider three variables X, Y , and Z. Assuming that there is one missing directed edge, there are 12 possible V-configurations, represented in Table 1 alongside the corre-sponding causal ordering. These are grouped by Markov equivalence class, the labelling of classes, as well as the labelling of models, being otherwise arbitrary. model equivalence class causal ordering graphical representation 1 1 {X, Z }, {Y } X → Y ← Z
+
+2 2 {Y }, {X, Z } X ← Y → Z
+
+3 2 {Z}, {Y }, {X} X ← Y ← Z
+
+4 2 {X}, {Y }, {Z} X → Y → Z
+
+5 3 {Y, Z }, {X} Y → X ← Z
+
+6 4 {X}, {Y, Z } Y ← X → Z
+
+7 4 {Z}, {X}, {Y } Y ← X ← Z
+
+8 4 {Y }, {X}, {Z} Y → X → Z
+
+9 5 {X, Y }, {Z} X → Z ← Y
+
+10 6 {Z}, {X, Y } X ← Z → Y
+
+11 6 {Y }, {Z}, {X} X ← Z ← Y
+
+12 6 {X}, {Z}, {Y } X → Z → Y
+
+Table 1: Causal dependencies in 3 variables and their Markov equivalence classes. Let aij denote the strength of the effect of variable i on variable j. When all such non-zero effects are sufficiently strong, or when the sample size n is sufficiently large, a valid α-level confidence set of causal models must include the true model with probability 1 − α. By true model we mean the model containing the true generating mechanism as described by the relevant row of Table 1, the model accounting for other aspects including the strength of the associations and the distribution of the outcomes. There is, corresponding to each true model , a true Markov equivalence class determined by the value in the second column. Under the Gaussianity assumption of the present paper, the confidence set includes, by construction unless further identifying assumptions are made, all models in the true Markov equivalence class with the same inclusion probability as for the true model. As the signal to noise ratio or sample size is decreased, other models 4may also be present in the confidence set and those that are represented with highest n-dependent probability are all members of an equivalence class that intersect tangentially, rather than transversally, in a sense made rigorous by Evans (2020) and reviewed in §5. Figure 1 illustrates this through simulation for the twelve models in Table 1. 
+
+## 4 Construction of confidence sets of causal models 
+
+While the construction of Wang et al. (2026) is more involved, there is a simple ap-proach to constructing confidence sets of causal models in a Gaussian setting based on a large number of likelihood-ratio assessments against a suitable encompassing model. An important aspect of this formulation, avoiding theoretical difficulties due to conic constraints, is the use of an unconstrained parametrisation due to Cox and Wermuth (1993). We consider graphs that are directed and without cycles, and attach to this formu-lation a Gaussian model for the outcomes Y = ( Y 1, . . . , Y d)T, assumed mean-zero. This implies that that there is some ordering of the variables, described by a permutation matrix P , such that LP Y = P ε , where L is a lower-triangular matrix with ones along the diagonal and ε is a mean-zero Gaussian random vector with diagonal covariance matrix D = e∆. The off-diagonal entries of A = P TLP are, in the notation of Wermuth and Cox (2004), 
+
+aij = −βij. par i\j , (1) i.e., the negative regression coefficient of variable j in a regression of variable i on variable j and any other variables that appear earlier in the causal ordering. These causal predecessors are often referred to as parents of variable i, notated as par i in (1). The assumption that the underlying graph is acyclical implies that Σ, Σ −1 and (A, ∆) specify three parametrisations of the distribution of Y in d(d + 1) /2 degrees of freedom once the ordering of the variables is fixed, the relation between the three being Σ = A−1e∆(A−1)T,
+
+Σ−1 = ATe−∆A. 
+
+While Σ −1 → (A, ∆) is a valid reparametrisation once the ordering is fixed, for an unspecified causal ordering, the non-zero entries of A could be in any off-diagonal posi-tion compatible with acyclicity, i.e. the map is not injective. Thus, the representation 
+
+ATe−∆A 7 → Σ−1(A, ∆) is over-parametrised in the absence of a causal ordering, ex-plaining non-identifiability up to Markov equivalence. For a fixed causal ordering, the (A, ∆) parametrisation has the advantage of being unconstrained, i.e. for any given model specified in the ( A, ∆) parametrisation, the non-zero entries can vary arbitrarily without violating positive definiteness of Σ or Σ −1.Let ( Yi)ni=1 be independent and identically distributed copies of Y . The log-likelihood function, in exponential-family canonical form, depends on the data through the suffi-cient statistic Sn = n−1 Pni=1 YiY T 
+
+> i
+
+as 
+
+ℓ(Σ −1; Sn) = n
+
+2 {log det(Σ −1) − tr( SnΣ−1)}. (2) 51 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 1 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.95 0.89 0.89 0.89 0.37 0.32 0.32 0.32 0.32 0.29 0.29 0.29 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 5 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.37 0.32 0.32 0.32 0.95 0.89 0.89 0.89 0.32 0.29 0.29 0.29 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 9 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.32 0.29 0.29 0.29 0.37 0.32 0.32 0.32 0.95 0.89 0.89 0.89 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 2 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.92 0.95 0.95 0.95 0.31 0.32 0.32 0.32 0.32 0.33 0.33 0.33 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 6 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.34 0.33 0.33 0.33 0.92 0.95 0.95 0.95 0.31 0.32 0.32 0.32 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 10 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.34 0.33 0.33 0.33 0.31 0.32 0.32 0.32 0.92 0.95 0.95 0.95 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 3 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained  0.91 0.95 0.95 0.95 0.3 0.32 0.32 0.32 0.3 0.31 0.31 0.31 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 7 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.3 0.32 0.32 0.32 0.91 0.95 0.95 0.95 0.3 0.31 0.31 0.31 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 11 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.31 0.32 0.32 0.32 0.3 0.32 0.32 0.32 0.91 0.95 0.95 0.95 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 4 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained  0.91 0.95 0.95 0.95 0.3 0.31 0.31 0.31 0.3 0.32 0.32 0.32 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 8 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.31 0.32 0.32 0.32 0.91 0.95 0.95 0.95 0.3 0.32 0.32 0.32 1 2 3 4 5 6 7 8 9 10 11 12 
+
+true model: 12 
+
+> 0.0  0.2  0.4  0.6  0.8  1.0
+
+model proportion retained 0.34 0.34 0.34 0.34 0.28 0.3 0.3 0.3 0.91 0.95 0.95 0.95 Figure 1: Empirical probabilities of inclusion of each model in the 95% confidence set of models when the true model is as specified. The sample size is n = 100. 6By the theory of exponential families, or by direct matrix differentiation, the maximum likelihood estimator ˆΣ−1, if it exists, sets the sufficient statistic equal to its expected value, the solution to the resulting likelihood equation being ˆΣ−1 = S−1 
+
+> n
+
+provided that 
+
+Sn is positive definite. Under any hypothesised causal model, the parametrisation ATe−∆A 7 → Σ−1(A, ∆) is injective, and the non-zero entries of A and ∆, being unconstrained, present no diffi-culties for maximisation of the log-likelihood function, 
+
+ℓ(A, ∆; Sn) = n
+
+2 {log det( ATe−∆A) − tr( SnATe−∆A)}. (3) The log-likelihood ratio statistic for assessing a given causal model m0 with correspond-ing A0 is thus Λ0 = 2 {ℓ( ˆΣ−1; Sn) − ℓ( ˆA0, ˆ∆0; Sn)}, (4) where ( ˆA0, ˆ∆0) maximises (3) over entries of A and ∆ that respect the zero constraints specified by model m0. There is a slight notational imprecision in (4), in that the evaluation points of the log-likelihood function are given in different parametrisations. We could have alternatively written (4) in terms of ˆΣ−10 = ˆAT 
+
+> 0
+
+e− ˆ∆0 ˆA0.Suppose that the true causal model, m0 say, is specified by the positions of the zero entries in A0. By standard likelihood theory, Λ 0 from equation (4) converges in distribution to a χ2 
+
+> ν
+
+random variable, where ν is the number of zero constraints in 
+
+A0 relative to an unconstrained model in d(d + 1) /2 unknown parameters. For each hypothesised model, the corresponding likelihood ratio statistic is calibrated against this χ2 
+
+> ν
+
+distribution, extremity pointing to a contradiction of the model with the data, in the relevant statistical sense. All causal models not rejected at level α comprise a confidence set of causal models, or equivalently a confidence set of Markov equivalence classes. What is unclear from the standard theory is which erroneous causal models, other than those in the same Markov equivalence class as m0, are likely to also be retained in the confidence set at small sample sizes. That there are differences in retention proba-bilities is apparent from Figure 1. Section 5 establishes the relevant theory, embedding the geometric perspectives of Evans (2020) into the local likelihood-ratio theory of van der Vaart (2000). 
+
+## 5 Inferential and geometric equivalence classes 
+
+5.1 Notation and definitions 
+
+We extend the above notation by specifying for any causal model mj the constrained maximum likelihood estimator ˆΣ−1 
+
+> j
+
+= ˆAT 
+
+> j
+
+e− ˆ∆j ˆAj . (5) We will always take m0 to be the true model, thus if model m1 is assumed, the estimated matrices on the right hand size of (5) will converge to matrices ( A01, D 01), typically not equal to ( A0, D 0), where D0 = e−∆0 . If m1 is Markov equivalent to m0, ˆΣ−11 converges 7m0
+
+m1
+
+γ∗
+
+εm0 ∩ Nε(γ∗)
+
+m1 ∩ Nε(γ∗)
+
+dHFigure 2: Two simplified models m0 = {(γ, 0) : γ ∈ R} and m1 = {(γ, 12 γ2) : γ ∈ R}
+
+intersecting at γ∗. The Hausdorff distance constrained the the Euclidean ball is dH = 
+
+> 12
+
+ε2 = o(ε). The model is 1-equivalent and 2-near equivalent. to the true precision matrix Σ −10 , as m1 induces the same likelihood function in the Σ −1
+
+parametrisation. We use the condensed notation γ = vech(Σ) ∈ Rd(d+1) /2, where vech( ·)is the half-vectorisation map for a symmetric matrix. As before, ˆ γj corresponds to the maximum likelihood estimate under model mj , with corresponding true value γj , thus 
+
+γj = γk and ˆ γj = ˆ γk if and only if mj ∼ mk, where ∼ denotes Markov equivalence. Evans (2020) introduced the following notion of c-equivalence between pairs of sta-tistical models. The condensed notation γ∗ ∈ m0 ∩ m1 here means that a distribution parametrised by a vector γ belongs to both models when evaluated at γ∗. In other words 
+
+γ∗ characterises the point in the parameter space at which the the two models intersect. In principle there could be a countable or uncountable set of such values γ∗, but in the regular settings covered in the present paper, γ∗ is a vector in a singleton set. 
+
+Definition 5.1 (c-equivalence (Evans, 2020)) . Models m0 and m1 are said to be c-equivalent at the point of intersection γ∗ ∈ m0 ∩ m1 if lim  
+
+> ε↓0
+
+ε−cdH
+
+ m0 ∩ Nε(γ∗), m 1 ∩ Nε(γ∗) = 0 , (6) where Nε(γ∗) is a Euclidean ball of radius ε centred at γ∗ and dH (A, B ) is the Hausdorff distance between sets, given by 
+
+dH (A, B ) = max 
+
+
+
+sup 
+
+> a∈A
+
+inf  
+
+> b∈B
+
+∥a − b∥2, sup 
+
+> b∈B
+
+inf  
+
+> a∈A
+
+∥a − b∥2
+
+
+
+.
+
+Definition 5.1 says that models m0 and m1 are c-equivalent at γ∗ if the distance between the sets in a ball of radius ε is o(εc). A weaker definition that is easier to verify and visualise is c-near equivalence, in which the o(εc) is replaced by O(εc). Equivalently the zero limit in (6) is replaced by a finite constant. Because O(εc+1 ) = o(εc) for ε → 0, (c + 1)-near equivalence implies c-equivalence, but the converse is not true in general. As noted by Evans (2020), however, ( c − 1)-equivalence implies c-near equivalence if the models are k-times differentiable and c ≤ k − 1. Figure 2 depicts a simple example of two 2-near equivalent models. 8For the 12 causal models in Table 1, consider the set of Gaussian distributions satisfying the independence constraints implied by each model. The skeletons of each directed acyclic graph are obtained by replacing directed edges with undirected ones giving X − Y − Z, Y − X − Z and X − Z − Y , and two Markov equivalence classes corresponding to each skeleton. The singleton Markov equivalence class for each skeleton consists of the model with a sink node as the central node, meaning two incoming arrows. Models in different equivalence classes that share the same skeleton are 2-near-equivalent, as illustrated by Evans (2020, Example 2.4) and formalized in his Theorem 4.2. Models with different skeletons are 1-near-equivalent. 
+
+5.2 Local geometry and properties of the confidence set 
+
+The purpose of this section is to probe the limits of what is achievable from the confidence set construction, relating these to the structural properties of the model to which the data generating process belongs. For sufficiently large sample size n, only the models that are Markov equivalent to m0
+
+will be contained in the confidence set at the nominal probability 1 −α. To provide insight for small n, we start by considering notional contiguous models m(n)1 whose strength of departure from m0 is at the borderline of detectability, by which we mean shrinking at the same rate as the standard parametric estimation error. More formally, let the parameter vectors characterising m(n)0 and m(n)1 converge to γ∗ ∈ m0 ∩ m1 as n → ∞ .By construction, this implies that all elements of m(n)1 have parameters converging to the true parameter γ(n)0 , i.e. m(n)1 consists of contiguous alternatives in the sense of van der Vaart (2000, ch. 7). Proposition 5.1 restates the insights of Evans (2020, Corollary 2.11) in terms of properties of the confidence set of models. 
+
+Proposition 5.1. Let m(n)0 be the true model with parameter γ(n)0 in the interior of its parameter space and let m(n)1 be a contiguous postulated model, specifying local departures from γ(n)0 in the direction of h1 ∈ Rd(d+1) /2. Specifically, the permissible parameters under model m(n)1 are γ(n)1 = γ(n)0 + h1/√n. In terms of the point of inter-section, γ(n)0 = γ∗ + a(n)0 and γ(n)1 = γ∗ + a(n)1 , so that h1 = √n(a(n)1 − a(n)0 ). Let M be the set of all models m1 not rejected at level α by a likelihood ratio test of m1 against the unconstrained model. As n → ∞ :(i) All models m(n)1 ∼ m(n)0 are included in M with probability 1 − α irrespective of 
+
+a(n)0 ≍ a(n)1 .(ii) All models m(n)1 that are c-equivalent to m(n)0 at γ∗ are included in M with proba-bility 1 − α + o(1) if and only if a(n)0 ≍ a(n)1 ≲ n−1/2c. Otherwise they are included with probability o(1). Moreover, if any single model in a Markov equivalence class is included in M, then all models in the same class are also included. 9Remark 5.1. The vector-valued sequences a(n)0 and a(n)1 potentially have different en-tries but since it is their qualitative behaviour with increasing n that is relevant, the same notation will be used to refer to the vectors themselves and the rate of convergence of their entries, context resolving ambiguity. Proposition 5.1 is stated most conveniently in terms of c-equivalence, but c-near-equivalence has a more direct geometric interpretation. Since ( c − 1)-equivalence implies 
+
+c-near-equivalence, all models m(n)1 that are c-near-equivalent to m(n)0 at γ∗ are included in M with probability 1 − α + o(1) if and only if a(n)0 ≍ a(n)1 = O(n1/2( c−1) ). In other words, c-near-equivalent models are indistinguishable from m(n)0 if and only if 
+
+a(n)0 ≍ a(n)1 = o(n−1/2c). Proposition 5.1 sheds light on how the local geometry of the two models interacts with the behaviour of the confidence set. It is, however, more natural in the present context, where the two models are not on an equal footing, to consider a single asymptotic regime in which only the parameters associated with the true model m0 are considered as notionally approaching the point of intersection γ∗. In other words, no constraints are imposed in the fitting of m1 that would force it to be contiguous to m0. Proposition 5.2 shows that the Kullback-Leibler minimising parameter inherits its behaviour from a(n)0 ,pointing to a sharp threshold. For this we define Mn(γ) := ℓ(γ)/n to be the rescaled log-likelihood function and M(n)0 (γ) := EM n(γ), which depends on n via the expectation operator under the sequence of true parameter values γ(n)0 = γ∗ + a(n)0 . Let Γ 0 and Γ 1
+
+be the parameter spaces under models m0 and m1 respectively. 
+
+Proposition 5.2. Let ˆ γ(n)1 := argmax γ∈Γ1 Mn(γ) be the maximum likelihood estima-tor assuming m1 and let γ01 := argmax γ∈Γ1 M(n)0 (γ), the Kullback-Leibler minimising projection. Under a sequence of true parameter values of the form γ(n)0 = γ∗ + a(n)0 ,the Kullback-Leibler projection satisfies γ01 = γ∗ + O(a(n)0 ) and therefore ˆ γ(n)1 = γ∗ +
+
+Op(max {n−1/2, a (n)0 }). The rate of convergence of γ01 to γ∗ along with the usual O(n−1/2) fluctuations induced through estimation can be viewed as an implicit constraint on the model class 
+
+m1 analogous to m(n)1 from Proposition 5.1. Thus, Propositions 5.1 and 5.2 can be interpreted jointly. Suppose that a(n)0 ≳ n−1/2, i.e. the signal decays more slowly than the estimation error. Then both γ0 and ˆ γ1 are in a ball of radius a(n)0 centred at γ∗.From Proposition 5.1, models m1̸ ∼ m0 are excluded from the confidence set if and only if a(n)0 ≳ n−1/2c where c is the c-equivalence class of m1 relative to m0. In other words, if the signal decays too sharply relative to the estimation error then there is no hope of detecting m1̸ ∼ m0 as erroneous. The permissible rate of decay decreases with increasing c, i.e. a larger c requires a slower rate a(n)0 .Figure 3 illustrates the permissible rates of decay to distinguish between differ-ent models depending on their relationship with the true model in terms of c-near-equivalence. Model 1 in Table 1 is taken to be the true model m(n)0 . For this, the simulated retention probability is close to nominal across all signal strengths. For the 10 n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1true model (1) 2-near-equivalent model (2) 1-near-equivalent model (5)
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+Figure 3: Simulated retention probabilities, in a nominal 95% confidence set, for the true model (model 1 in Table 1), a 2-near-equivalent model (model 2) and a 1-near-equivalent-model (model 5) as a function of sample size n for varying signal strengths. Top left to bottom right: a(n)0 = n−1, n −1/2, n −1/4, n −1/6.1-near equivalent model (model 2 in Table 1) a signal strength decaying to zero at a rate of n−1/4 or slower is needed for the erroneous model to be excluded with high probability at sufficiently large sample size. For the 2-near-equivalent model (model 5 in Table 1), a larger signal strength, decaying at the slow rate n−1/6 is needed. 
+
+## 6 Mixtures of causal models 
+
+In some settings the true causal explanation may well differ between individuals. While ideally the reason for this difference might be understood and the different sets of in-dividuals separated in the analysis, this is not always feasible. On the other hand, the principles of modelling require some stability across individuals (see McCullagh, 2002, 2022, for a discussion in a regression setting). Reasonable allowance for different gener-ating mechanisms while respecting the foundations of modelling leads to mixture models in which any individual from a sample is thought of as a draw from a mixture of causal models on account of the label being unknown. The mixture weights correspond to the proportion of individuals for which each causal model is explanatory. A key question is how the confidence sets of models behave in this situation. Intuitively, if the mixture weight on a particular causal model is too small, this lowers the effective signal strength (equivalently sample size) for retaining the model in the confidence set. We thus expect 11 some sharp transitions, with respect to mixture weight, in the ability of the confidence set to cover all true models in the mixture. The ability to detect some models in the mixture will additionally depend on what else is included and its relative geometry. We probe this further, first theoretically for a two-component mixture of Gaussian causal models, and then through simulation for a three-component mixture. Let m0,1 and m0,2 be causal models generating probability distributions F0,1 and F0,2
+
+on the observable outcomes. Then the two-component mixture model is (1 − θ)F0,1 +
+
+θF 0,2. This should be thought of as specifying that, for an individual i belonging to a group of individuals observed in proportion (1 − θ), the data are generated according to F0,1. Assume F0,1 and F0,2 are mean-zero Gaussian distributions with covariance matrices Σ 0,1 and Σ 0,2 respectively. Assuming that Σ 0,1 is not equal to Σ 0,2, the two-component mixture model has mean-zero and covariance matrix Σ 0 = (1 − θ)Σ 0,1 + θΣ0,2 but is not Gaussian unless 
+
+θ ∈ { 0, 1}. As before, we use the condensed notation γ = vech(Σ) ∈ Rd(d+1) /2 and consider notional local models about the point of intersection γ∗ ∈ m0,1 ∩m0,2 ∩m1 where 
+
+m1 is the postulated model. Let m(n)0,1 , m (n)0,2 and m(n)1 have elements whose parameters converge to γ∗ as n → ∞ . By construction, this implies that the parameters associated with all elements of m(n)1 converge to the true parameter γ(n)0 . A formulation analogous to that of §5 based on contiguous alternatives is constructed by allowing θ(n) → 0. Proposition 6.1 relates the c-equivalence of the mixture and a postulated model m1 to the corresponding c-equivalences of the constituent terms in the mixture. This is used in Corollaries 6.1 and 6.2 to reveal the behaviour of the confidence set in the mixture setting. 
+
+Proposition 6.1. Let m(n)0,1 and m(n)0,2 be the true models with distributions F0,1 and F0,2
+
+and parameters γ(n)0,1 , γ (n)0,2 in the two-component mixture model (1 − θ(n))F0,1 + θ(n)F0,2.Let ε := θ(n) in Definition 5.1. Then if, for a postulated model m(n)1 , the three pairs of models m(n)0,1 and m(n)0,2 , m(n)0,1 and m(n)1 , and m(n)0,2 and m(n)1 , are respectively c-equivalent, 
+
+c1-equivalent, and c2-equivalent at γ∗, then the mixture m(n)0 is cm-equivalent to m(n)1 ,where 
+
+cm := max {min {c, c 1}, min {c, c 2}} ,
+
+and the Hausdorff distance satisfies dH (m(n)0 , m (n)1 ) = o(εcm ). From Proposition 6.1, we can apply Proposition 5.1 with the mixture as the true model m0, giving the analogous statement of Corollary 6.2. We first characterise the coverage properties for each constituent model in Corollary 6.1. This amounts to setting 
+
+εc1 = 0 and εc2 = 0 in the definition of Hausdorff-distance characterising the notion of 
+
+c-equivalence, as if the postulated model m1 is equal to m0,1 or m0,2, then the notion of 
+
+c1-equivalence ( c2-equivalence respectively) does not make sense. 
+
+Corollary 6.1. Let the true mixture distribution (1 − θ)F0,1 + θF 0,2 have component distributions in models m(n)0,1 and m(n)0,2 respectively, contiguous at the point of intersection 
+
+γ∗. Let γ(n)0,1 = γ∗ + a(n)0,1 and γ(n)0,2 = γ∗ + a(n)0,2 be the corresponding parameters. Suppose 12 m0,2
+
+m0,1
+
+m0
+
+γ∗
+
+εm0,2
+
+m0,1
+
+m0
+
+γ∗
+
+εm0,2 ∩ Nε(γ∗)    
+
+> m0,1∩Nε(γ∗)
+> m0∩Nε(γ∗)
+
+Figure 4: The mixture model m0 and its constituent models m0,1 and m0,2, for ε = θ =
+
+n−1/2. Left: small n. Right: larger n. The right sub-figure is magnified to make the models within the ball visible. that m(n)0,1 and m(n)0,2 are c-equivalent at γ∗ and let the postulated model m1 be either of the two true ones. Let M be the set of all models not rejected at level α by a likelihood ratio test of m1 against the unconstrained model. Then with θ(n) = O(n−1/2) as n → ∞ :(i) m(n)0,1 is retained in M with probability 1 − α irrespective of a(n)0,1 ≍ a(n)0,2 ;(ii) m(n)0,2 is retained in M with probability 1 − α + o(1) if and only if a0,1 ≍ a(n)0,2 ≲
+
+n−1/2c. Otherwise it is included with probability o(1). Moreover, if any model in a Markov equivalence class is retained in M, then all models in the same class are retained. Corollary 6.1 states that the c-equivalence between the two true models only affects the retention probability for m0,2. Figure 4 explains the intuition for this: as θ(n) → 0, the true mixture model approaches m0,1, so m0,1 is retained with asymptotically nominal probability regardless of signal strength. In this same limit, the c-equivalence between 
+
+m0,1 and m0,2 coincides with the c-equivalence of m0 and m0,2.Corollary 6.2 covers the case in which the postulated model m1 is not represented by one of the two mixture components. This follows directly from Proposition 5.1 using Proposition 6.1. 
+
+Corollary 6.2. Consider the setting of Corollary 6.1 extended for a postulated model 
+
+m(n)1 with parameters γ(n)1 = γ∗ + a(n)1 , not represented in the true mixture with com-ponents from m(n)0,1 and m(n)0,2 . Let c1 and c2 be the c-equivalences of m(n)1 and m(n)0,1 , and 13 m(n)1 and m(n)0,2 respectively. Let M be the set of all models not rejected at level α by a likelihood ratio test of m1 against the unconstrained model. As n → ∞ :(i) All models m(n)1 ∼ m(n)0 are included in M with probability 1 − α irrespective of 
+
+a(n)0,1 ≍ a(n)0,2 ≍ a(n)1 .(ii) If c < min {c1, c 2}, then m(n)1 is retained in M with probability 1 − α + o(1) if and only if a(n)0,1 ≍ a(n)0,2 ≍ a(n)1 ≲ n−1/2c. Otherwise it is retained with probability o(1). (iii) If max {c1, c 2} < c , then m(n)1 is retained in M with probability 1 − α + o(1) if and only if a(n)0,1 ≍ a(n)0,2 ≍ a(n)1 ≲ n−1/2 max {c1,c 2}. Otherwise it is included with probability o(1). Moreover, if any model in a Markov equivalence class is retained in M, then all models in the same class are retained. Figure 5 shows the simulated retention probabilities of a 95% confidence set for m0,1
+
+and m0,2 when they are are 2 −near-equivalent. This confirms the theoretical results of Corollary 6.1, m0,1 being retained at probability close to 0 .95 regardless of signal strength, and m0,2 to being distinguishable from m0,1 when the signal strength decays at rate n−1/4 or slower. For a postulated model m1 that is 1 −near-equivalent to both m0,1
+
+and m0,2, the simulated retention probabilities are close to nominal for signal strength decaying faster than n−1/2, and otherwise there is power to detect the erroneous model and discard all elements of its equivalence class from the confidence set. The analogue of Proposition 5.2 for the mixture setting requires relating the be-haviour of the Kullback-Leibler-minimising parameter to the quantities governing how the parameter of the mixture approaches the point γ∗ of intersection. As before, we de-fine Mn(γ) = ℓ(γ)/n to be the rescaled log-likelihood function and M(n)0 (γ) = EM n(γ), depending on n via the expectation operator under the sequence of true parameter val-ues, which is now γ(n)0 = (1 − θ(n))( γ∗ + a(n)0,1 ) + θ(n)(γ∗ + a(n)0,2 ). Proposition 6.2 is a direct extension of Proposition 5.2 and the proof is omitted. 
+
+Proposition 6.2. Let ˆ γ(n)1 := arg max γ∈Γ1 Mn(γ) be the maximum likelihood esti-mator assuming m1 and let γ01 := arg max γ∈Γ1 M(n)0 (γ), the Kullback-Leibler min-imising projection. Under a sequence of true parameter values of the form γ(n)0 =(1 − θ(n))( γ∗ + a(n)0,1 ) + θ(n)(γ∗ + a(n)0,2 ), γ01 = γ∗ + O(max( a(n)0,1 , θ (n)a(n)0,2 ) and ˆ γ1 = γ∗ +
+
+Op(max {n−1/2, a (n)0,1 , θ (n)a(n)0,2 }). In principle, similar results can be quantified for arbitrarily many mixture compo-nents, but since the complexity of the statements is increasing in the number of mixture components, we instead present qualitative insights for three mixture components in Figure 6. Suppose that the true distribution belongs to a three-component mixture θ1F0,1 +
+
+θ2F0,2 + θ3F0,3 where ( θ1, θ 2, θ 3) belongs to the unit simplex. In Figure 6, models 1, 2 and 5 from Table 1 are the three causal models giving rise to component distributions 14 n1=2          
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1m01 (1) m02 (2) m1(5)
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+n1=2       
+
+> 246810 12 14 16
+> proportion retained
+> 00.2 0.4 0.6 0.8 1
+
+Figure 5: Simulated retention probabilities for the two true models (models 1 and 2 in Table 1), and a 1-near-equivalent-model (model 5) as we increase sample size n for varying signal strengths. Top left to bottom right: a(n)0 = n−1, n −1/2, n −1/4, n −1/6.
+
+F0,1, F 0,2 and F0,3. The signal strength for each constituent distribution is 0 .25, the level of the likelihood ratio test is α = 0 .05 and the sample size is n = 100, consistent with the setting of Figure 1. Figure 6 depicts, for a grid of values θ1, θ 2, θ 3 in the simplex, the simulated retention probabilities from 100 Monte Carlo replications for each of the models in the true mixture, and for an erroneous postulated model (model 12 from Table 1). The simulations confirm intuition: when θi = 1, the true mixture distribution is F0,i 
+
+and from Figure 1 we expect the corresponding model to be retained with probability close to 1 −α. The top left subfigure of Figure 6 shows the simulated retention probability for model 1, which is close to 0.95 near θ1 = 1. Analogous conclusions apply near θ2 = 1 (corresponding to model 2, top right) and θ3 = 1 (corresponding to model 5, bottom left). On account of the 2-near-equivalence of models 1 and 2 at the point of intersection, the two sub-figures on the top row are similar. A true mixture distribution close to a distribution in model 1 or 2, or a mixture of the two, is hard to distinguish from a distribution coming solely from the erroneous 2-near equivalent non-mixture component. The retention probabilities for both model 1 and model 2 are high provided that the contribution from model 5 is sufficiently small ( θ3 below about 0.4). The contrast with the bottom-left sub-figure is due to the 1 −near equivalence of model 5 to the two other 15 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1Figure 6: Simulated retention probabilities for model 1 (top left), model 2 (top right), model 5 (bottom left) and model 12 (bottom right) when the true distribution is θ1F0,1 +
+
+θ2F0,2 + θ3F0,3 where F0,1 belongs to model 1, F0,2 to model 2, and F0,3 to model 5. components. Only generating distributions that are close to pure mixtures in F0,3 (from model 5) lead to high probabilities of retention for model 5, any contamination leading to a distribution that is incompatible with the data at the chosen significance level. Consider in Figure 1 the cases where the true model is 1, 2 or 5, which correspond to θ1 = 1, θ2 = 1 and θ3 = 1. These cases align with the vertices of each of the simplex plots. For example, when θ1 = 1, the true model is retained with simulated probability close to 0.95, while the corresponding probabilities for models 2 and 5 are close to 0.9 and 0.35 respectively. The probabilities for model 12 (bottom right sub-figure) are close to zero. 16 7 Concluding discussion 
+
+The perspective here is that when scientific or sociological understanding is the goal, as is typically the case in causal-inferential settings, it is in some contexts appropriate to report all causal mechanisms that are compatible with the data. In principle, from a confidence set of causal models, one might seek to refute particular causal relations through a carefully-designed randomised experiment, if practical considerations allow for such. In the simplest Gaussian settings we have presented a perturbative analysis in which the models contemplated for inclusion in the confidence set are on the borderline of detectability. Evans (2020) showed that his c-equivalence classes generalise the notion of Markov equivalence to model pairs whose distinguishability requires the sample size to grow at a particular c-dependent rate. The present paper casts these c-equivalence classes in terms of confidence sets of models that are statistically indistinguishable from the true generating mechanism at a particular significance level for increasing sample size. We also studied in these terms the ability to identify mixture component models from the composite. From several perspectives, we have sought to clarify and formalise the implications of Evans’s (2020) results, which broadly imply that a stronger signal strength, i.e. one that decays more slowly with sample size, is needed to exclude models m1 from the confidence set that are locally similar to m0, the model to which the true distribution belongs. This degree of similarity is characterised by a larger c in the c-equivalence of 
+
+m1 to m0.The formulations of this paper belong to formal theory and are intended to provide understanding rather than direct utility. In particular, the notional asymptotic regimes, as well as the hypothetical replication entailed in the inclusion probabilities for the confidence sets, do not arise in the application of statistical ideas to a single study. One could, however, envisage a use for these insights as a way of combining evidence about the causal mechanism from many different studies in which a confidence set of models was reported. Confidence sets of causal models thus provide new perspectives on, and a possible route to, Goldthorpe’s (2025) open problem of ‘triangulation’ of evidence. How this could be done formally, in a way that would accommodate the different sample sizes, is unclear, but an informal analysis may be suggestive. This could entail, for instance, recording the proportion of times each competing model was found in a confidence set constructed from samples of roughly the same size, as a function of the sample size, and assessing the findings against the theoretical insights of this paper. One obvious extension of the analysis in §6 is to confidence sets for the mixture models themselves, rather than for the constituent models of the generating mixture model. This is more complicated due to estimation of the nuisance parameter θ and the many combinations of c-equivalences that can arise, both within and between the true and postulated mixture models. A further extension is to other types of non-Gaussian models. In principle, the construction of §4 can be extended by using the factorisation property of directed acyclic graphs to construct the likelihood ratio statistic for each causal model against a saturated 17 model. In particular applications, successive parametric modelling assumptions for each postulated causal ordering may be convincingly justified, resulting in a regression by composition (Farewell et al., 2026). In the absence of a specific application, however, tightly specified parametric models seem arbitrary, and nonparametric models lead to a less elegant exposition. Discrete and mixed graphs are outside of the scope of some of Evans’s (2020) results used in this paper. 
+
+Acknowledgements 
+
+We are grateful to Robin Evans for early discussions. EPSRC fellowship EP/T01864X/1 (to HSB) is gratefully acknowledged. 
+
+Supplementary material 
+
+The supplementary material contains proofs and additional simulation results. 
+
+## References 
+
+Battey, H. S. and Cox, D. R. (2018). Large numbers of explanatory variables: a prob-abilistic assessment. Proc. Roy. Soc. Lond. A: Math. Phys. Eng. Sci , 474, article number 20170631. Battey, H. S. Rasines, D. G. and Tang, Y. (2026). Post-reduction inference for confidence sets of models. Biometrika , 113, asag045. Cox, D. R. (1968). Notes on some aspects of regression analysis (with discussion). J. R. Statist. Soc. A, 131, 265—279. Cox, D. R. (1977). The role of significance tests (with discussion). Scand. J. Statist. , 4, 49–70. Cox, D. R. and Snell, E. J. (1974). The choice of variables in observational studies. J. R. Statist. Soc. C , 23, 51–59. Cox, D. R. and Snell, E. J. (1989). Analysis of Binary Data , 2nd edition. Chapman and Hall, London. Cox, D. R. and Wermuth, N. (1993). Linear dependencies represented by chain graphs. 
+
+Statist. Sci. , 8, 204–218. Cox, D. R. and Battey, H. S. (2017). Large numbers of explanatory variables, a semi-descriptive analysis. Proc. Nat. Acad. Sci. 114, 8592–8595. Evans, R. (2020). Model selection and local geometry. Ann. Statist. , 48, 3513–3544. Farewell, D., Daniel, R., Stensrud, M. and Huitfeldt, A. (2026). Regression by compo-sition. J. R. Statist. Soc. B (with discussion), to appear. 18 Ferrari, D. and Yang, Y. (2015). Confidence sets for model selection by F -testing. Sta-tistica Sinica , 25, 1637–1658. Fisher, R. A. (1950). The significance of deviations from expectation in a Poisson series. 
+
+Biometrics , 6, 17–24. Goldthorpe, J. H. (2025). Description, causal explanation, and policy intervention in sociology. K¨ oln. Z. Soziol. 
+
+Lewis, R. M. and Battey, H. S. (2025). Cox reduction and confidence sets of models: a theoretical elucidation. Statist. Sci. , 40, 313–328. McCullagh, P. (2002). What is a statistical model? (with discussion) Ann. Statist.) , 30, 1225–1310. McCullagh, P. (2022). Ten Projects in Applied Statistics . Springer, Cham. van der Vaart, A. (2000). Asymptotic Statistics . Cambridge University Press. Wang, Y. S., Kolar, M., and Drton, M. (2026). Confidence Sets for Causal Orderings. 
+
+J. Amer. Statist. Assoc. , 121, 690–703. Wermuth, N. and Cox, D. R. (2004). Joint response graphs and separation induced by triangular systems. J. Roy. Statist. Soc. B , 66, 687–717. 19 A Proofs for Section 5 
+
+A.1 Preliminary lemmas 
+
+Lemma A.1. Under the setting of Proposition 5.1, (i) All models m(n)1 ∼ m(n)0 are indistinguishable from m(n)0 in a chi-square assessment irrespective of a(n)0 ≍ a(n)1 .(ii) All models m(n)1 that are c-equivalent to m(n)0 at γ∗ are indistinguishable from m(n)0
+
+in a chi-square assessment if a(n)0 = O(n−1/2c). 
+
+Proof. We restate for ease of reference some results from van der Vaart (2000). Introduce parameter spaces Γ 0 and Γ 1 such that γ0 ∈ Γ0 corresponds to the true model m0 and 
+
+γ1 ∈ Γ1 corresponds to the permissible parameters under the postulated model m1.By the statement of Proposition 5.1, γ0 belongs to the interior of its parameter space. Let γ ∈ Γ be the parameter under the unconstrained model. In a notation mirroring that of van der Vaart (2000), introduce local parameter spaces Hn = √n(Γ − γ0) and 
+
+Hn, 0 = √n(Γ 0 − γ0), and Hn, 1 = √n(Γ 1 − γ0). In this parameterisation the null hypothesis γ = γ0 + hj /√n ∈ Γj corresponds to hj ∈ Hn,j for j ∈ { 0, 1}. This inclusion reflects a true null hypothesis if j = 0 and an erroneous one if j = 1. The unconstrained alternative for the likelihood-ratio assessment, γ ∈ Γ, corresponds to h ∈ Hn in the local parametrisation. Suppose that the sets Hn, 0, H n, 1 and Hn converge to sets H0, H 1
+
+and H respectively, then by van der Vaart (2000, Theorem 16.7), the likelihood ratio statistic Λ n for testing γ ∈ Γ0, converges in distribution under γ0 + h0/√n to Λ, where Λ = inf 
+
+> h0∈H0
+
+(X − h0)TIγ0 (X − h0) − inf 
+
+> h0∈H
+
+(X − h0)TIγ0 (X − h0)=: ∥I1/2 
+
+> γ0
+
+X − I1/2 
+
+> γ0
+
+H0∥2 − ∥ I1/2 
+
+> γ0
+
+X − I1/2 
+
+> γ0
+
+H∥2,
+
+(7) for X normally distributed with mean h0 and covariance matrix I−1 
+
+> γ0
+
+. The second line is a condensed notation for the first, due to van der Vaart (2000). With γ0 ∈ int(Γ 0), H
+
+is, under this contiguous framework, the full space Rd(d+1) /2, thus the second term on the right hand side of (7) is zero. Expressing Λ as Λ = ∥Z + I1/2 
+
+> γ0
+
+h0 − H′
+
+> 0
+
+∥2,
+
+where Z has a standard Normal distribution and I1/2 
+
+> γ0
+
+h0 ∈ H′ 
+
+> 0
+
+:= I1/2 
+
+> γ0
+
+H0, it follows by van der Vaart (e.g. 2000, Lemma 16.6) that the limit distribution of Λ n under γ0 +h0/√n
+
+is χ2 with ν degrees of freedom, where ν is the number of constraints in H0 relative to 
+
+H .The likelihood ratio statistic Λ n for testing the postulated model m1 under which 
+
+γ = γ0 + h1/√n ∈ Γ1 converges in distribution under γ0 + h0/√n to Λ, where Λ = inf 
+
+> h1∈H1
+
+(X − h1)TIγ01 (X − h1) − inf 
+
+> h1∈H
+
+(X − h1)TIγ01 (X − h1)=: ∥I1/2
+
+> γ01
+
+X − I1/2
+
+> γ01
+
+H1∥2 − ∥ I1/2
+
+> γ01
+
+X − I1/2
+
+> γ01
+
+H∥2,
+
+20 with X as defined previously. It is clear in the condensed notation that the second term is that of (7). Thus Λ = ∥Z + I1/2
+
+> γ01
+
+h0 − I1/2
+
+> γ01
+
+H1∥2 (8) for a standard normal vector Z. We retain the notation Iγ01 indicating that the infor-mation matrix is evaluated at the parameter under m1, even though this is Iγ0 in the relevant limit. The distribution of Λ is non-central χ2 with non-centrality parameter 
+
+δ = ∥I1/2
+
+> γ01
+
+h0 − I1/2
+
+> γ01
+
+H1∥, and degrees of freedom equal to the number of constraints in H1
+
+relative to H. As long as m0̸ ∼ m1, so that h0 /∈ H1, δ is positive. Under the setting of Proposition 5.1, the permissible parameters under both models approach the intersection γ∗: γ(n)0 = γ∗ + a(n)0 and γ(n)1 = γ∗ + a(n)1 . Under Markov equivalence m(n)1 ∼ m(n)0 , ˆ γ(n)1 = ˆ γ(n)0 and γ(n)1 = γ(n)0 . Thus the log-likelihood functions under the two model constraints, and the distribution of the associated likelihood-ratio statistic are the same, and the models are indistinguishable. The constraint γ(n)0 ∈ Γ0 corresponds to h0 ∈ Hn, 0 as before, and we recover the χ2
+
+distribution with ν degrees of freedom under a true postulated model. For an erroneous postulated model, the relevant quantity γ(n)1 = γ(n)0 + h1/√n ∈ Γ1, is, in terms of 
+
+γ∗, γ(n)1 = γ∗ + a(n)0 + h1/√n, so that h1 = √n(a(n)1 − a(n)0 ), whose limit is k in the notation of Evans (2020). Then under the true γ(n)0 , the non-centrality parameter δ =
+
+∥I1/2
+
+> γ01
+
+h0 − I1/2
+
+> γ01
+
+H1∥ = inf h1 (hT 
+
+> 1
+
+Iγ01 h1)1/2.Suppose that m(n)1 is c-equivalent to m(n)0 , then, by definition, a(n)1 = a(n)0 +o(∥a(n)0 ∥c)(see Evans, 2020, p. 3538). If a(n)0 ≲ n−1/2c then a(n)1 = o(n−1/2) and h1 = √n(a(n)1 −
+
+a(n)0 ) = o(1) so that δ → 0 and Λ converges in distribution to a central χ2 distribution. Thus, m(n)1 is indistinguishable from m(n)0 in a χ2 assessment. For notational convenience here and henceforth, we will not always be explicit about the dependence on n induced through γ(n)0 = γ∗ + a(n)0 . We thus write γ0 in place of 
+
+γ(n)0 and γ01 := argmax γ∈Γ1 M(n)0 where M(n)0 := Eγ0 Mn(γ). 
+
+Lemma A.2. There exists C < ∞ and δ > 0 such that, for all γ satisfying d(γ, γ 01 ) < δ ,
+
+M(n)0 (γ) − M(n)0 (γ01 ) ≤ − Cd 2(γ, γ 01 ).
+
+Proof. This is by Taylor expansion using the definition of γ01 as a maximiser of M(n)0 ,implying negative definiteness of the Hessian. 
+
+Lemma A.3. Under a mean-zero Gaussian model of dimension d,
+
+M(n)0 (γ) = − d 
+
+> 2
+
+log(2 π) − 12 log(det Σ γ ) − 12 tr(Σ −1 
+
+> γ
+
+Σγ0 )
+
+M0(γ) = − d 
+
+> 2
+
+log(2 π) − 12 log(det Σ γ ) − 12 tr(Σ −1 
+
+> γ
+
+Σγ∗ )where M0(γ) = lim n M(n)0 (γ) and Σ γ = vech −1(γ). 21 Proof. The form for M(n)0 (γ) can be checked by direct calculation. The form for M0(γ)follows on taking the appropriate limit. 
+
+A.2 Proofs of main results 
+
+Proof of Proposition 5.1. The construction of the confidence set uses the chi-square as-sessment Λ n ≤ χ2
+
+> ν, 1−α
+
+, where χ2 
+
+> ν, 1−α
+
+is the (1 − α)-quantile of the χ2 
+
+> ν
+
+distribution. The true model m(n)0 is thus retained with asymptotic probability 1 − α by standard argu-ments, recalled in the proof of Lemma A.1. Suppose that m(n)1 ∼ m(n)0 , then by Lemma A.1, m(n)1 is indistinguishable from m(n)0
+
+irrespective of a(n)0 in a chi-square assessment. Therefore, m(n)1 is also retained in the confidence set with probability 1 − α. Suppose that m(n)1 is c-equivalent to m(n)0 at 
+
+γ∗ and a(n)0 = O(n−1/2c). Then by Lemma A.1, pr(Λ n ≤ χ2
+
+> ν, 1−α
+
+) = 1 − α + o(1) as 
+
+n → ∞ . Otherwise, m(n)1 can be distinguished from m(n)0 , and pr(Λ n ≤ χ2
+
+> ν, 1−α
+
+) = o(1) as n → ∞ .
+
+Proof of Proposition 5.2. The first part of the proof is based on that of van der Vaart and Wellner (1996, Theorem 3.2.5). Rather than directly applying their theorem, which requires verifying a condition on the expected modulus of continuity of a particular empirical process, we found it easier to to use an explicit calculation for an object that appears earlier in their proof strategy. We therefore provide a version of the full argument here for ease of reference, with some clarifications. Let γ01 be as defined in Lemma A.2. For n, j ∈ N, define the sequence of sets 
+
+Sjn := γ ∈ Γ1 : 2 j−1 < r nd(γ, γ 01 ) ≤ 2j , j ∈ N,
+
+where rn is an divergent sequence of positive real numbers and d(γ, γ 01 ) is the maximum elementwise distance between γ and γ01 . Since we are treating the dimension of γ as fixed, it is, however, immaterial which distance is used. For j0 ∈ N and η > 0 we have the decomposition into disjoint sets 
+
+{γ : rnd(γ, γ 01 ) > 2j0 } ⊆ ∪j≥j0 {γ : γ ∈ Sjn }
+
+= ∪j≥j0:2 j ≤ηr n {γ : γ ∈ Sjn } ∪ ∪j≥j0:2 j >ηr n {γ : γ ∈ Sjn } .
+
+Thus, since 2 j > ηr n implies the containments 
+
+Sjn ⊆ { γ : rnd(γ, γ 01 ) > 2j−1} ⊆ { γ : d(γ, γ 01 ) > 12 η},
+
+we have pr( rnd(ˆ γ1, γ 01 ) > 2j0 ) ≤ X 
+
+> j≥j0:2 j≤ηr n
+
+pr(ˆ γ1 ∈ Sjn ) + pr(2 d(ˆ γ1, γ 01 ) > η )
+
+≤ X 
+
+> j≥j0:2 j≤ηr n
+
+pr 
+
+
+
+sup 
+
+> γ∈Sjn
+
+(Mn(γ) − Mn(γ01 )) ≥ 0
+
+
+
++ pr(2 d(ˆ γ1, γ 01 ) > η ).
+
+22 The second term tends to zero by consistency of ˆ γ1 to γ01 , which follows from e.g. van der Vaart (2000, Theorem 5.7) using a standard identifiability argument and the fact that sup 
+
+> γ∈Γ1
+
+|Mn(γ) − M(n)0 (γ)| = 12 sup γ∈Γ1 | tr {Σ−1 
+
+> γ
+
+(Σ γ0 − Sn)}| → p 0by Lemma A.3. By Lemma A.2, there exists a C < ∞, δ > 0 and n0 ∈ N such that for all n > n 0
+
+and for all γ ∈ Sjn such that Mn(γ) − Mn(γ01 )) ≥ 0, 
+
+Mn(γ) − Mn(γ01 ) + M(n)(γ01 ) − M(n)0 (γ)
+
+≥ Cd 2(γ, γ 01 )
+
+> C (r−1 
+
+> n
+
+2j−1)2
+
+= Cr −2 
+
+> n
+
+22j−2.
+
+It follows, on letting W(γ) = Mn(γ) − M(n)0 (γ), that pr 
+
+
+
+sup 
+
+> γ∈Sjn
+
+(Mn(γ) − Mn(γ01 )) ≥ 0
+
+
+
+≤ pr 
+
+
+
+sup 
+
+> γ∈Sjn
+
+(Wn(γ) − Wn(γ01 )) > Cr −2 
+
+> n
+
+22j−2
+
+. (9) On reparametrising in terms of Σ γ = vech −1(γ), 
+
+Wn(γ) − Wn(γ01 ) = 12 tr {Σ−1 
+
+> γ
+
+(Σ γ0 − Sn)} − 12 tr {Σ−1
+
+> γ01
+
+(Σ γ0 − Sn)}
+
+= 12 tr {(Σ −1 
+
+> γ
+
+− Σ−1
+
+> γ01
+
+)(Σ γ0 − Sn)}
+
+= 12
+
+P 
+
+> i,j
+
+(Σ −1 
+
+> γ
+
+− Σ−1
+
+> γ01
+
+)ij (Σ γ0 − Sn)ji 
+
+by Lemma A.3. Let ( ξγk , λ γk ) and ( ξγ01 
+
+> k
+
+, λ γ01 
+
+> k
+
+) denote the kth ordered eigenvector and eigen-value pair for Σ γ and Σ γ01 respectively. By the complex variables argument presented by Battey (2019, p.608), 
+
+X
+
+> i,j
+
+(Σ −1 
+
+> γ
+
+−Σ−1
+
+> γ01
+
+)ij (Σ γ0 −Sn)ji = − X
+
+> k,v,r,s
+
+(λγk λγ01 
+
+> v
+
+)−1ξγrk ξγ01 
+
+> sv
+
+(Σ γ −Σγ01 )rs 
+
+X
+
+> i,j
+
+ξγik ξγ01 
+
+> jv
+
+(Σ γ0 −Sn)ji ,
+
+and since 2j−1
+
+rn
+
+< (Σ γ − Σγ01 )rs < 2j
+
+rn
+
+, γ ∈ Sjn ,
+
+Markov’s inequality applied to (9) gives pr( rnd(ˆ γ1, γ 01 ) > 2j0 ) ≤ C X 
+
+> j≥j0:2 j≤ηr n
+
+r2
+
+> n
+
+n−1/2
+
+rn22j−2 = Cr nn−1/2 X
+
+> j≥j0
+
+122j−2 .
+
+The sum on the right hand side is uniformly bounded in rn, j0 and η. It follows that the sharpest rate rn such that the right hand side is O(1) is rn = √n.23 The above calculation establishes that ˆ γ1 = γ01 + Op(n1/2); to complete the proof of Proposition 5.2 we need additionally to show that γ01 = γ∗ + O(a(n)0 ), where the point of intersection satisfies 
+
+γ∗ = argmax 
+
+> γ∈Γ1
+
+M0(γ), M0(γ) := lim  
+
+> n→∞
+
+M(n)0 (γ).
+
+With A(n)0 := vech( a(n)0 ), 
+
+M(n)0 (γ) − M0(γ) = 12 tr {Σ−1 
+
+> γ
+
+(Σ γ∗ − Σγ0 )} = 12 tr {Σ−1 
+
+> γ
+
+A(n)0 }
+
+by Lemma A.3, from which the conclusion follows. 
+
+## B Proofs for Section 6 
+
+Lemma B.1. Suppose we have a two-component mixture model m0 defined as (1 −
+
+θ)F0,1+θF 0,2 whose constituent distributions belong to m0,1 and m0,2. Then, dH (m0, m 0,1) = 
+
+θd H (m0,1, m 0,2) and dH (m0, m 0,2) = (1 − θ)dH (m0,1, m 0,2). An analogous statement ap-plies when the models are intersected with Nε(γ∗), as in Definition 5.1. 
+
+Proof. The Hausdorff distance between m0 and m0,1 is 
+
+dH (m0, m 0,1) = max 
+
+
+
+sup 
+
+> γ0∈m0
+
+inf 
+
+> γ0,1∈m0,1
+
+∥γ0 − γ0,1∥2, sup 
+
+> γ0,1∈m0,1
+
+inf 
+
+> γ0∈m0
+
+∥γ0 − γ0,1∥2
+
+
+
+sup 
+
+> γ0,1∈m0,1
+
+inf 
+
+> γ0,1∈m0,1γ0,2∈m0,2
+
+∥(1 − θ)γ0,1 + θγ 0,2 − γ0,1∥2
+
+
+
+= max 
+
+
+
+sup 
+
+> γ0,1∈m0,1γ0,2∈m0,2
+
+inf 
+
+> γ0,1∈m0,1
+
+∥θ(γ0,2 − γ0,1)∥2,
+
+sup 
+
+> γ0,1∈m0,1
+
+inf 
+
+> γ0,1∈m0,1γ0,2∈m0,2
+
+∥θ(γ0,2 − γ0,1)∥2
+
+
+
+= sup 
+
+> γ0,2∈m0,2
+
+inf 
+
+> γ0,1∈m0,1
+
+∥θ(γ0,2 − γ0,1)∥2
+
+= θd H (m0,2, m 0,1)where we have used that the second term in the maximum is zero since the two models intersect. The penultimate equality holds by convexity of the models. The same argument with m0,2 in place of m0,1 gives the second statement. 
+
+Proof of Proposition 6.1. For notational convenience, mj (ε) denotes mj ∩ Nε(γ∗). The triangle inequality and the definition of Hausdorff distance in Definition 5.1 gives 
+
+dH (m0(ε), m 1(ε)) ≤ dH (m0(ε), m 0,1(ε)) + dH (m0,1(ε), m 1(ε)) 
+
+≤ dH (m0(ε), m 0,1(ε)) + dH (m0,1(ε), m 0,2(ε)) + dH (m0,2(ε), m 1(ε)) = o(max {εc, ε c2 }),
+
+24 where we have used, from Lemma B.1, that dH (m0(ε), m 0,1(ε)) = θd H (m0,1(ε), m 0,2(ε)) = 
+
+O(ε)o(εc) = o(εc+1 ). The last line follows on observing that εc+1 < ε c. By the same argument, 
+
+dH (m0(ε), m 1(ε)) ≤ dH (m0(ε), m 0,2(ε)) + dH (m0,2(ε), m 1(ε)) 
+
+≤ dH (m0(ε), m 0,2(ε)) + dH (m0,2(ε), m 0,1(ε)) + dH (m0,1(ε), m 1(ε)) = o(max {εc, ε c1 }).
+
+The result stated in the proposition is the minimum from these two statements. 
+
+Proof of Corollary 6.1. The proof of (i) follows that of Lemma A.1. Introduce parameter spaces Γ 0, Γ0,1, Γ0,2 such that γ0 ∈ Γ0 corresponds to the true mixture model m0 and 
+
+γ0,j ∈ Γ0,j (j = 1 , 2) corresponds to the permissible parameters under the postulated model m1, which in the case of part (i) is m0,1. As in the proof of Lemma A.1, introduce local parameter spaces corresponding to Γ 0, Γ0,1, Γ0,2, Γ and suppose that they converge to sets H0, H 0,1, H 0,2 and H. The parameter associated with the true mixture is 
+
+γ0 = γ0,1 + θ(γ0,2 − γ0,1) = γ0,1 + θ(h0,2 − h0,1).
+
+Thus, on setting θ = n−1/2 and h0 = h0,2 − h0,1 the problem of interest has the same contiguous alternatives form γ0,1 + h0/√n as in the proof of Lemma A.1. The likelihood ratio statistic Λ n for testing the postulated model m1 = m0,1 against the saturated one converges in distribution under γ0,1 + h0/√n to Λ, where Λ = inf 
+
+> h0,1∈H0,1
+
+(X − h0,1)TIγ0 (X − h0,1) − inf 
+
+> h0,1∈H
+
+(X − h0,1)TIγ0 (X − h0,1)=: ∥I1/2 
+
+> γ0
+
+X − I1/2 
+
+> γ0
+
+H0,1∥2 − ∥ I1/2 
+
+> γ0
+
+X − I1/2 
+
+> γ0
+
+H∥2,
+
+and the rest of the argument in the proof of Lemma A.1 applies unmodified. The proof of (ii) uses a different argument based on the c-equivalence. From Lemma B.1, dH (m0(ε), m 0,2(ε)) = (1 −θ)dH (m0,1(ε), m 0,2(ε)) and m0,1 and m0,2 are c−equivalent, so dH (m0,1(ε), m 0,2(ε)) = o(εc), implying that dH (m0(ε), m 0,2(ε)) = o(εc). We have shown that that the true mixture model m(n)0 and the postulated m(n)0,2 are c-equivalent. An application of Proposition 5.1 establishes the result. 
+
+Proof of Corollary 6.2. From Proposition 6.1, the true and postulated models are cm-equivalent in a neighbourhood of γ∗, where 
+
+cm := max {min {c, c 1}, min {c, c 2}} .
+
+Because m(n)0,1 , m (n)0,2 and m(n)1 are mean-zero Gaussian models with non-singular covari-ance matrices, they are infinitely differentiable. Since any the convex combination of 
+
+m(n)0,1 and m(n)0,2 preserves this differentiability, the true mixture m(n)0 is also infinitely dif-ferentiable. Thus, cm-equivalence implies ( cm + 1)-near-equivalence as noted by Evans (2020). The notion of c-near-equivalence gives sharper results than c-equivalence. An application of Proposition 5.1 with m(n)0 and m(n)1 , ( cm +1)-near-equivalent shows that m(n)1 is retained in M with probability 1 −α+o(1) if and only if a(n)0,1 ≍ a(n)0,2 ≍ a(n)1 =
+
+O(n1/2cm ), where cm = c if c ≤ max {c1, c 2} and cm = max {c1, c 2} if max {c1, c 2} ≤ c.25 C Additional plots 
+
+To illustrate Proposition 5.1 from a different perspective, we present the simulated retention probabilities of a 95% confidence set, from 500 replications, for the 12 models in Table 1 when the true distribution belongs to model 1 with varying signal strength. Models 2–4 are 2-near-equivalent to model 1 as they share the same skeleton, and the remaining models are 1-near-equivalent. From Proposition 5.1, 1-near-equivalent models are indistinguishable from the true one if and only if the signal strength is o(n−1/2), whereas 2-near-equivalent models are indistinguishable from the true one if and only if the signal strength is o(n−1/4). These conclusions are reflected in the plots. That 1-near-equivalent and 2-near-equivalent models are indistinguishable at any sample size if the signal decays faster than n−1/2 is apparent from Figure 7. When the signal strength is at the borderline of detectability, 
+
+n−1/2, as in Figure 8, the 1-near-equivalent models are retained less frequently than the nominal rate, but as the sample size is increased, the corresponding retention proba-bilities do not approach zero; the 2-near-equivalent models are retained with simulated probabilities close to 1 − α. With a signal strength of n−1/4 in Figure 9, the retention probabilities for the 1-near-equivalent models approach zero with increasing sample size, while those for the 2-near-equivalent models are stable but below the nominal coverage rate 1 − α. At a slowly decaying signal strength of n−1/6, both 1-near-equivalent and 2-near-equivalent models are distinguishable from the true one. The figures show that a stronger signal strength, i.e. one that decays more slowly with sample size, is needed to exclude models from the confidence set that are locally similar to the true one, as characterised by a larger c in their c−equivalence to model m0.
+
+## References 
+
+Battey, H. S. (2019). On sparsity scales and covariance matrix transformations. 
+
+Biometrika , 106, 605–617. Evans, R. (2020). Model selection and local geometry. Ann. Statist.) , 48, 3513–3544. van der Vaart, A. (2000). Asymptotic Statistics . Cambridge University Press. van der Vaart, A. and Wellner, J. A. (2000). Weak Convergence and Empirical Processes ,Springer. 26 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1, n = 320.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.93 0.88 0.88 0.88 0.89 0.86 0.86 0.86 0.9 0.87 0.87 0.87 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1, n = 620.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.94 0.93 0.93 0.93 0.94 0.94 0.94 0.94 0.94 0.93 0.93 0.93 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1, n = 920.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.96 0.96 0.96 0.96 0.94 0.94 0.94 0.94 0.95 0.96 0.96 0.96 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1, n = 12 20.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.94 0.94 0.94 0.94 0.94 0.93 0.93 0.93 0.96 0.96 0.96 0.96 Figure 7: Simulated retention probabilities for each model with increasing n when the true distribution belongs to model 1 with signal strengths aij = n−1. Top left to bottom right illustrates effect of increasing n ∈ { 32, 62, 92, 12 2}.1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 2 , n = 320.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.93 0.88 0.88 0.88 0.78 0.76 0.76 0.76 0.82 0.78 0.78 0.78 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 2 , n = 620.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.93 0.93 0.93 0.93 0.85 0.85 0.85 0.85 0.83 0.83 0.83 0.83 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 2 , n = 920.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.96 0.96 0.96 0.96 0.85 0.86 0.86 0.86 0.82 0.81 0.81 0.81 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 2 , n = 12 20.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.95 0.95 0.95 0.95 0.85 0.86 0.86 0.86 0.85 0.84 0.84 0.84 
+
+Figure 8: Analogue of Figure 7 with signal strengths aij = n−1/2.27 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 4 , n = 320.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.92 0.83 0.83 0.83 0.66 0.59 0.59 0.59 0.69 0.62 0.62 0.62 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 4 , n = 620.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.93 0.88 0.88 0.88 0.42 0.36 0.36 0.36 0.36 0.34 0.34 0.34 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 4 , n = 920.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.96 0.84 0.84 0.84 0.2 0.15 0.15 0.15 0.23 0.19 0.19 0.19 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 4 , n = 12 20.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.94 0.86 0.86 0.86 0.11 0.09 0.09 0.09 0.1 0.09 0.09 0.09 Figure 9: Analogue of Figure 7 with signal strengths aij = n−1/4.1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 6 , n = 320.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.92 0.79 0.79 0.79 0.64 0.54 0.54 0.54 0.6 0.49 0.49 0.49 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 6 , n = 620.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.93 0.74 0.74 0.74 0.2 0.12 0.12 0.12 0.19 0.13 0.13 0.13 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 6 , n = 920.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.96 0.56 0.56 0.56 0.02 0.01 0.01 0.01 0.03 0.01 0.01 0.01 1 2 3 4 5 6 7 8 9 10 11 12 true model: 1, aij = n−1 6 , n = 12 20.0  0.2  0.4  0.6  0.8  1.0 model proportion retained 0.94 0.52 0.52 0.52 0 0 0 0 0 0 0 0
+
+Figure 10: Analogue of Figure 7 with signal strengths aij = n−1/6.28

@@ -1,0 +1,1077 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-16T19:37:35.419529+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 25,
+    "deep_cap": 6,
+    "deep_selected": 22,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2608.07832v1",
+      "source": "arxiv",
+      "title": "Proximal Individualized Functional Treatment Regimes",
+      "abstract": "Estimating individualized treatment regimes (ITRs) is fundamental in data-driven personalized decision-making problems, such as precision medicine. Most of the ITR literature either focuses on categorical/continuous treatments or assumes no unmeasured confounding. In this paper, we make the first attempt to estimate the optimal individualized functional treatment regime (IFTR) for observational data where the treatment is a function and unmeasured confounding is present. We establish an identification result for a class of IFTRs under the proximal causal inference framework. Based on the identification result, we develop an algorithm of finding the optimal IFTR. The appealing practical performance of the proposed method is demonstrated by a simulation study. The proposed method is applied to an accelerometry dataset collected by the US National Health and Nutrition Examination Survey to find the optimal physical activity distribution for the best of the Triglyceride-Glucose index.",
+      "authors": [
+        "Zhuoxin Long",
+        "Xiaoke Zhang"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-08-08T00:34:35+00:00",
+      "link": "https://arxiv.org/pdf/2608.07832v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Estimates optimal functional treatment regimes from observational data with unmeasured confounding via proximal causal inference",
+      "llm_evidence_cn": "利用近端因果推理从存在未测量混杂的观测数据中估计最优功能性治疗策略",
+      "llm_evidence": "利用近端因果推理从存在未测量混杂的观测数据中估计最优功能性治疗策略",
+      "canonical_evidence": "利用近端因果推理从存在未测量混杂的观测数据中估计最优功能性治疗策略",
+      "llm_tldr_en": "The paper proposes the first method to estimate optimal individualized functional treatment regimes from observational data with unmeasured confounding, using proximal causal inference to establish identification and an algorithm to find optimal regimes.",
+      "llm_tldr_cn": "针对观测数据中治疗为函数且存在未测量混杂的个体化治疗策略估计难题，本文首次提出基于近端因果推断的识别方法，并开发寻找最优功能性治疗策略的算法。模拟研究表明该方法在实际设置中表现良好，为精准医学中的个性化决策提供了新工具。",
+      "llm_tldr": "针对观测数据中治疗为函数且存在未测量混杂的个体化治疗策略估计难题，本文首次提出基于近端因果推断的识别方法，并开发寻找最优功能性治疗策略的算法。模拟研究表明该方法在实际设置中表现良好，为精准医学中的个性化决策提供了新工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10305v1",
+      "source": "arxiv",
+      "title": "COMPACT: Spectral Adjustment Scores from a Complete and Irreducible Causal Criterion",
+      "abstract": "Observational datasets frequently contain many baseline variables, yet investigators estimating causal effects may not know which variables to include in the adjustment set. Confounding information may also be distributed weakly across many variables. Propensity scores can simplify adjustment by reducing high-dimensional covariates to a scalar with binary treatment. Although the propensity score is the coarsest balancing score, this distributional optimality does not imply maximal specificity over causal graphs. We instead examine all causal graphs among a candidate score, treatment, and outcome while allowing latent variables. Under faithfulness, we identify the largest set of unconditional and conditional dependence relations whose truth is invariant to whether treatment causes the outcome, leaving treatment-effect estimation to the downstream analysis. This criterion defines the maximally specific graph class expressible through these relations. We then develop the proposed algorithm, which operationalizes the criterion through a generalized eigenvalue problem whose score space targets the span of a balancing coordinate and an outcome-guided coordinate. We show that sufficiently informative proxies can recover this span without direct observation of the adjustment variables, characterize the resulting estimation and causal errors, and establish bootstrap validity for the complete procedure. Simulations and a real-data application demonstrate superior performance over several alternatives.",
+      "authors": [
+        "Eric V. Strobl"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.ML"
+      ],
+      "published": "2026-08-10T23:22:20+00:00",
+      "link": "https://arxiv.org/pdf/2608.10305v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Develops spectral adjustment scores to reduce confounding in causal effect estimation from observational data",
+      "llm_evidence_cn": "开发谱调整得分以减少观测数据因果效应估计中的混杂",
+      "llm_evidence": "开发谱调整得分以减少观测数据因果效应估计中的混杂",
+      "canonical_evidence": "开发谱调整得分以减少观测数据因果效应估计中的混杂",
+      "llm_tldr_en": "The paper proposes COMPACT, a spectral adjustment score derived from a complete causal criterion that improves specificity over propensity scores for high-dimensional confounding adjustment in causal effect estimation.",
+      "llm_tldr_cn": "针对观测数据中高维协变量混杂调整问题，本文提出基于完整且不可约因果准则的谱调整得分方法，通过分析所有可能因果图并利用谱方法构造得分。该方法比传统倾向得分更具特异性，能更有效地平衡混杂，提升因果效应估计精度。",
+      "llm_tldr": "针对观测数据中高维协变量混杂调整问题，本文提出基于完整且不可约因果准则的谱调整得分方法，通过分析所有可能因果图并利用谱方法构造得分。该方法比传统倾向得分更具特异性，能更有效地平衡混杂，提升因果效应估计精度。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11156v1",
+      "source": "arxiv",
+      "title": "Conditional Independence Tests for Constraint-Based Causal Discovery: A Survey",
+      "abstract": "Conditional Independence (CI) tests are the statistical engine of constraint-based causal discovery: in algorithms such as PC (Peter-Clark) and FCI (Fast Causal Inference), skeleton pruning and key orientations follow directly from CI decisions. This survey reviews CI testing with emphasis on assumptions, robustness, and scalability in high-dimensional and mixed-type settings common in biomedical domains. The survey organizes widely used CI methods into six families: partial-correlation, contingency-table, regression, nearest-neighbor, kernel, and machine-learning-based. Special emphasis is provided on the robustness layers that address the limitations of these families. For each family, the survey examines when CI decisions reflect the data-generating distribution and when they fail. By this, we link test-level properties, including power decay with conditioning set size and asymmetric type I/II error consequences, to graph-level errors in skeleton recovery and v-structure orientation. The survey also compares adoption across major R and Python libraries and summarizes open challenges, including mixed-type CI testing without discretization, small-sample error control, and strategies for improving scalability of CI-testing.",
+      "authors": [
+        "Pavel Averin",
+        "Theodoros Moysiadis",
+        "Ioannis Katakis"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-08-11T17:13:52+00:00",
+      "link": "https://arxiv.org/pdf/2608.11156v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Survey of CI tests for constraint-based causal discovery algorithms",
+      "llm_evidence_cn": "面向基于约束因果发现算法的条件独立性检验综述",
+      "llm_evidence": "面向基于约束因果发现算法的条件独立性检验综述",
+      "canonical_evidence": "面向基于约束因果发现算法的条件独立性检验综述",
+      "llm_tldr_en": "Surveys conditional independence tests used in constraint-based causal discovery, organizing methods into six families and analyzing robustness and scalability.",
+      "llm_tldr_cn": "该综述系统梳理了基于约束因果发现算法中条件独立性检验的统计基础，将常用方法分为偏相关、列联表、回归、最近邻、核和机器学习六类，并重点分析其在生物医学高维混合数据中的稳健性与可扩展性；为因果发现算法选择和CI检验改进提供了系统参考。",
+      "llm_tldr": "该综述系统梳理了基于约束因果发现算法中条件独立性检验的统计基础，将常用方法分为偏相关、列联表、回归、最近邻、核和机器学习六类，并重点分析其在生物医学高维混合数据中的稳健性与可扩展性；为因果发现算法选择和CI检验改进提供了系统参考。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "algorithms for causal discovery",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11954v1",
+      "source": "arxiv",
+      "title": "Causal inference for group-contaminated structured outcomes: observable quotients, lossless reduction and exact randomization inference",
+      "abstract": "Structured potential outcomes such as microscopy images may be recorded after an unknown, unit-specific transformation. If that transformation can depend on treatment, covariates or the intrinsic outcome, raw-coordinate analyses may mix biological effects with acquisition geometry. We study the unrestricted observation model X = Γ . Y(A) and characterize its observable information: a target is uniformly recoverable exactly when it is constant on group orbits, while a Borel maximal invariant retains every measurable invariant target. We then distinguish observability from statistical losslessness. A quotient-faithful reconstruction theorem shows that quotient reduction is sufficient for the full transformed experiment exactly when the conditional law of the raw observation given treatment, covariates and the quotient has a parameter-free version. Conditional Haar contamination on a compact group yields Blackwell equivalence as a special case; it is not imposed in the main model. We also separate independent site-specific product actions from shared diagonal actions and show why componentwise canonicalization can discard relative cross-site information. Under explicit metric and kernel regularity, an approximate-contamination theorem bounds quotient-law Wasserstein error and the induced perturbation of population maximum mean discrepancy. For finite-support multichannel lattice images, we construct a maximal invariant under integer translations and quarter turns, combine its characteristic Gaussian kernel with a complete paired-swap test, and retain the original simulations and RxRx1 HUVEC study. Under the sharp null, the quotient test rejected in 0.052 of simulation replicates; at unit effect strength its power was 0.992. The primary RxRx1 contrast had an enumerated paired-swap p-value of 0.0078.",
+      "authors": [
+        "Usef Faghihi",
+        "Amir Saki"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "cs.AI"
+      ],
+      "published": "2026-08-12T11:39:50+00:00",
+      "link": "https://arxiv.org/pdf/2608.11954v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Causal inference with structured potential outcomes and exact randomization inference",
+      "llm_evidence_cn": "结构化潜在结果的因果推断与精确随机化检验",
+      "llm_evidence": "结构化潜在结果的因果推断与精确随机化检验",
+      "canonical_evidence": "结构化潜在结果的因果推断与精确随机化检验",
+      "llm_tldr_en": "Proposes causal inference methods for structured outcomes under group-contaminated transformations, using invariance and exact randomization inference for invariant targets.",
+      "llm_tldr_cn": "该论文处理结构化潜在结果可能受到未知、单位特定群变换污染的问题，此时原始坐标分析会混淆生物效应与采集几何。作者刻画了可观察信息，证明目标当且仅当在群轨道上为常数时可均匀恢复，并建立商忠实重构定理说明商约简的充分性。进一步提出基于不变统计量的精确随机化推断，用于不变因果目标的统计检验。这一框架为显微镜图像等结构化结局的因果推断提供了严格的理论支持。",
+      "llm_tldr": "该论文处理结构化潜在结果可能受到未知、单位特定群变换污染的问题，此时原始坐标分析会混淆生物效应与采集几何。作者刻画了可观察信息，证明目标当且仅当在群轨道上为常数时可均匀恢复，并建立商忠实重构定理说明商约简的充分性。进一步提出基于不变统计量的精确随机化推断，用于不变因果目标的统计检验。这一框架为显微镜图像等结构化结局的因果推断提供了严格的理论支持。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11991v1",
+      "source": "arxiv",
+      "title": "Inverse Confounding Analysis: An Exact Method for Quantifying the Significance of Confounding",
+      "abstract": "The presence of unmeasured confounding factors during the collection of observational data may lead to biased estimates of the effect of an exposure on an outcome. Consequently, a central problem in causal inference based on observational data is sensitivity analysis with respect to unmeasured confounding. Existing sensitivity analyses generally focus on worst-case bounds. We propose an exact method for quantifying the significance of confounding, defined here in terms of the complete range of analytical estimates of the stratification-based Risk Ratio over the set of all joint distributions compatible with the observed characteristics. We refer to the proposed method as Inverse Confounding Analysis (ICA). The proposed ICA method extends the widely used E-value approach but, in contrast to it, does not restrict the analysis to a worst-case lower bound. Instead, it provides exact estimates over the entire set of admissible configurations. This requires several additional input parameters, namely the frequencies of the exposure, the confounder, and the outcome. The ICA method is based on an inverse problem: reconstructing the set of admissible joint distributions from specified frequencies and pairwise associations. We formulate this reconstruction problem as a system of nonlinear equations and obtain an analytical solution. Surprisingly, the complete solution set can be parameterized linearly by a single free parameter. The corresponding stratification-based Risk Ratio is then represented as a fractional-linear function of this parameter. This representation makes it possible to derive exact analytical measures of the significance of confounding over the entire set of admissible statistical configurations.",
+      "authors": [
+        "Sergey Porotsky"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-08-12T12:29:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.11991v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Exact sensitivity analysis for unmeasured confounding in observational causal inference",
+      "llm_evidence_cn": "观测数据因果推断中未测量混杂的精确敏感性分析",
+      "llm_evidence": "观测数据因果推断中未测量混杂的精确敏感性分析",
+      "canonical_evidence": "观测数据因果推断中未测量混杂的精确敏感性分析",
+      "llm_tldr_en": "Proposes Inverse Confounding Analysis (ICA), an exact method to quantify the significance of unmeasured confounding by computing the complete range of stratification-based risk ratios over all compatible joint distributions.",
+      "llm_tldr_cn": "本文解决观测数据中未测量混杂因素导致因果效应估计偏差的问题，提出逆混杂分析（ICA）方法，通过计算与观测特征兼容的所有联合分布下分层风险比的完整范围，精确量化混杂的显著性。该方法避免了传统最坏情况界的保守性，为观测性研究的敏感性分析提供了精确工具。",
+      "llm_tldr": "本文解决观测数据中未测量混杂因素导致因果效应估计偏差的问题，提出逆混杂分析（ICA）方法，通过计算与观测特征兼容的所有联合分布下分层风险比的完整范围，精确量化混杂的显著性。该方法避免了传统最坏情况界的保守性，为观测性研究的敏感性分析提供了精确工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.12657v1",
+      "source": "arxiv",
+      "title": "General Probabilities of Causation with Causal Knowledge",
+      "abstract": "Probabilities of causation (PoCs) characterize individual causal responses that cannot be directly observed and therefore generally require partial identification. Tian and Pearl first derived theoretically sharp bounds for binary PoCs, including the probability of necessity (PN), the probability of sufficiency (PS), and the probability of necessity and sufficiency (PNS). Mueller et al. subsequently tightened the bounds for binary PNS by incorporating causal information encoded in covariates and mediators. More recently, Li and Pearl, as well as Shu et al., extended PoCs to multivalued settings and derived corresponding theoretical bounds. These developments naturally raise the question of whether additional causal knowledge can further tighten the bounds in multivalued settings. This paper addresses this question by deriving tighter bounds for multivalued PoCs through the incorporation of causal information encoded in covariates and mediators. We illustrate the theoretical results with toy examples, while simulation studies further demonstrate that the proposed bounds are tighter than existing nonbinary bounds.",
+      "authors": [
+        "Xin Shu",
+        "Zhen Lei",
+        "Ang Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "stat.ML"
+      ],
+      "published": "2026-08-12T23:40:17+00:00",
+      "link": "https://arxiv.org/pdf/2608.12657v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Derives bounds for probabilities of causation (necessity, sufficiency) under additional causal knowledge in multivalued settings",
+      "llm_evidence_cn": "在多值设定下结合因果知识推导因果概率（必然性、充分性）的界限",
+      "llm_evidence": "在多值设定下结合因果知识推导因果概率（必然性、充分性）的界限",
+      "canonical_evidence": "在多值设定下结合因果知识推导因果概率（必然性、充分性）的界限",
+      "llm_tldr_en": "The paper extends probabilities of causation bounds to multivalued settings and shows how incorporating causal knowledge from graphs tightens the identifiable intervals, advancing counterfactual causal inference theory.",
+      "llm_tldr_cn": "本文针对多值设定下因果概率（如必要性、充分性）部分识别问题，研究在额外因果知识（如图结构、协变量信息）下如何进一步收紧界限。通过扩展 Tian-Pearl 等经典方法，推导新的理论界限，并分析不同因果知识的作用。该工作深化了反事实因果推断的理论基础，为实际因果归因提供了更精确的工具。",
+      "llm_tldr": "本文针对多值设定下因果概率（如必要性、充分性）部分识别问题，研究在额外因果知识（如图结构、协变量信息）下如何进一步收紧界限。通过扩展 Tian-Pearl 等经典方法，推导新的理论界限，并分析不同因果知识的作用。该工作深化了反事实因果推断的理论基础，为实际因果归因提供了更精确的工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "potential outcomes framework for causality",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08064v1",
+      "source": "arxiv",
+      "title": "CLAM: Causal Spatial Disaggregation to Infer Local Effects From Coarse Data",
+      "abstract": "Learning fine-grained spatial patterns from coarse-resolution data is challenging, especially in causal settings where high-resolution effects must be inferred from aggregated interventions and outcomes. We introduce CLAM, a method for estimating localized causal effects from coarse observations by exploiting high-resolution contextual covariates that modulate these effects. By jointly learning the causal mechanism and a disaggregation mapping, CLAM captures interactions that are missed when addressing these problems independently. The method supports localized effect estimation, counterfactual reasoning, and principled outcome disaggregation, and reliably captures spatially varying causal effects across diverse settings. This is particularly relevant for applications such as public health and environmental policy, where decisions are made at broad scales despite substantial local heterogeneity. Code is available at https://github.com/gerritgr/clam",
+      "authors": [
+        "Gerrit Großmann",
+        "Sumantrak Mukherjee",
+        "Sebastian J. Vollmer"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-08T11:05:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.08064v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "estimates localized causal effects from coarse data via causal spatial disaggregation",
+      "llm_evidence_cn": "通过因果空间分解从粗分辨率数据估计局部因果效应",
+      "llm_evidence": "通过因果空间分解从粗分辨率数据估计局部因果效应",
+      "canonical_evidence": "通过因果空间分解从粗分辨率数据估计局部因果效应",
+      "llm_tldr_en": "This paper addresses local causal effect estimation from coarse data. CLAM jointly learns causal mechanism and disaggregation mapping using high-resolution covariates, enabling localized effect estimation, counterfactual reasoning, and outcome disaggregation. It reliably captures spatially varying causal effects.",
+      "llm_tldr_cn": "针对从粗分辨率数据推断精细空间因果效应的问题，本文提出CLAM方法，通过联合学习因果机制和分解映射来利用高分辨率上下文协变量。该方法支持局部效应估计、反事实推理和结果分解，能在多种设置下可靠捕捉空间变化的因果效应。这为空间因果推断提供了新工具。",
+      "llm_tldr": "针对从粗分辨率数据推断精细空间因果效应的问题，本文提出CLAM方法，通过联合学习因果机制和分解映射来利用高分辨率上下文协变量。该方法支持局部效应估计、反事实推理和结果分解，能在多种设置下可靠捕捉空间变化的因果效应。这为空间因果推断提供了新工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "estimating causal effects using machine learning",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08204v1",
+      "source": "arxiv",
+      "title": "Conditional Diffusion for Nonparametric Instrumental Variable Quantile Regression",
+      "abstract": "This work proposes deep nonparametric Instrumental variable quantile regression (IVQR), a two-stage estimator that combines conditional diffusion modeling with a kernel-smoothed conditional moment formulation. In the first stage, we estimate the joint conditional distribution of the outcome and endogenous covariates given the instrument using a variance-preserving conditional diffusion model. In the second stage, we approximate the conditional moment operator through Monte Carlo sampling and a kernel-smoothed surrogate for the indicator function, and then estimate the structural quantile function by empirical risk minimization over deep neural networks. We establish an excess-risk bound for the proposed estimator and derive end-to-end total variation guarantees for the conditional diffusion model under unbounded support, explicitly accounting for score estimation, early stopping, and discretization errors. Our theory is developed under a polynomial-tail envelope on the data distribution and degenerates continuously to the exponential setting: as the tail index grows, the obtained excess-risk rate converges to the minimax-optimal rate of nonparametric regression, thus our heavy-tailed theory covers the classical light-tailed nonparametric guarantees as a limiting case. Simulation studies and a real-data application demonstrate that the proposed method outperforms existing nonparametric IVQR approaches, with gains that become increasingly pronounced as the dimensionality of the covariates and instruments increases.",
+      "authors": [
+        "Xingdong Feng",
+        "Xinhong Jiang",
+        "Yuling Jiao",
+        "Lican Kang",
+        "Junwei Liu"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-08-08T16:01:24+00:00",
+      "link": "https://arxiv.org/pdf/2608.08204v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Nonparametric instrumental variable quantile regression for causal effect estimation from observational data",
+      "llm_evidence_cn": "使用工具变量分位数回归从观测数据估计因果效应",
+      "llm_evidence": "使用工具变量分位数回归从观测数据估计因果效应",
+      "canonical_evidence": "使用工具变量分位数回归从观测数据估计因果效应",
+      "llm_tldr_en": "This paper proposes a two-stage deep nonparametric IV quantile regression method combining conditional diffusion and kernel smoothing, providing causal effect estimation with finite-sample risk bounds.",
+      "llm_tldr_cn": "本文解决观测数据中内生性导致的因果效应估计难题，提出两阶段深度非参数工具变量分位数回归方法。第一阶段用条件扩散模型估计工具变量条件下结果与内生协变量的联合分布，第二阶段通过核平滑和深度神经网络估计结构分位数函数。理论给出了超额风险界，表明方法在非参数设定下具有统计保证，为工具变量因果推断提供了新的灵活工具。",
+      "llm_tldr": "本文解决观测数据中内生性导致的因果效应估计难题，提出两阶段深度非参数工具变量分位数回归方法。第一阶段用条件扩散模型估计工具变量条件下结果与内生协变量的联合分布，第二阶段通过核平滑和深度神经网络估计结构分位数函数。理论给出了超额风险界，表明方法在非参数设定下具有统计保证，为工具变量因果推断提供了新的灵活工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08288v2",
+      "source": "arxiv",
+      "title": "Causal State-Space Model for Causal Inference: Estimating Longitudinal Individual Treatment Effects",
+      "abstract": "Estimating counterfactual outcomes over time from longitudinal observational data is central to clinical decision support. Existing methods rely on domain confusion -- adversarial training that renders representations invariant to treatment assignment -- yet this invariance creates a mutual information conflict: it suppresses treatment-correlated covariate signals necessary for accurate outcome prediction. We formalise this tension via a Jensen-Shannon divergence bound on counterfactual prediction error and develop two complementary models. CSSD (Causal State-Space model with Direct decoder) adapts selective State Space Models with a parallel multi-step decoder that eliminates accumulated rollout error by producing all prediction horizons simultaneously in a single forward pass. CSSPD (Causal State-Space model with Predictive regularisation and Direct decoder) augments CSSD with Contrastive Predictive Coding and Local Information Maximisation to reinforce temporal predictability in the balancing representation and recover local covariate information destroyed by domain confusion. On MIMIC-III, CSSPD achieves lower counterfactual RMSE than the Causal Transformer at every horizon tau >= 2 at O(T) encoder cost, with gains from 0.02 (2-step) to 0.07 (6-step). On Cancer Simulation across confounding strengths gamma in {0,1,2,3,4}, CSSPD outperforms CT at gamma <= 3 (margins 25.9%--37.0%), and CSSD achieves the lowest overall average RMSE (12.7% reduction over CT), confirming the MI conflict analysis. To our knowledge, this is the first work to formalise the balancing-prediction MI conflict and propose a structured resolution through complementary predictive and information-theoretic training objectives.",
+      "authors": [
+        "Abisoye Abidakun",
+        "Mingjun Zhong",
+        "Georgios Leontidis"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.ML"
+      ],
+      "published": "2026-08-08T18:41:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.08288v2",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Estimating counterfactual outcomes from longitudinal observational data using state-space models",
+      "llm_evidence_cn": "从纵向观测数据估计反事实结果的状态空间模型",
+      "llm_evidence": "从纵向观测数据估计反事实结果的状态空间模型",
+      "canonical_evidence": "从纵向观测数据估计反事实结果的状态空间模型",
+      "llm_tldr_en": "Proposes causal state-space models to estimate longitudinal individual treatment effects from observational data, addressing mutual information conflict in adversarial domain confusion.",
+      "llm_tldr_cn": "针对纵向观测数据中反事实结果估计的域混淆方法导致互信息冲突问题，该文提出CSSD与CSSND两种因果状态空间模型，通过选择性状态空间与并行多步解码消除累积误差；实验表明其优于现有对抗方法，为临床决策中的个体治疗效应估计提供了新方案。",
+      "llm_tldr": "针对纵向观测数据中反事实结果估计的域混淆方法导致互信息冲突问题，该文提出CSSD与CSSND两种因果状态空间模型，通过选择性状态空间与并行多步解码消除累积误差；实验表明其优于现有对抗方法，为临床决策中的个体治疗效应估计提供了新方案。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08327v1",
+      "source": "arxiv",
+      "title": "On inferential equivalence classes of causal models",
+      "abstract": "Causal models in the same Markov equivalence class are, in the absence of strong assumptions, statistically indistinguishable at any sample size. For modest sample sizes there is also the possibility that several such classes are compatible with the data, pointing to a confidence set of causal models as the appropriate presentation of evidence. Non-identifiability of Gaussian causal models from the same Markov equivalence class corresponds to a plurality of inverse-covariance representations in the unconstrained parametrisation of Cox and Wermuth (1993). This parametrisation, avoiding conic constraints that would otherwise complicate distributional approximations, facilitates construction of, and theoretical analysis for, a confidence set of causal models based on standard likelihood theory. By drawing on a geometric formulation of Evans (2020), we provide insight into which causal models are most likely to be included in the confidence set when the true parameter values of the generating model are at the borderline of detectability, delineating those models whose inclusion probabilities are stable at the nominal level, slowly decaying with sample size, and quickly decaying with sample size. We also study settings in which two or more causal models are in operation, exploring how the mixture weights, and the geometry of the models in the mixture relative to candidate models, interact with the inclusion probabilities. The purpose of the paper is to probe, from the perspective of structural properties of the true causal mechanism, the limits of what is achievable in causal inferential settings.",
+      "authors": [
+        "Charlotte Edgar",
+        "Heather Battey"
+      ],
+      "primary_category": "math.ST",
+      "categories": [
+        "math.ST"
+      ],
+      "published": "2026-08-08T20:38:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.08327v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "studies inferential equivalence classes of causal models for causal discovery from observational data",
+      "llm_evidence_cn": "研究因果模型的推理等价类，用于观测数据因果发现",
+      "llm_evidence": "研究因果模型的推理等价类，用于观测数据因果发现",
+      "canonical_evidence": "研究因果模型的推理等价类，用于观测数据因果发现",
+      "llm_tldr_en": "This paper examines inferential equivalence classes of causal models that are statistically indistinguishable from observational data. Using the unconstrained parametrisation of Cox and Wermuth, it constructs confidence sets of causal models, providing a framework for uncertainty in causal discovery.",
+      "llm_tldr_cn": "针对观测数据中因果模型可能无法区分的问题，本文研究因果模型的推理等价类。利用Cox和Wermuth的无约束参数化，构建基于标准渐近理论的因果模型置信集，避免锥约束带来的复杂性。这为因果发现的统计不确定性表达提供了理论基础。",
+      "llm_tldr": "针对观测数据中因果模型可能无法区分的问题，本文研究因果模型的推理等价类。利用Cox和Wermuth的无约束参数化，构建基于标准渐近理论的因果模型置信集，避免锥约束带来的复杂性。这为因果发现的统计不确定性表达提供了理论基础。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal discovery from observational data",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08743v1",
+      "source": "arxiv",
+      "title": "A Distribution Mapping Approach to Counterfactually Fair Reinforcement Learning",
+      "abstract": "Reinforcement learning (RL) seeks to optimize sequential decisions to maximize population-level benefits over time. However, when deployed in high-stakes settings such as healthcare, RL decisions might systematically restrict some subpopulation's access to valuable services in a manner contrary to the values and goals of stakeholders. Counterfactual fairness (CF) offers a promising framework to address this problem based on causal reasoning. This paper develops a data preprocessing algorithm that, when used in tandem with policy learning, enables CF in RL. Our algorithm relies on a novel quantile distribution mapping method for sequentially estimating the counterfactual states and rewards in the data preprocessing step, subsuming common additivity assumptions used for counterfactual prediction as a special case. We theoretically prove that the per-step level of counterfactual unfairness and infinite-horizon suboptimality gap can be bounded under mild regularity conditions. We also empirically test our algorithm in numerical experiments as well as in application to a real-world interventional digital health dataset.",
+      "authors": [
+        "Jianhan Zhang",
+        "Jitao Wang",
+        "John D. Piette",
+        "Donglin Zeng",
+        "Chengchun Shi",
+        "Zhenke Wu"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.CY",
+        "cs.LG",
+        "stat.ME"
+      ],
+      "published": "2026-08-09T14:42:47+00:00",
+      "link": "https://arxiv.org/pdf/2608.08743v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Counterfactual fairness in reinforcement learning via causal reasoning and distribution mapping",
+      "llm_evidence_cn": "通过因果推理和分布映射实现强化学习的反事实公平",
+      "llm_evidence": "通过因果推理和分布映射实现强化学习的反事实公平",
+      "canonical_evidence": "通过因果推理和分布映射实现强化学习的反事实公平",
+      "llm_tldr_en": "Proposes a data preprocessing algorithm using quantile distribution mapping to sequentially estimate counterfactual states and rewards, enabling counterfactually fair policy learning in RL.",
+      "llm_tldr_cn": "强化学习在高风险场景中可能系统性地限制某些亚群体获取有价值服务，违背公平价值观。该文提出一种基于分位数分布映射的数据预处理算法，在策略学习前顺序估计反事实状态和奖励，使后续策略满足反事实公平。该方法统一了常见的加性干预模型，并在实验中验证了公平性与性能的平衡。其贡献在于为公平强化学习提供可操作的因果预处理工具。",
+      "llm_tldr": "强化学习在高风险场景中可能系统性地限制某些亚群体获取有价值服务，违背公平价值观。该文提出一种基于分位数分布映射的数据预处理算法，在策略学习前顺序估计反事实状态和奖励，使后续策略满足反事实公平。该方法统一了常见的加性干预模型，并在实验中验证了公平性与性能的平衡。其贡献在于为公平强化学习提供可操作的因果预处理工具。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "counterfactual reasoning in AI",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.09612v1",
+      "source": "arxiv",
+      "title": "Local conformal prediction for individual causal effects",
+      "abstract": "Standard CATE estimators become inadequate under strong treatment-effect heterogeneity: confidence intervals for conditional means need not cover individual counterfactual effects. We propose an Individualized Causal Prediction (ICP) framework that constructs finite-sample valid conformal prediction intervals for the individual causal effect of a specific query unit. The method localizes calibration to a causally relevant neighborhood using cosine similarity weighted by Causal Forest variable importance, augments small local samples synthetically, and calibrates intervals with doubly robust AIPW conformity scores satisfying Neyman orthogonality. Under standard identifying assumptions (SUTVA and strong ignorability) and an outcome-independent calibration-set selection condition, the resulting intervals attain marginal coverage at the nominal level. The local design also supports approximately conditional coverage by making calibration scores more representative of the query unit. Experiments on a high-heterogeneity synthetic dataset and the IHDP benchmark demonstrate that local strategies improve point accuracy over global baselines while maintaining nominal or above-nominal coverage.",
+      "authors": [
+        "Fernando Delbianco",
+        "Fernando Tohmé"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "econ.EM"
+      ],
+      "published": "2026-08-10T13:54:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.09612v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Individualized causal prediction using conformal prediction, Causal Forest importance, and AIPW scores",
+      "llm_evidence_cn": "使用共形预测、因果森林重要性和AIPW得分进行个体因果效应预测",
+      "llm_evidence": "使用共形预测、因果森林重要性和AIPW得分进行个体因果效应预测",
+      "canonical_evidence": "使用共形预测、因果森林重要性和AIPW得分进行个体因果效应预测",
+      "llm_tldr_en": "Proposes an Individualized Causal Prediction framework that constructs finite-sample valid conformal intervals for individual causal effects by localizing calibration with causal forest variable importance and using doubly robust AIPW conformity scores.",
+      "llm_tldr_cn": "本文针对强处理效应异质性下标准CATE置信区间无法覆盖个体反事实效应的问题，提出个性化因果预测框架。该方法利用因果森林变量重要性加权的余弦相似度定位校准邻域，并采用双重稳健AIPW一致性得分构造有限样本有效的共形预测区间。在标准识别假设下，提供个体因果效应的可靠不确定性量化。",
+      "llm_tldr": "本文针对强处理效应异质性下标准CATE置信区间无法覆盖个体反事实效应的问题，提出个性化因果预测框架。该方法利用因果森林变量重要性加权的余弦相似度定位校准邻域，并采用双重稳健AIPW一致性得分构造有限样本有效的共形预测区间。在标准识别假设下，提供个体因果效应的可靠不确定性量化。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "estimating causal effects using machine learning",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.09837v1",
+      "source": "arxiv",
+      "title": "Bias-robust causal inference for panel data",
+      "abstract": "We develop a bias-robust causal inference method for observational panel data settings. Such methods typically impute untreated outcomes, so counterfactual error passes straight into the estimated treatment effect while conventional standard errors ignore it. We adapt bias-aware minimax methods, developed for estimating regression coefficients in factor-model panels, to a causal target: the average effect on the treated, which has to be imputed and may vary across units and periods. The estimator corrects the imputed counterfactual with weighted untreated residuals and reports intervals with an explicit allowance for the error that remains. In simulations the proposed method holds nominal coverage where alternatives such as the generalized synthetic control have almost none, especially when the factor rank is underfitted, at the cost of wider intervals. By applying the developed methodology to real data the estimated effect remains significant for counterfactual errors nearly twice the size that the design's placebos typically exhibit.",
+      "authors": [
+        "Angelos Alexopoulos"
+      ],
+      "primary_category": "econ.EM",
+      "categories": [
+        "econ.EM",
+        "stat.ME"
+      ],
+      "published": "2026-08-10T16:54:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.09837v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Bias-robust causal inference method for observational panel data with counterfactual imputation",
+      "llm_evidence_cn": "针对观测面板数据的偏倚稳健因果推断方法，涉及反事实填补",
+      "llm_evidence": "针对观测面板数据的偏倚稳健因果推断方法，涉及反事实填补",
+      "canonical_evidence": "针对观测面板数据的偏倚稳健因果推断方法，涉及反事实填补",
+      "llm_tldr_en": "Develops a bias-robust causal inference method for observational panel data that corrects imputed counterfactuals with weighted untreated residuals, providing intervals with explicit allowance for remaining error, improving coverage over synthetic controls.",
+      "llm_tldr_cn": "本文解决面板数据观测研究中反事实误差影响处理效应估计和标准误的问题，提出偏倚稳健的因果推断方法。该方法利用加权未处理残差修正填补的反事实结果，并给出显式考虑剩余误差的区间。模拟显示其名义覆盖率优于广义合成控制等方法，尤其在异质处理效应下表现稳健。",
+      "llm_tldr": "本文解决面板数据观测研究中反事实误差影响处理效应估计和标准误的问题，提出偏倚稳健的因果推断方法。该方法利用加权未处理残差修正填补的反事实结果，并给出显式考虑剩余误差的区间。模拟显示其名义覆盖率优于广义合成控制等方法，尤其在异质处理效应下表现稳健。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.09839v1",
+      "source": "arxiv",
+      "title": "Clustering Informed Inverse Probability Weighting Strategies for Causal Effect Estimation in Observational Studies",
+      "abstract": "Inverse probability weighting (IPW) is widely used to estimate causal effects in observational studies but depends on adequate propensity-score specification. We compare three strategies for addressing treatment assignment heterogeneity: standard IPW, clustering augmented IPW with cluster specific propensity score models, and a global propensity score model including estimated cluster membership as a covariate. Through simulations with and without latent cluster structure and under correctly specified and omitted covariate propensity score models, we evaluate bias, mean squared error (MSE), and confidence interval coverage across sample sizes of 100 to 500. Both cluster informed strategies reduced bias and MSE from omitted covariate misspecification relative to standard IPW, but neither uniformly dominated: clustering augmented IPW achieved lower MSE when latent cluster structure was present, whereas the global model generally provided lower bias and better coverage at smaller sample sizes. We also apply the methods to 966 breast cancer patients treated with carboplatin, using generalized propensity scores to estimate the dose response relationship between treatment cycles and hypersensitivity reaction risk. Standard and clustered analyses produced similar pooled estimates, while clustering additionally provided subgroup specific estimates and diagnostic profiles. Overall, cluster informed strategies may improve robustness to propensity score misspecification, with relative performance depending on subgroup structure, sample size, and inferential priorities.",
+      "authors": [
+        "Ruohui Chen",
+        "Scott Zuo",
+        "Whitney Stevens",
+        "Seth Pollack",
+        "Wenna Xi",
+        "Lucia Petito",
+        "Lihui Zhao",
+        "Hui Zhang"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-08-10T16:55:09+00:00",
+      "link": "https://arxiv.org/pdf/2608.09839v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "IPW strategies for causal effect estimation in observational studies",
+      "llm_evidence_cn": "针对观察性研究中因果效应估计的逆概率加权策略",
+      "llm_evidence": "针对观察性研究中因果效应估计的逆概率加权策略",
+      "canonical_evidence": "针对观察性研究中因果效应估计的逆概率加权策略",
+      "llm_tldr_en": "Compares clustering-informed IPW strategies for causal effect estimation in observational studies, showing reduced bias and MSE.",
+      "llm_tldr_cn": "该论文针对观察性研究中因果效应估计的逆概率加权方法对倾向评分模型设定敏感这一局限，提出聚类增强的IPW策略，通过模拟实验比较标准IPW、聚类特定倾向评分模型和全局模型包含聚类成员协变量三种方法，评估偏差、均方误差和置信区间覆盖率，结果表明聚类知情策略在多种场景下降低偏差和均方误差。",
+      "llm_tldr": "该论文针对观察性研究中因果效应估计的逆概率加权方法对倾向评分模型设定敏感这一局限，提出聚类增强的IPW策略，通过模拟实验比较标准IPW、聚类特定倾向评分模型和全局模型包含聚类成员协变量三种方法，评估偏差、均方误差和置信区间覆盖率，结果表明聚类知情策略在多种场景下降低偏差和均方误差。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10182v1",
+      "source": "arxiv",
+      "title": "From Prediction to Incrementality: Causal Optimization for Large-Scale Targeting and Recommendation",
+      "abstract": "Large-scale targeting and recommendation systems are typically built around predictive scores fed into heuristic or local allocation. When the business goal is incremental impact, as in marketing campaigns, incentives, and notifications, this paradigm systematically misallocates resources toward users who would have acted anyway. We present a decision-centric framework that instead optimizes causal effects under global constraints, aligning three components under a single objective: a causal neural network with a Transformer backbone for individual treatment-effect estimation, a Bayesian neural-bandit layer for uncertainty-aware exploration, and a dual-based large-scale linear-programming layer for constrained allocation. The framework also supports sequential context and multi-outcome, attribute-conditioned scoring through a Transformer encoder and outcome embeddings. We evaluate it with offline simulations on a public bandit dataset, targeted architectural ablations, and an online A/B test on LinkedIn Feed marketing traffic. We also distill production lessons on causal training-data construction and cost and delivery control, which were critical to successful deployment. The end-to-end treatment policy delivered a statistically significant $+7.20\\%$ lift in the primary long-term-value metric, demonstrating the feasibility of production-scale causal optimization under business constraints.",
+      "authors": [
+        "Changshuai Wei",
+        "John Bencina",
+        "Phuc Nguyen",
+        "Andre Assuncao Silva T Ribeiro",
+        "Benjamin Zelditch"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-08-10T19:54:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.10182v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Causal optimization framework for large-scale targeting and recommendation under global constraints",
+      "llm_evidence_cn": "全局约束下大规模定向与推荐的因果优化框架",
+      "llm_evidence": "全局约束下大规模定向与推荐的因果优化框架",
+      "canonical_evidence": "全局约束下大规模定向与推荐的因果优化框架",
+      "llm_tldr_en": "This paper addresses the misallocation of resources in large-scale targeting and recommendation when optimizing for incremental impact. It presents a decision-centric framework combining a causal neural network for ITE, Bayesian neural-bandit for exploration, and LP for constrained allocation. The approach shifts from prediction to causal optimization.",
+      "llm_tldr_cn": "针对大规模定向和推荐系统中基于预测分数的资源错配问题，本文提出决策中心框架，将个体处理效应估计的因果神经网络、不确定性探索的贝叶斯神经强盗层以及约束分配的线性规划层统一在因果优化目标下。该方法从预测转向增量优化，在营销和通知等场景提升了业务增量效果。",
+      "llm_tldr": "针对大规模定向和推荐系统中基于预测分数的资源错配问题，本文提出决策中心框架，将个体处理效应估计的因果神经网络、不确定性探索的贝叶斯神经强盗层以及约束分配的线性规划层统一在因果优化目标下。该方法从预测转向增量优化，在营销和通知等场景提升了业务增量效果。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference in industrial",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10339v1",
+      "source": "arxiv",
+      "title": "Expert-Guided g-computation with Large Language Models for Estimating Causal Effects on Timings: Applications to Hospital Quality Improvement",
+      "abstract": "Hospital quality improvement (QI) programs routinely face multiple candidate interventions to optimize hospital flow, but existing methods struggle to estimate and rank the causal effects of such interventions. This work focuses on one of the most standard hospital metrics, the average length of stay (LOS), and its causal estimand, the average time saved. To characterize this causal effect, qualitative approaches rely on expert judgment to map patient trajectories, making them susceptible to cognitive biases; quantitative approaches rely on data-driven models, which fail when interventions are hypothetical with no historical data or have complex causal mechanisms that require clinical reasoning rather than data alone. We propose expert-guided g-computation, or egg-computation, which combines the complementary strengths of both approaches by connecting the Gantt charts commonly used to map patient trajectories with the causal DAG literature. We introduce a causal model over Gantt charts and establish identification using a variant of g-computation that seeks expert input only for components unidentifiable from data. To make egg-computation practical, we develop an LLM-assisted pipeline that reliably scales up expert reasoning. In simulations, egg-computation outperforms conventional causal inference methods when patients have diverse causal structures and intervention mechanisms. In a study of eleven candidate QI interventions at an urban safety-net hospital, the LLM pipeline generated graphs and time-saving estimates highly concordant with those of human experts. Beyond healthcare, egg-computation is a broadly applicable framework for estimating the average time saved for candidate interventions whose causal mechanisms can be represented using Gantt charts.",
+      "authors": [
+        "Patrick Vossler",
+        "Jialin Ouyang",
+        "F. Richard Guo",
+        "Anran Huang",
+        "Ali Shojaie",
+        "Lucas Zier",
+        "Fan Xia",
+        "Jean Feng"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "cs.AI",
+        "stat.AP"
+      ],
+      "published": "2026-08-11T00:42:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.10339v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "estimates causal effects on hospital length of stay using g-computation and large language models",
+      "llm_evidence_cn": "使用g计算和大语言模型估计住院时长因果效应",
+      "llm_evidence": "使用g计算和大语言模型估计住院时长因果效应",
+      "canonical_evidence": "使用g计算和大语言模型估计住院时长因果效应",
+      "llm_tldr_en": "This paper addresses estimating causal effects of hospital interventions on length of stay. It combines expert-guided g-computation with large language models to handle hypothetical interventions with complex mechanisms. The method ranks candidate interventions and estimates average time saved, improving hospital quality improvement programs.",
+      "llm_tldr_cn": "针对医院质量改进中估计干预措施对住院时长因果效应的问题，本文提出专家引导的g计算结合大语言模型的方法。该方法能处理无历史数据的假设性干预和复杂因果机制，估计平均节省时间并排序候选干预，为医院管理提供定量支持。",
+      "llm_tldr": "针对医院质量改进中估计干预措施对住院时长因果效应的问题，本文提出专家引导的g计算结合大语言模型的方法。该方法能处理无历史数据的假设性干预和复杂因果机制，估计平均节省时间并排序候选干预，为医院管理提供定量支持。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "estimating causal effects using machine learning",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10466v1",
+      "source": "arxiv",
+      "title": "Geometry-aware neural causal discovery for large-scale spatiotemporal systems",
+      "abstract": "Causal discovery at large spatiotemporal scale is difficult: variables are physically embedded, candidate interactions grow quadratically with system size, and causal structure changes with system state. We introduce GeoDCD, a geometry-aware neural framework that uses spatial coordinates to initialize a learnable hierarchy and converts a trained nonlinear predictor into time-varying directed graphs through input-output Jacobian sensitivity analysis. On chaotic Lorenz-96 dynamics, GeoDCD attains an F1 score of 0.99, reducing structural Hamming distance by 36.8% relative to the strongest neural baseline, and still leads flat baselines when coordinates are uninformative. Runtime scales approximately linearly over the evaluated range, enabling discovery on a 10,512-node sea-level-pressure grid. Applied to observations, GeoDCD identifies circulation-consistent gateways, resolves El Nino/La Nina-dependent reorganization, and separates energy-to-traffic from traffic-to-energy influence in coupled electric-vehicle and road systems. Edges are neural-Granger sensitivities rather than interventional effects, positioning GeoDCD for mechanistic hypothesis generation where interventions are unavailable.",
+      "authors": [
+        "Haoyang Yan",
+        "Kaiqi Zhao",
+        "Weiping Wang",
+        "Yunpeng Wang",
+        "Xiaolei Ma"
+      ],
+      "primary_category": "cs.CE",
+      "categories": [
+        "cs.CE"
+      ],
+      "published": "2026-08-11T04:24:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.10466v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Geometry-aware neural causal discovery framework for spatiotemporal causal graphs",
+      "llm_evidence_cn": "几何感知神经框架用于时空因果发现",
+      "llm_evidence": "几何感知神经框架用于时空因果发现",
+      "canonical_evidence": "几何感知神经框架用于时空因果发现",
+      "llm_tldr_en": "This paper addresses causal discovery in large-scale spatiotemporal systems where interaction search is quadratic. It proposes GeoDCD, a geometry-aware neural framework that converts a nonlinear predictor into time-varying directed graphs via Jacobian sensitivity. On Lorenz-96, it achieves F1 0.99 and reduces SHD by 36.8%, with linear runtime scaling.",
+      "llm_tldr_cn": "针对大规模时空系统因果发现的挑战，本文提出几何感知神经框架GeoDCD，利用空间坐标初始化可学习层次结构，并通过雅可比敏感性将非线性预测器转化为时变有向图。在混沌Lorenz-96动态系统上达到F1=0.99，结构汉明距离比最强神经基线降低36.8%，运行时间近似线性扩展，展示了可扩展的因果发现能力。",
+      "llm_tldr": "针对大规模时空系统因果发现的挑战，本文提出几何感知神经框架GeoDCD，利用空间坐标初始化可学习层次结构，并通过雅可比敏感性将非线性预测器转化为时变有向图。在混沌Lorenz-96动态系统上达到F1=0.99，结构汉明距离比最强神经基线降低36.8%，运行时间近似线性扩展，展示了可扩展的因果发现能力。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "algorithms for causal discovery",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11154v1",
+      "source": "arxiv",
+      "title": "DACRI: Decision-Aware Causal Intervention Ranking for Critical Supply Chains",
+      "abstract": "Detecting or attributing a supply-chain disruption is not the same as selecting the intervention that maximizes recoverable net value. We present CriticalSCM-Bench v1, a controlled synthetic benchmark with causal ground truth, paired factual/counterfactual rollouts, and an explicit net-value objective. Relative to a full-information train-selected static benchmark, LambdaMART improves median normalized net value by 5.7--16.2\\%, with paired statistical support on the semiconductor and critical-material archetypes but not on digital infrastructure. On digital infrastructure, a domain-informed constant-buffer policy remains stronger, showing that greater model complexity is not uniformly justified. Across partial and delayed settings, LambdaMART retains 33--75\\% of full-clamp value. Stress tests further show that intervention fidelity, timing, cost, and held-out disruptions can alter policy ordering. Critical materials show the weakest out-of-distribution retention. Separately, a guarded explanation study over 540 generations preserves every fixed intervention decision after deterministic validation and template fallback, although exact wording remains unstable. Within this controlled setting, the results identify regimes in which adaptive ranking adds value and those in which simpler structural policies remain preferable.",
+      "authors": [
+        "Shiqi Huang",
+        "Jiani He",
+        "Dingyan Shang",
+        "Yihua Xu",
+        "Jize Li",
+        "Yan Lyu",
+        "Lashimi Muraleedharan Nair"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-11T17:12:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.11154v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Decision-aware causal intervention ranking for supply chains",
+      "llm_evidence_cn": "供应链的决策感知因果干预排序",
+      "llm_evidence": "供应链的决策感知因果干预排序",
+      "canonical_evidence": "供应链的决策感知因果干预排序",
+      "llm_tldr_en": "Proposes a benchmark and ranking approach for selecting supply-chain interventions that maximize recoverable net value using causal ground truth and counterfactual rollouts.",
+      "llm_tldr_cn": "针对供应链中断检测与归因不等同于选择价值最大化干预的问题，该文提出CriticalSCM-Bench v1基准，包含因果真值、事实/反事实轨迹和净价值目标；LambdaMART在半导体和关键材料场景中使中位归一化净价值提升5.7-16.2%，但在数字基础设施上常备缓冲策略更优，表明模型复杂度并非普遍合理。",
+      "llm_tldr": "针对供应链中断检测与归因不等同于选择价值最大化干预的问题，该文提出CriticalSCM-Bench v1基准，包含因果真值、事实/反事实轨迹和净价值目标；LambdaMART在半导体和关键材料场景中使中位归一化净价值提升5.7-16.2%，但在数字基础设施上常备缓冲策略更优，表明模型复杂度并非普遍合理。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference in industrial",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.12640v1",
+      "source": "arxiv",
+      "title": "Interpretable Causal Discovery via Causal-Effect Constraints",
+      "abstract": "Causal discovery aims to uncover the underlying causal relationships given data generated from a system. The goal, however, is not merely to predict causal edges given data, but also to be able to interpret and explain either observed or hypothesized phenomena, such as a particularly large causal effect. We consider this task of conditional causal discovery and cast it as a Bayesian inference problem, in which we target the posterior over causal graphs and parameters conditional on an event such as a causal-effect constraint. Unfortunately, this poses a computational challenge: existing approaches to Bayesian causal discovery struggle when the event has small posterior mass. To address this, we adapt rare-event estimation techniques to perform inference the joint graph-parameter space. Our method gradually drives a particle population toward the constrained region while maintaining samples that approximate the conditional posterior. Empirical evaluation on synthetic graphs validates the accuracy of our approach at small and large scales, and we show in a case study on the Sachs protein dataset how our method can be used to aid scientific exploration by providing pathway-level summaries.",
+      "authors": [
+        "Cixuan Zhang",
+        "Guy Van den Broeck",
+        "Benjie Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "stat.ML"
+      ],
+      "published": "2026-08-12T23:01:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.12640v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes interpretable causal discovery algorithm with causal-effect constraints",
+      "llm_evidence_cn": "提出带因果效应约束的可解释因果发现算法",
+      "llm_evidence": "提出带因果效应约束的可解释因果发现算法",
+      "canonical_evidence": "提出带因果效应约束的可解释因果发现算法",
+      "llm_tldr_en": "This paper tackles conditional causal discovery, aiming to explain specific phenomena like large causal effects. It casts the problem as Bayesian inference over causal graphs conditional on causal-effect constraints, adapting rare-event estimation to handle small posterior mass. The method yields interpretable causal structures.",
+      "llm_tldr_cn": "针对因果发现不仅要预测边，还要解释特定现象（如大因果效应）的问题，本文将条件因果发现形式化为贝叶斯推理，在因果效应约束下对因果图和参数进行后验采样。由于约束事件后验概率小，文章引入稀有事件估计技术解决计算难题。实验表明该方法能在小概率事件约束下进行高效推理，得到可解释的因果结构。",
+      "llm_tldr": "针对因果发现不仅要预测边，还要解释特定现象（如大因果效应）的问题，本文将条件因果发现形式化为贝叶斯推理，在因果效应约束下对因果图和参数进行后验采样。由于约束事件后验概率小，文章引入稀有事件估计技术解决计算难题。实验表明该方法能在小概率事件约束下进行高效推理，得到可解释的因果结构。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "algorithms for causal discovery",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.13274v1",
+      "source": "arxiv",
+      "title": "Causal Mediation Analysis for Network Data with Graph Neural Network",
+      "abstract": "Causal mediation analysis is typically formulated under no interference, an assumption often violated in networked populations. We develop a nonparametric framework for a single large observed network that allows simultaneous treatment and mediator spillovers and high-dimensional network confounding. Exposure and mediator mappings define causal estimands without restricting the true interference mechanism, separating own from spillover effects without prespecified aggregation models. Under strengthened conditional independence conditions, we identify own controlled direct, natural direct, and natural indirect effects and give primitive sufficient conditions in terms of structural errors. We construct augmented inverse probability weighted estimators that are doubly robust for controlled effects and multiply robust for natural effects, using graph neural networks to learn high-dimensional nuisance functions from node features and the adjacency matrix. Under approximate neighborhood interference, weak network dependence, and suitable first-stage rates, we establish asymptotic normality of the effect estimators and consistency of a network HAC variance estimator. In simulations the graph neural network estimator outperforms machine learning methods built on hand-constructed neighborhood features, and a reanalysis of an agricultural insurance experiment in rural China finds insurance knowledge to be a substantive mediating channel while perception-based mediators are not.",
+      "authors": [
+        "Peikai Wu",
+        "Zhiguo Xiao"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-08-13T14:10:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.13274v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "develops causal mediation analysis for network data using graph neural networks",
+      "llm_evidence_cn": "使用图神经网络对网络数据进行因果中介分析",
+      "llm_evidence": "使用图神经网络对网络数据进行因果中介分析",
+      "canonical_evidence": "使用图神经网络对网络数据进行因果中介分析",
+      "llm_tldr_en": "This paper tackles causal mediation analysis with network interference. It develops a nonparametric framework using graph neural networks to handle treatment/mediator spillovers and confounding, identifying own direct and indirect effects. Estimators based on augmented inverse probability weighting are constructed.",
+      "llm_tldr_cn": "针对网络人群中因果中介分析中无干扰假设被违反的问题，本文提出结合图神经网络的非参数框架，允许处理变量和中介变量的溢出效应以及高维网络混杂。方法识别自身直接效应和间接效应，并构建增广逆概率加权估计量。这为网络数据上的中介效应识别提供了新途径。",
+      "llm_tldr": "针对网络人群中因果中介分析中无干扰假设被违反的问题，本文提出结合图神经网络的非参数框架，允许处理变量和中介变量的溢出效应以及高维网络混杂。方法识别自身直接效应和间接效应，并构建增广逆概率加权估计量。这为网络数据上的中介效应识别提供了新途径。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "potential outcomes framework for causality",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.13456v1",
+      "source": "arxiv",
+      "title": "A Unifying Perspective on Causal World Models: From Observations to Representations to Structure",
+      "abstract": "World Models (WM) are increasingly seen as a foundation for intelligent agents that can predict, plan, and act beyond their training distribution. In this paper, we study WMs from a causal perspective across multiple levels of abstraction, ranging from perceptual observations to building a conceptual representation of the structure governing the environment dynamics. We argue that useful WMs must go beyond generative capabilities alone: they should also capture entity properties, entity-to-entity interactions, and entity-to-environment interactions that determine and explain the dynamics of a system. We provide a formal definition of Causal WMs (CWMs) grounded in the tasks they are intended to support, connecting world modelling with existing work in causal representation learning, object-centric learning, causal discovery, structural causal models, and model-based decision-making. Finally, we relate CWMs to the literature on identifiability, clarifying when the components of a WM can be recovered from data and up to which equivalence. With this, we ground WMs in representations and structures that support causal reasoning and informed decision-making.",
+      "authors": [
+        "Avinash Kori",
+        "Fabrizio Russo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-08-13T16:40:35+00:00",
+      "link": "https://arxiv.org/pdf/2608.13456v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Formal definition of Causal World Models capturing entity interactions and environment structure",
+      "llm_evidence_cn": "形式化定义因果世界模型，刻画实体交互与环境结构",
+      "llm_evidence": "形式化定义因果世界模型，刻画实体交互与环境结构",
+      "canonical_evidence": "形式化定义因果世界模型，刻画实体交互与环境结构",
+      "llm_tldr_en": "Provides a unified causal perspective on world models across abstraction levels, arguing they must capture entity properties and interactions, and formally defines Causal World Models grounded in agent tasks.",
+      "llm_tldr_cn": "现有世界模型多聚焦生成能力，但往往忽略决定系统动态的实体属性、实体间交互及环境交互等因果结构。本文从因果视角研究世界模型，跨越感知观测到结构表征的多个抽象层次。作者给出因果世界模型的形式化定义，强调其在预测、规划与分布外泛化中的基础作用。该工作为构建具有因果理解能力的智能体世界模型提供了统一的理论框架。",
+      "llm_tldr": "现有世界模型多聚焦生成能力，但往往忽略决定系统动态的实体属性、实体间交互及环境交互等因果结构。本文从因果视角研究世界模型，跨越感知观测到结构表征的多个抽象层次。作者给出因果世界模型的形式化定义，强调其在预测、规划与分布外泛化中的基础作用。该工作为构建具有因果理解能力的智能体世界模型提供了统一的理论框架。",
+      "llm_tags": [
+        "query:causal-infer:composite"
+      ],
+      "matched_query_tag": "query:causal-infer:composite",
+      "matched_query_text": "Papers central to 因果推理相关论文, especially work that connects or combines: c; causal inference from observational data; algorithms for causal discovery; counterfactual reasoning in AI; potential outcomes framework for causality; estimating causal effects using machine learning; causal inference in industrial; latest advances in causal reasoning; causal discovery from observational data.",
+      "matched_requirement_id": "req-composite-causal-infer",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.13461v1",
+      "source": "arxiv",
+      "title": "Doubly Robust Estimation of Causal Effect on CVR with Targeted Regularization",
+      "abstract": "Post-click conversion rate (CVR) is a key metric in various scenarios including e-commerce and advertising, reflecting the efficiency and user experience in the second stage of the conversion process. Estimating the causal effect on CVR is therefore of great practical importance. However, directly applying existing causal inference methods to clicked samples introduces sample selection bias and increased variance due to the exclusion of non-click data. Recent studies on CVR prediction introduce \"ideal loss\", which optimizes model parameters using an unbiased estimate of the loss over the full sample. Nevertheless, there is no guarantee that unbiasedness of the loss implies unbiasedness of the final estimator.   We revisit this challenge from the perspective of semiparametric theory. Specifically, we develop a new doubly robust causal effect estimator for chain-structured outcomes such as CVR, and derive its theoretical properties in detail. It achieves a faster convergence rate compared to nuisance parameters estimation and is therefore more robust when using flexible nonparametric estimators, including neural networks. Based on these theoretical findings, we further design a framework based on targeted regularization to improve numerical stability and practical applicability.   Extensive experiments on synthetic and real-world data demonstrate the effectiveness and robustness of our method. In addition, we find that naively combining loss debiasing with standard causal estimators underperforms our method, highlighting the necessity of developing the new estimator tailored to this CVR-style objective with solid theoretical guarantees.",
+      "authors": [
+        "Jiayi Dan",
+        "Bo Li",
+        "Lu Deng",
+        "Yong Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-13T16:44:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.13461v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Doubly robust causal effect estimation on post-click conversion rate with targeted regularization",
+      "llm_evidence_cn": "针对点击后转化率的目标正则化双重稳健因果效应估计",
+      "llm_evidence": "针对点击后转化率的目标正则化双重稳健因果效应估计",
+      "canonical_evidence": "针对点击后转化率的目标正则化双重稳健因果效应估计",
+      "llm_tldr_en": "This paper tackles sample selection bias and variance in estimating causal effect on post-click conversion rate. It proposes a doubly robust estimator with targeted regularization to ensure unbiasedness of the final estimator. Experiments show improved accuracy in industrial CVR causal effect estimation.",
+      "llm_tldr_cn": "针对点击后转化率因果效应估计中存在的样本选择偏差和方差问题，本文提出带有目标正则化的双重稳健估计方法，以保证最终估计量的无偏性。该方法在电子商务和广告等工业场景中进行验证，结果显示相比传统因果推断方法能更准确地估计CVR的因果效应，为决策提供可靠依据。",
+      "llm_tldr": "针对点击后转化率因果效应估计中存在的样本选择偏差和方差问题，本文提出带有目标正则化的双重稳健估计方法，以保证最终估计量的无偏性。该方法在电子商务和广告等工业场景中进行验证，结果显示相比传统因果推断方法能更准确地估计CVR的因果效应，为决策提供可靠依据。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "estimating causal effects using machine learning",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.08430v1",
+      "source": "arxiv",
+      "title": "Human-Guided Causal Knowledge Injection for Virtual Cells",
+      "abstract": "Virtual cells employ machine learning models to simulate and predict cellular behaviors, serving as a critical computational framework for investigating health and disease. Injecting causal graphs into virtual cells can improve the interpretability, but such graphs are usually not available in real-world applications. Recently, many methods have been proposed to construct causal graphs from data, which group genes based on their similarities to form concepts and extract their causal relationships. However, since this automatic process is unsupervised, the causal graphs usually contain errors. In this paper, we propose a human-guided causal knowledge injection method for virtual cells. We developed a gene-similarity-aware causal graph visualization supported by a hybrid optimization algorithm to help explore both the causal relationships between concepts and the similarities between genes. Based on the exploration, we further developed a counterfactual analysis strategy supported by a counterfactual visualization and a causal path visualization to help validate and refine causal graphs. The effectiveness of our method is demonstrated through two real-world case studies, the extraction of scientifically meaningful causal insights, and positive feedback from domain experts.",
+      "authors": [
+        "Pengcheng Wang",
+        "Changjian Chen",
+        "Zhuo Tang",
+        "You Wu",
+        "Long Wang",
+        "Feng Yu",
+        "Kenli Li"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-08-09T03:00:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.08430v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes human-guided causal graph construction for virtual cells to correct automatic causal discovery errors",
+      "llm_evidence_cn": "提出人机引导的因果图构建以修正自动因果发现错误",
+      "llm_evidence": "提出人机引导的因果图构建以修正自动因果发现错误",
+      "canonical_evidence": "提出人机引导的因果图构建以修正自动因果发现错误",
+      "llm_tldr_en": "The paper addresses errors in automatically constructed causal graphs for virtual cells and proposes a human-guided causal knowledge injection method with gene-similarity-aware visualization, improving causal graph accuracy and interpretability.",
+      "llm_tldr_cn": "针对虚拟细胞中自动构建的因果图常存在错误且缺乏人工干预的问题，本文提出人机引导的因果知识注入方法，基于基因相似性的因果图可视化辅助专家修正，并建立混合交互机制提升因果图质量。实验表明该方法能有效改善因果关系的准确性和可解释性，为虚拟细胞的因果建模提供了新途径。",
+      "llm_tldr": "针对虚拟细胞中自动构建的因果图常存在错误且缺乏人工干预的问题，本文提出人机引导的因果知识注入方法，基于基因相似性的因果图可视化辅助专家修正，并建立混合交互机制提升因果图质量。实验表明该方法能有效改善因果关系的准确性和可解释性，为虚拟细胞的因果建模提供了新途径。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "algorithms for causal discovery",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.08021v1",
+      "source": "arxiv",
+      "title": "Evidence-RL: Towards Evidence-intensive Visual Reasoning",
+      "abstract": "Vision-Language Models (VLMs) should answer from concrete image evidence rather than language priors, dataset shortcuts, or irrelevant visual context. Existing perception-aware post-training methods encourage image use through global perturbations or attention proxies, but they do not test whether a sampled answer causally depends on the local evidence that supports it. We propose Counterfactual Evidence Disentanglement (CED), a training-time evidence audit for VLM grounding. For each response, CED neutralizes an object-centric Evidence Region and compares the resulting support drop against matched non-evidence Regions. We combine this signal with answer correctness inside GRPO, rewarding correct answers that rely on the evidence path rather than shortcut or nuisance paths. CED uses weak object-level proposals, requires no question-specific evidence annotations, and adds no inference-time overhead. Across nine public benchmarks and four backbones, CED outperforms prior RL-based post-training methods, with targeted analyses verifying its object-centric signal.",
+      "authors": [
+        "Haojie Huang",
+        "Xinlei Yu",
+        "Chengming Xu",
+        "Zhangquan Chen",
+        "Cheng Yang",
+        "Qingdong He",
+        "Yu Yang",
+        "Jiangning Zhang",
+        "Xiaobin Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-08T09:02:10+00:00",
+      "link": "https://arxiv.org/pdf/2608.08021v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Proposes Counterfactual Evidence Disentanglement to audit visual grounding",
+      "llm_evidence_cn": "提出反事实证据解耦以审计视觉基础",
+      "llm_evidence": "提出反事实证据解耦以审计视觉基础",
+      "canonical_evidence": "提出反事实证据解耦以审计视觉基础",
+      "llm_tldr_en": "The paper proposes CED, a training-time counterfactual audit that neutralizes evidence regions to reward reasoning grounded in true visual evidence, improving VLM robustness.",
+      "llm_tldr_cn": "针对视觉语言模型常依赖语言先验或捷径而非真实图像证据的问题，本文提出反事实证据解耦方法，在训练时中和目标证据区域并与非证据区域比较支持度变化，结合答案正确性奖励依赖证据路径的推理。该方法能够提升模型的证据密集推理能力，减少对捷径的依赖。",
+      "llm_tldr": "针对视觉语言模型常依赖语言先验或捷径而非真实图像证据的问题，本文提出反事实证据解耦方法，在训练时中和目标证据区域并与非证据区域比较支持度变化，结合答案正确性奖励依赖证据路径的推理。该方法能够提升模型的证据密集推理能力，减少对捷径的依赖。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "counterfactual reasoning in AI",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.07838v1",
+      "source": "arxiv",
+      "title": "Counterfactual Benchmarking and Training for Factuality Consistency and Order-Robust Grounded Reasoning in LLMs over Heterogeneous Knowledge",
+      "abstract": "Large language models (LLMs) have increasingly supported response generation grounded in user-provided knowledge spanning heterogeneous structures. However, existing benchmarks provide limited assessment of whether LLMs can faithfully perform multi-hop reasoning chains across such knowledge contexts while remaining robust to variations in their input order. We introduce TKFQA, a factuality consistency benchmark comprising 10,130 question-answering (QA) pairs grounded in tables, texts, and knowledge graphs (KGs). Each example is constructed from an explicit counterfactual reasoning chain, enabling the joint evaluation of answer correctness, reasoning-chain accuracy, and robustness to different input-order. An extensive evaluation of 14 open- and closed-source LLMs reveals that state-of-the-art models exhibit limited reasoning-chain accuracy and remain sensitive to variations in the input order of heterogeneous knowledge contexts. To address these limitations, we propose ORLF, an LLM-agnostic training framework that models cross-context topological relations through knowledge-specific latent vectors. ORLF integrates context-wise position encoding, a latent-bridge attention mask, and topological knowledge bias to preserve knowledge-specific bias and encode topological semantics. Experiments across four LLM backbones show that ORLF outperforms competitive training-free and LoRA-based baselines, improving average Exact Match and Reasoning-Chain Accuracy by 2.15% and 4.29%, respectively, while reducing order-induced performance standard deviation by 0.04% to 3.01%.",
+      "authors": [
+        "Shibo Chu",
+        "Yuze Liu",
+        "Tiehua Zhang",
+        "Zhishu Shen",
+        "Lianghua He",
+        "Haofen Wang",
+        "Zhijun Ding"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-08T00:46:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.07838v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Constructs counterfactual reasoning chains for benchmarking and training LLM grounded reasoning",
+      "llm_evidence_cn": "构建反事实推理链以评估和训练大模型的基础推理一致性",
+      "llm_evidence": "构建反事实推理链以评估和训练大模型的基础推理一致性",
+      "canonical_evidence": "构建反事实推理链以评估和训练大模型的基础推理一致性",
+      "llm_tldr_en": "Introduces TKFQA, a benchmark of QA pairs grounded in tables, texts, and KGs, each built from explicit counterfactual reasoning chains to jointly evaluate answer correctness, reasoning-chain accuracy, and robustness to input order.",
+      "llm_tldr_cn": "现有基准难以评估大语言模型在异构知识上进行多跳推理时是否忠实且对输入顺序鲁棒。该文提出TKFQA基准，包含10130个基于反事实推理链构造的问答对，覆盖表格、文本与知识图谱。通过显式反事实链联合评估答案正确性、推理链准确性和顺序鲁棒性。该工作为增强大模型在复杂知识上的可靠推理提供了新的评估与训练视角。",
+      "llm_tldr": "现有基准难以评估大语言模型在异构知识上进行多跳推理时是否忠实且对输入顺序鲁棒。该文提出TKFQA基准，包含10130个基于反事实推理链构造的问答对，覆盖表格、文本与知识图谱。通过显式反事实链联合评估答案正确性、推理链准确性和顺序鲁棒性。该工作为增强大模型在复杂知识上的可靠推理提供了新的评估与训练视角。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "counterfactual reasoning in AI",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.10664v1",
+      "source": "arxiv",
+      "title": "Operationalising Relative Causal Knowledge: Backbone Identifiability from Private Reports on a Shared Outcome",
+      "abstract": "The Relativity of Causal Knowledge (RCK) explains how a network of agents with different structural causal models can exchange causal knowledge through a shared interventionally consistent abstraction, or backbone. We ask the prior identification question that this transport mechanism presupposes: when is that backbone determined by the agents' private causal knowledge? In the basic two-agent common-effect case, two private causes influence one shared outcome and each agent identifies only the single-cause causal marginal relevant to its own perspective. We show that, under standard compatibility, non-degeneracy, and local overlap assumptions, those local causal marginals do not identify a unique backbone. Infinitely many joint intervention kernels can induce exactly the same private reports while disagreeing on joint interventions. We then give a conditional recovery result. Additive separability removes the hidden interaction degree of freedom, but observational residual summaries remain insufficient. Identification becomes possible when agents communicate causally identified response functions. An education value-added example illustrates why this is first a communication problem, and only then a policy-composition problem.",
+      "authors": [
+        "Fabrizio Russo",
+        "Mark Somers"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-11T08:46:18+00:00",
+      "link": "https://arxiv.org/pdf/2608.10664v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Identifiability of causal backbone from agents' private reports on shared outcome",
+      "llm_evidence_cn": "共享结果上智能体私有报告的因果骨干可识别性",
+      "llm_evidence": "共享结果上智能体私有报告的因果骨干可识别性",
+      "canonical_evidence": "共享结果上智能体私有报告的因果骨干可识别性",
+      "llm_tldr_en": "Analyzes when a shared causal backbone is identifiable from private causal reports, showing limits in a two-agent common-effect model.",
+      "llm_tldr_cn": "针对相对因果知识交换中骨干可识别性问题，作者在双智能体共同效应场景下形式化局部因果边际，证明在标准兼容性、非退化与局部重叠假设下，这些边际不足以唯一确定骨干；该结果揭示了因果知识传递的识别边界，对多智能体因果推断与抽象建模具有重要意义。",
+      "llm_tldr": "针对相对因果知识交换中骨干可识别性问题，作者在双智能体共同效应场景下形式化局部因果边际，证明在标准兼容性、非退化与局部重叠假设下，这些边际不足以唯一确定骨干；该结果揭示了因果知识传递的识别边界，对多智能体因果推断与抽象建模具有重要意义。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "causal inference from observational data",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.11767v1",
+      "source": "arxiv",
+      "title": "Causal Structure is Inducible but Functionally Decoupled: The Routing/Readout Boundary of a Typed Mechanism Library",
+      "abstract": "When a language model answers an interventional question, the computation it must perform depends on the type of evidence the query requires. We report a decoupling in how a transformer organizes causal knowledge: slot-by-type structure induced by type-level supervision organizes routing, yet remains functionally decoupled from answer readout. We establish this with a typed mechanism library -- discrete mechanism slots partitioned by evidence type, auditable at the state level -- on a causal-world benchmark with exact interventional ground truth, under a frozen protocol, at two scales (22.6M and 125M). Four preregistered findings. (i) Origin. Slot-by-type organization is induced by type-level supervision: absent in architecturally identical unsupervised controls, not buyable by content-free gating labels, and statistically attributable to the supervision signal, replicating at 125M under a powered preregistered protocol (all nine cells passed). (ii) Boundary. The induced structure is a typed routing index with a sharp routing/readout boundary: slot codes scaffold routing but do not drive answer readout ($|Δ\\hat{y}| \\le 3.4\\times10^{-6}$, zero collateral, three seeds, stable across a 5.6x scale window) -- we therefore make no behavioral-editability claim. (iii) Cost. The structure is free: LM quality matches a parameter-matched monolith within 0.0082 nats. (iv) Trust. The library state is exactly local under edit and bit-exactly revertible -- 250 single-edit and 1,000 stacked reverts per seed, zero failures. We further find that the unsupervised null itself moves with scale, so comparisons reusing a null calibrated at one scale may be confounded at another. Every claim is tied to a preregistered, machine-checkable criterion archived before the data it governs; the full audit trail, including one criterion we failed and how the frozen protocol handled it, is released as an appendix.",
+      "authors": [
+        "Xining Xun"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-12T08:10:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.11767v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Analyzes how transformers organize causal knowledge for interventional queries, relevant to counterfactual reasoning in AI",
+      "llm_evidence_cn": "分析Transformer如何为干预查询组织因果知识，与AI反事实推理相关",
+      "llm_evidence": "分析Transformer如何为干预查询组织因果知识，与AI反事实推理相关",
+      "canonical_evidence": "分析Transformer如何为干预查询组织因果知识，与AI反事实推理相关",
+      "llm_tldr_en": "Investigates how transformers organize causal knowledge for interventional queries, finding type-level supervision induces slot-by-type structure decoupled from readout, via typed mechanism library on causal benchmarks.",
+      "llm_tldr_cn": "本文研究语言模型回答干预性问题时如何组织因果知识。通过构建类型化机制库并在具有精确干预真值的因果世界基准上实验，发现类型级监督诱导出按证据类型划分的槽位结构，但该结构与答案读出功能解耦。这一发现揭示了模型中因果知识存储和利用的分离，对理解模型因果推理机制具有重要意义。",
+      "llm_tldr": "本文研究语言模型回答干预性问题时如何组织因果知识。通过构建类型化机制库并在具有精确干预真值的因果世界基准上实验，发现类型级监督诱导出按证据类型划分的槽位结构，但该结构与答案读出功能解耦。这一发现揭示了模型中因果知识存储和利用的分离，对理解模型因果推理机制具有重要意义。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "counterfactual reasoning in AI",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.12555v1",
+      "source": "arxiv",
+      "title": "CAS: A Causal Attribution Score for Local and Global Explainable Artificial Intelligence",
+      "abstract": "Predictive explanation methods attribute a model output; they do not, by themselves, attribute an intervention effect on the real-world outcome. We introduce the Causal Attribution Score (CAS), a compact score architecture for causal explanation. CAS starts from an identified interventional coalition game, allocates the joint intervention contrast with causal Shapley contributions, and converts those raw outcome-scale effects into Local CAS, Signed Local CAS, and two complementary Global CAS summaries. The innovation is not a new Shapley formula, but a local-to-global causal reporting layer with an explicit intervention target. In the known-truth benchmark, eight repeated primary-interaction simulations (n = 2,200 each, three actions) gave mean Local CAS MAE of 0.107 for coalition-aware CAS, compared with 0.173 for one-at-a-time normalisation and 0.213 for a global normalised absolute ATE vector. The paired advantage over one-at-a-time normalisation increased from -0.003 under additivity to 0.091 under strong interactions. On both empirical DoubleML datasets, 401(k) eligibility/net financial assets (n = 9,915) and Pennsylvania reemployment bonus/unemployment duration (n = 5,099), predictive SHAP/TreeSHAP rankings differed materially from Feature-CAS rankings of treatment-effect modifiers. In Pennsylvania, dep1 (exactly one dependent) moved from predictive global rank 13 to Feature-CAS rank 2 and was the leading local Feature-CAS modifier. These results isolate the added value of separating what predicts the outcome from what explains heterogeneity in an estimated causal effect.",
+      "authors": [
+        "Michael Georgiades",
+        "Charalambia Varnava"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-12T19:49:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.12555v1",
+      "tags": [
+        "keyword:causal-infer",
+        "query:causal-infer"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Causal Attribution Score for interventional effects in XAI",
+      "llm_evidence_cn": "用于可解释人工智能中干预效应的因果归因分数",
+      "llm_evidence": "用于可解释人工智能中干预效应的因果归因分数",
+      "canonical_evidence": "用于可解释人工智能中干预效应的因果归因分数",
+      "llm_tldr_en": "Introduces CAS, a causal attribution score using causal Shapley contributions to attribute intervention effects, providing local and global causal explanations in XAI.",
+      "llm_tldr_cn": "该论文针对预测性解释方法无法归因真实世界干预效应这一局限，提出因果归因分数（CAS）架构，从识别出的干预联盟博弈出发，利用因果Shapley贡献分配联合干预对比，并将其转换为局部与全局摘要。在已知真相基准上的模拟实验表明，CAS能够提供带有明确干预目标的因果解释层，为可解释AI的因果归因提供了新途径。",
+      "llm_tldr": "该论文针对预测性解释方法无法归因真实世界干预效应这一局限，提出因果归因分数（CAS）架构，从识别出的干预联盟博弈出发，利用因果Shapley贡献分配联合干预对比，并将其转换为局部与全局摘要。在已知真相基准上的模拟实验表明，CAS能够提供带有明确干预目标的因果解释层，为可解释AI的因果归因提供了新途径。",
+      "llm_tags": [
+        "query:causal-infer"
+      ],
+      "matched_query_tag": "query:causal-infer",
+      "matched_query_text": "latest advances in causal reasoning",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
